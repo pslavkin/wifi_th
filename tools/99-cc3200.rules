@@ -1,0 +1,4 @@
+# For CC3200 Launchpad with FTDI Chip that TI put their codes in. ID = 0x0451, Product ID = 0xc32a
+ATTRS{idVendor}=="0451", ATTRS{idProduct}=="c32a", MODE="0660", GROUP="dialout", RUN+="/sbin/modprobe ftdi-sio", RUN+="/bin/sh -c '/bin/echo 0451 c32a > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'" 
+
+

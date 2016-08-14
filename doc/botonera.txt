@@ -1,0 +1,41 @@
+Secuencia de operacion mediente la botonera
+----------------------------------------------------------------------------------------------------
+
+APAGADO
+--------
+ Para apager debera oprimirse el pulsador on/off durante unos segundos hasta que los 3 leds comienzen a parpadear. En ese momento al soltarse el pulsador el equipo se apagara
+ Una vez apagado todos los leds permaneceran apagados
+
+SELECCION DE MODO
+--------------------
+Cuando el equipo esta apagado y se oprime el pulsador on/off se encienden los 3 leds del teclado esperando por una de 3 selecciones que deberan realizarese dentro del minuto o el equipo se volvera a apagar, a saber:
+
+ON/OFF:  el equipo inicia en modo WIFI UNICAST a la direccion de red dada por el numero de id (ej. gruponoto00001 con pass 123456789)
+En este modo el led azul permanecera encendido.
+Los botones de play y mode sirven para bajar y subir la potencia
+
+MODE:  el equipo inicia en modo WIFI GRUPAL a la direccion de red gruponoto10000 con pass 123456789
+el led rojo permanecera encendido
+Los botones de play y mode sirven para bajar y subir la potencia
+
+PLAY: el equipo inicia en modo MANUAL, comenzando por el programa uno. no se utiliza wifi en ese caso.
+uno de los 3 leds destellara constantemente indicando cual de los 3 programas internos esta operativo.
+Para cambiar de programa se presiona la tecla on/off. Para subier la potencia mode y para bajar play
+
+CLIP
+-----------
+En la mayoria de los equipos, se sensara la conexion del traje con el equipo para poder operar. En caso de que el clip este desconectado, el led verde/rojo destellara rapidamente en verde. 
+
+CARGADOR
+-----------
+en la mayoria de los equipos, Si el equipo esta encendido y se conecta el cargador, se apagaran todas las funciones y los 3 leds del teclado indicaran la carga de la bateria, indicando menos carga los leds de la izquierda y mas carga hacia la derecha.
+Si el led destella lentamente a ritmo constante indica que se esta cargando, si el destello es muy cortito indica que no se esta cargando y si el led verde esta practicamente fijo indica bateria cargada
+Mientras el cargador esta conectado se podra monitorear el estado de la bateria mediante el software con los comandos adecuados, siempre y cuando el equipo haya estado seteado en algunos de los modo de wifi al meento de la conexion del cargador.
+Cuando el cargador se desconete el equipo se apagara.
+
+BATERIAS:
+---------------
+Es muy importante mantener el equipo conectado al cargador todo el tiempo que sea posible para mantener una vida util de las baterias optima
+
+
+

@@ -1,0 +1,106 @@
+Bosquejo preliminar del protocolo v1.3.0
+--------------------------------------------
+
+Menues:
+
+v1.3.0          // version del  equipo
+A Time1         // configuracion de los tiempos de la frecuencia 1
+B Time2         // configuracion de los tiempos de la frecuencia 2
+C Channels      // configuracion de opciones de canal individual
+D Control       // control de tiempos de tratamiento, play pausa, etc.
+E Info          // informacion propia del equipo
+F Network       // informacion y seteo de parametros de red.
+G Bat		// Informacion del estado de la bateria
+H Buttons	// sin utildad por ahora.
+I Clip		// estado del enganche equipo<>traje
+? Help          // imprime este menu
+
+
+Time1 y Time2
+A Set  Time A   // A ...1=10uSec. 		vale de 005 a 040 
+B Set  Time B   // B ...1=1mSeg.  		vale de 00005 a 05000 (200hz a 1hz)
+C Set  Time C   // C ...1=1 repeticion de B. 	vale de 00001 a 60000
+D Set  Time D   // D ...1=1Seg.   		vale de 000 a 050
+E Set  Time E   // E ...1=1B      		vale de 001 a 255. Cuantos B  se necesitan para alcanzar la potencia +solicitada
+F Set  Time F   // F ...1=1B      		vale de 001 a 255. Cuantos B  se necesitan para reducir  la potenencia a cero G ...1=1repeticion.  vale de 001 a 255
+G Set  Time G   // G ...1=1repeticion.  	vale de 001 a 255
+H Read Time A   // Devuelve el valor actual de A
+I Read Time B   // Devuelve el valor actual de B 
+J Read Time C   // Devuelve el valor actual de C 
+K Read Time D   // Devuelve el valor actual de D
+L Read Time E   // Devuelve el valor actual de E
+M Read Time F   // Devuelve el valor actual de F
+N Read Time G   // Devuelve el valor actual de G
+O Choose me	// enviado este comando, el equipo toma inmediatamente estos valores como los operativos
+< Back          
+? Help          
+
+
+
+Correspondencia entre comandos del equipo y tiempos
+
+"<-------------------------------- G repeticiones de C + D + E + F --------------------------------------->
+"                              <----------C repeticiones de B---------->         <------------D----------->
+"-<----B---><----B---><----B---><----B---><----B---><----B---><----B---><----B--->
+" >A<
+"                     |-|       |-|       |-|       |-|
+"           |--       | |       | |       | |       | |        |--
+" |-|       | |       | |       | |       | |       | |        | |       |-|
+"-| | ------| | ------| | ------| | ------| | ------| | -------| | ------| | ------------------------------
+"   |_|       | |       | |       | |       | |       | |        | |       |_|
+"             |--       | |       | |       | |       | |        |-- 
+"                       |_|       |_|       |_|       |_|
+"-<--------E---------->                                          <----------F------>
+"
+
+CONTROL
+A Start                   	// Inicia la operacion del equipo. Si no se manda este comando al equipo al menos una vez, el eqiopo queda en standby luego de encender.
+B Stop                    	// Suspende la ejecucion de los dos bancos de tiempo. Para volver a operar se devera enviar el comando 'A' de  Start'
+C Pause                   	// Sin uso aun.  
+D Set  Time               	// Sin uso aun.
+E Read Time               	// Sin uso aun.
+F Switch Off 			// apaga completamente el equipo perdiendo toda conextion. La unica manera de que vuelva a conectar es que el usurio oprima el boton de on/off
+G Is working?			// devielve 001 si el equipo esta emitiendo energia por los canales. 000 sino lo esta haciendo
+< Back                    	// Vuelve al menu anterior
+? Help                    	// muestra esta ayuda
+
+
+CHANNEL_N
+A Inc Power			// sin uso aun	
+B Dec Power			// sin uso aun	
+C Set Power			// C...1=1 unidad de potencia 	vale de 000 a 255.   Ej. C000010 setea 10 de potencia para el canal 0
+D Read Power			// D ...Devuelve el valor de potencia .  Ej. D000 devuelve el valor de potencia para el canal 0
+E Read Current			// sin uso aun.	
+F Inc Power Allx5		// incrementa el valor de potencia de todos los canales en 5 puntos con un tope de 255
+G Dec Power Allx5		// decremente el valor de potencia de todos los canales en 5 puntos con un tope de 0
+< Back				// vuelve al menu anterior	
+? Help				// muestra este menu
+
+INFO
+A Read ID			//devuelve el ID del equipo que coicide con el nomde de red individual que usa. del estilo 'gruponoto00008'
+< Back 				//vuelve al menu principal
+? Help				//ayuda
+
+NETWORK 
+A Read Ip 			//sin usar aun.
+B Change Ip 			//sin usar aun.
+C Read Port 			//sin usar aun.
+D Set Port 			//sin usar aun.
+< Back 				//vuelve al menu principal
+? Help 				//ayuda
+
+BAT
+A Bat Level			//devuelve un valor estimativo del estado de carga de la bateria de 1 a 100%
+B Charger Connected? 		//devuekve 001 si el cargador esta conectado y 000 sino lo esta
+C Charging?			//devuellve 001 si la bateria aun se esta cargano 000 en caso contrario
+< Back				//vuelve al menu principal
+? Help				//ayuda
+
+CLIP
+A Clip State 			\\devuelve 001 si el equipo esta enganchado con el traje y cero sino 
+B Do Care Clip			\\Enviando este comendo el equipo tomara en cuenta el estado de enganche del traja para operar. si el traje no esta conectado al equipo, no podra operarse
+C Don't Care Clip		\\Enviando esste comando el equipo NO tomara en cuenta el estado de  enganche
+< Back				\\vuelve al menu principal
+? Help				\\menu de ayuda
+
+
