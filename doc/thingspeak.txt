@@ -1,0 +1,13 @@
+este es un pedacito de api que me funciono para thingspeak de mathworks
+https://www.mathworks.com/help/thingspeak/examples.html
+
+
+
+POST /update HTTP/1.1
+Host: api.thingspeak.com
+Connection: close
+X-THINGSPEAKAPIKEY: VMWSSHZ33ENWENNN
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+field1=10&field2=38

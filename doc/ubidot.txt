@@ -1,0 +1,9 @@
+este es un pedacito de api para actualizar una variable en ubidots.. funca muyyy bien...
+
+POST /api/v1.6/devices/tempi HTTP/1.1
+Host: things.ubidots.com
+X-Auth-Token:z5eOJ2j4ONC8RUUOSgDUETZ5OA1jR4
+Content-Type: application/json
+Content-Length: 39
+
+{"temperatura": "25.5", "humedad" : 28}

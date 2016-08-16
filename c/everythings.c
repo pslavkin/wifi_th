@@ -4,15 +4,10 @@
 #include "state_machine.h"
 #include "events.h"
 #include "schedule.h"
-#include "adc.h"
-#include "../driverlib/adc.h"
-#include "spi_session.h"
 #include "common.h"
 #include "flash.h"
 #include "uart_if.h"
 #include "nonos.h"
-#include "bat.h"
-#include "clip.h"
 #include "parameters.h"
 
 const State   
@@ -33,12 +28,6 @@ void 		Init_Everythings	(void)
 { 
  Everythings_Sm=Free_State1;
  Init_Schedule(); 
- Init_Adc();			//comentando estas lineas funca tambien para la version sin deteccion de cargador 
- Init_Bat();			//
- Init_Clip();			//
- Init_Charger();		//
- Init_Charger_Status();		
- Init_Spi_Session();
  Init_Buttons();
  Init_Leds_Session();
  Init_Flash();

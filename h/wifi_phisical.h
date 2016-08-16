@@ -24,6 +24,7 @@ extern void 		Turn_Off_Wifi		(void);
 extern void 		Set_Ssid_Name 		(unsigned char *Value,unsigned char Length);
 //----------------------------------------------------------------------------------------------------
 extern void 		Set_Security_Key	(unsigned char *Value,unsigned char Length); 
-
+extern void 		Connect2Pyj		(void);
+//----------------------------------------------------------------------------------------------------
 #endif
 

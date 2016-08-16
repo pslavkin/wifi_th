@@ -1,13 +1,17 @@
-obj/main.o: c/main.c /usr/include/newlib/stdlib.h \
- /usr/include/newlib/machine/ieeefp.h /usr/include/newlib/_ansi.h \
- /usr/include/newlib/newlib.h /usr/include/newlib/sys/config.h \
- /usr/include/newlib/sys/features.h \
+obj/main.o: c/main.c /usr/arm-none-eabi/include/stdlib.h \
+ /usr/arm-none-eabi/include/machine/ieeefp.h \
+ /usr/arm-none-eabi/include/_ansi.h /usr/arm-none-eabi/include/newlib.h \
+ /usr/arm-none-eabi/include/sys/config.h \
+ /usr/arm-none-eabi/include/sys/features.h \
  /usr/lib/gcc/arm-none-eabi/4.9.3/include/stddef.h \
- /usr/include/newlib/sys/reent.h /usr/include/newlib/_ansi.h \
- /usr/include/newlib/sys/_types.h /usr/include/newlib/machine/_types.h \
- /usr/include/newlib/machine/_default_types.h \
- /usr/include/newlib/sys/lock.h /usr/include/newlib/sys/cdefs.h \
- /usr/include/newlib/machine/stdlib.h h/string.h \
+ /usr/arm-none-eabi/include/sys/reent.h \
+ /usr/arm-none-eabi/include/_ansi.h \
+ /usr/arm-none-eabi/include/sys/_types.h \
+ /usr/arm-none-eabi/include/machine/_types.h \
+ /usr/arm-none-eabi/include/machine/_default_types.h \
+ /usr/arm-none-eabi/include/sys/lock.h \
+ /usr/arm-none-eabi/include/sys/cdefs.h \
+ /usr/arm-none-eabi/include/machine/stdlib.h h/string.h \
  simplelink/include/simplelink.h simplelink/include/../user.h \
  simplelink/include/../cc_pal.h \
  simplelink/include/../source/objInclusion.h simplelink/include/trace.h \

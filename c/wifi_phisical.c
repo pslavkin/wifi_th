@@ -34,6 +34,15 @@ void Set_Security_Key(unsigned char *Value,unsigned char Length) //recibe el nom
 {
  String_Copy_Backward(Value,Security_Key,Length);
 }
+//-----------------------------------------------
+void Connect2Pyj(void)
+{
+	 Set_Ssid_Name		("pyj",3);
+	 Set_Security_Key	("piedras689",10);
+	 DBG_WIFI_PHISICAL_PRINT("Wifi_pyj\r\n"); 
+	 //Set_Led_Effect		(Led1,0x0000);
+	 Turn_On_Wifi		(); 
+}
 //------------------------------------------------------------------
 void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
 {
@@ -90,7 +99,7 @@ void Try_Connect(void)
 	Clear_SSID_BSSID();
  	sl_NetAppStop(SL_NET_APP_HTTP_SERVER_ID); 			//por defecto el servicio http esta habilitado... waf?! lo apago...
 	sl_WlanConnect(Ssid_Name, strlen(Ssid_Name), 0, &secParams, 0);
-	Set_Led_Effect(Led3,0x8000); 			//1 pulsos
+	Set_Led_Effect(Led_Run,0x8000); 			//1 pulsos
 }
 void Wlan_Connect(void)
 {
@@ -100,7 +109,7 @@ void Wlan_Connect(void)
 	memcpy						(g_ucConnectionBSSID, 	g_pWlanEvent->EventData.	STAandP2PModeWlanConnected.bssid, 	SL_BSSID_LENGTH);
 	DBG_WIFI_PHISICAL_PRINT				("[WLAN EVENT] STA Connected to the AP: %s ," " BSSID: %x:%x:%x:%x:%x:%x\n\r", g_ucConnectionSSID,g_ucConnectionBSSID[0], g_ucConnectionBSSID[1],g_ucConnectionBSSID[2], g_ucConnectionBSSID[3],g_ucConnectionBSSID[4], g_ucConnectionBSSID[5]);
 	DBG_WIFI_PHISICAL_PRINT 			("---->Wlan Conectado....\r\n");
-	Set_Led_Effect(Led3,0xA000); 			//2 pulsos
+	Set_Led_Effect(Led_Run,0xA000); 			//2 pulsos
 }
 void Wlan_Disconnect(void)
 {
@@ -149,7 +158,7 @@ void 		Init_Wifi_Phisical	(void)
 { 
  Wifi_Phisical_Sm=Start_State;
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
-// New_Periodic_Schedule(2,Print_State_Event,	Wifi_Phisical()); //debug
+ Connect2Pyj();
 }	
 void Clear_SSID_BSSID(void)
 {

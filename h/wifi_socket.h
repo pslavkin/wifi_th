@@ -15,7 +15,7 @@ extern void InitializeAppVariables();
 //en realidad se podrias hacer todo con un mismo puerto.. tabto el cliente hablar al puerto X como el servidor escuchar solo en el puerto X.. y las conexiones se ultiplexan por el puerto de salida...tampoco esta mal dejar un par de puertos abiertos por si esta opcipado uno... que se yo.. o aclaro porque creo que lo hice pensando que no se podia...
 #define MAX_SOCKETS 	(MAX_CLIENTS+MAX_BIND+MAX_SERVERS)
 #define MAX_CLIENTS 	1
-#define MAX_BIND 	2		
+#define MAX_BIND 	1		
 #define MAX_SERVERS 	2
 #define PORT_BASE       49152                          
 

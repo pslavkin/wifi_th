@@ -27,8 +27,6 @@ enum Buttons_Event_Code{
 //------------------------------------------------------
 extern void 		Init_Buttons		(void);
 extern unsigned char 	Read_Button1		(void);
-extern unsigned char 	Read_Button2		(void);
-extern unsigned char 	Read_Button3		(void);
 extern void 		Read_Buttons 		(void);
 //------------------------------------------------------
 extern const State** 	Buttons			(void);

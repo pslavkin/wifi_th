@@ -64,17 +64,11 @@ ${BINDIR}/app.axf: ${OBJDIR}/wifi_network.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_session.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_phisical.o
 ${BINDIR}/app.axf: ${OBJDIR}/wdog.o
-${BINDIR}/app.axf: ${OBJDIR}/spi_phisical.o
-${BINDIR}/app.axf: ${OBJDIR}/spi_session.o
 ${BINDIR}/app.axf: ${OBJDIR}/flash.o
-${BINDIR}/app.axf: ${OBJDIR}/clip.o
-${BINDIR}/app.axf: ${OBJDIR}/bat.o
-${BINDIR}/app.axf: ${OBJDIR}/adc.o
 ${BINDIR}/app.axf: ${OBJDIR}/rti.o
 ${BINDIR}/app.axf: ${OBJDIR}/events.o
 ${BINDIR}/app.axf: ${OBJDIR}/type_conversion.o
 ${BINDIR}/app.axf: ${OBJDIR}/leds_session.o
-${BINDIR}/app.axf: ${OBJDIR}/hibernate.o
 ${BINDIR}/app.axf: ${OBJDIR}/buttons.o
 ${BINDIR}/app.axf: ${OBJDIR}/state_machine.o
 ${BINDIR}/app.axf: ${OBJDIR}/everythings.o

@@ -132,13 +132,13 @@ void Client_Connected	(void)
 {
 	DBG_WIFI_SOCKET_PRINT("---->Client Connected sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
 	Set_Actual_App4Sm(Wifi_Session_App());									//una vez conectado le asigno la app.. lo hago aca para no hcerlo cada vez que intento conectarme al server... 
-	Set_Led_Effect(Led3,0xFFFF);
+	Set_Led_Effect(Led_Run,0xFFFF);
 	Set_Schedule4Sm(2);
 }
 void Server_Connected	(void) 	
 {
 	DBG_WIFI_SOCKET_PRINT("---->Server Connected sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
-	Set_Led_Effect(Led3,0xFFFF);
+	Set_Led_Effect(Led_Run,0xFFFF);
 	Set_Schedule4Sm(2);
 }
 void Server_Binded	(void)	{DBG_WIFI_SOCKET_PRINT("---->Server Binded sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());}
@@ -160,7 +160,7 @@ void Close_Socket	(void)
 	Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell
         sl_Close(Actual_Sd4Sm());
 	Set_Schedule4Sm(10);
-	if(Number_Of_Socket_Opened()==0) Set_Led_Effect(Led3,0xA800);	//si no quedo ningn socket abierto, 3 pulsos..
+	if(Number_Of_Socket_Opened()==0) Set_Led_Effect(Led_Run,0xA800);	//si no quedo ningn socket abierto, 3 pulsos..
 }
 void Unwanted_Close_Socket(void)
 {
@@ -240,7 +240,7 @@ void Resend_Byte2Session(void)
 		DBG_WIFI_SOCKET_PRINT("---->Data Received from Server= %c status= %d sd: %d port: %d\n\r",Data,iStatus,Actual_Sd4Sm(),Actual_Port4Sm());
 		Atomic_Send_Event(Data,Actual_App4Sm());
 		Atomic_Send_Event(Rti_Event,Actual_Sm()); 				//para acelerar la lectura del supuesto proximo byte...
-		Set_Toogle_Led_Effect(Led3);
+		Set_Toogle_Led_Effect(Led_Run);
 	}
 	else 	if(iStatus>=-1) Atomic_Send_Event(Receiving_Data_Error_Event,Actual_Sm()); 	//ojo que si pasa esto hay que reventar el socket... poque quiere decir que lo cerraron..o sea si intento leer el socket y me da cero bytes o -1 significa que revento el sockete.. si en cambio esta todo ok pero no hay nada para leer, entonces devuelve una cosas como -11 o una pabada asi...horrible...pero es asi....
 }
@@ -303,22 +303,22 @@ void 		Init_Wifi_Socket		(void)
 		Socket_List[j].App	=Empty_App();
 		Socket_List[j].Sd	=0;
 		Socket_List[j].Port	=PORT_BASE+i;
-		New_Periodic_Schedule	(10,Rti_Event,		Wifi_Socket(j));
+		New_Periodic_Schedule	(100,Rti_Event,		Wifi_Socket(j));
 	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
 	}
 	for(i=0;i<MAX_BIND;i++,j++){
 		Socket_List[j].Sm	=B_Closed;
 		Socket_List[j].App	=Empty_App();
 		Socket_List[j].Sd	=0;
-		Socket_List[j].Port	=PORT_BASE+MAX_CLIENTS+i;
-		New_Periodic_Schedule	(10,Rti_Event,		Wifi_Socket(j));
+		Socket_List[j].Port	=PORT_BASE+i;
+		New_Periodic_Schedule	(20,Rti_Event,		Wifi_Socket(j));
 	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
 	}
 	for(i=0;i<MAX_SERVERS;i++,j++){
 		Socket_List[j].Sm	=S_Closed;
 		Socket_List[j].App	=Empty_App();
 		Socket_List[j].Sd	=0;
-		New_Periodic_Schedule	(10,Rti_Event,		Wifi_Socket(j));
+		New_Periodic_Schedule	(20,Rti_Event,		Wifi_Socket(j));
 	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
 	}
 }	

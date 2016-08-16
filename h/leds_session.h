@@ -8,18 +8,8 @@ enum Leds_Session_Event_Code{
 		           };
 //-----------------------------------------------------------
 extern void 	Init_Leds		(void);
-extern void 	Led1_On			(void);
-extern void 	Led1_Off		(void);
-extern void 	Led2_On			(void);
-extern void 	Led2_Off		(void);
-extern void 	Led3_On			(void);
-extern void 	Led3_Off		(void);
-extern void 	LedR_Off		(void);	
-extern void 	LedR_On			(void);	
-extern void 	LedG_Off		(void);	
-extern void 	LedG_On			(void);	
-extern void 	LedB_Off		(void);	
-extern void 	LedB_On			(void);	
+extern void 	Led_Run_On		(void);
+extern void 	Led_Run_Off		(void);
 //-----------------------------------------------------------
 extern void 		Leds_Session_Rti	(void);
 extern void 		Init_Leds_Session	(void);
@@ -32,12 +22,7 @@ extern void 	Set_Toogle_Led_Effect	(unsigned char Led);
 //---------------------------------------------------------
 enum Leds_Position
 {
- Led1	=0,
- Led2	=1,
- Led3	=2,
- LedR	=3,
- LedG	=4,
- LedB	=5,
+ Led_Run	=0
 };
 struct Led_Effect_Struct
  {
