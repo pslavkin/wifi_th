@@ -59,6 +59,13 @@ ${BINDIR}/app.axf: ${OBJDIR}/udma_if.o
 ${BINDIR}/app.axf: ${OBJDIR}/timer_if.o
 ${BINDIR}/app.axf: ${OBJDIR}/utils_if.o
 
+${BINDIR}/app.axf: ${OBJDIR}/schedule.o
+${BINDIR}/app.axf: ${OBJDIR}/checksum.o
+
+${BINDIR}/app.axf: ${OBJDIR}/one_wire_phisical.o
+${BINDIR}/app.axf: ${OBJDIR}/one_wire_network.o
+${BINDIR}/app.axf: ${OBJDIR}/one_wire_transport.o
+
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_socket.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_network.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_session.o
@@ -73,7 +80,6 @@ ${BINDIR}/app.axf: ${OBJDIR}/buttons.o
 ${BINDIR}/app.axf: ${OBJDIR}/state_machine.o
 ${BINDIR}/app.axf: ${OBJDIR}/everythings.o
 ${BINDIR}/app.axf: ${OBJDIR}/string.o
-${BINDIR}/app.axf: ${OBJDIR}/schedule.o
 
 
 ${BINDIR}/app.axf: ${OBJDIR}/startup_${COMPILER}.o

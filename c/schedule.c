@@ -150,16 +150,16 @@ void Resume_Or_New_Periodic_Func_Schedule	(unsigned int Time_Out,void (*Func)(vo
  if(!(Resume_Func_Schedule(Func)<MAX_SCHEDULE_INDEX)) New_Periodic_Func_Schedule(Time_Out,Func);
 }
 //----------------------------------------------------------------------
-void Periodic_1Sec4Sm		(const State** Machine)	{New_Periodic_Schedule(10,Sec1_Event,Machine);}
-void None_Periodic_1Sec		(void)			{New_None_Periodic_Schedule(10,Sec1_Event,Actual_Sm());}
-void Free_Schedule_1Sec		(void)			{Free_Schedule(Sec1_Event,Actual_Sm());}
+void Periodic_1Sec4Sm		(const State** Machine)	{New_Periodic_Schedule(10,Timeout_1Sec_Event,Machine);}
+void None_Periodic_1Sec		(void)			{New_None_Periodic_Schedule(10,Timeout_1Sec_Event,Actual_Sm());}
+void Free_Schedule_1Sec		(void)			{Free_Schedule(Timeout_1Sec_Event,Actual_Sm());}
 //----------------------------------------------------------------------
-void None_Periodic_1Min			(void)	{New_None_Periodic_Schedule(600,Min1_Event,Actual_Sm());}
-void Periodic_1Min			(void)	{New_Periodic_Schedule(600,Min1_Event,Actual_Sm());}
-void Pause_Periodic_1Min		(void)	{Pause_Schedule(Min1_Event,Actual_Sm());}
-void Resume_Periodic_1Min		(void)	{Resume_Schedule(Min1_Event,Actual_Sm());}
-void Free_Schedule_1Min			(void)	{Free_Schedule(Min1_Event,Actual_Sm());}
-void Resume_Or_New_Periodic_1Min	(void)	{if(!Resume_Schedule(Min1_Event,Actual_Sm())) Periodic_1Min();}
+void None_Periodic_1Min			(void)	{New_None_Periodic_Schedule(600,Timeout_1Min_Event,Actual_Sm());}
+void Periodic_1Min			(void)	{New_Periodic_Schedule(600,Timeout_1Min_Event,Actual_Sm());}
+void Pause_Periodic_1Min		(void)	{Pause_Schedule(Timeout_1Min_Event,Actual_Sm());}
+void Resume_Periodic_1Min		(void)	{Resume_Schedule(Timeout_1Min_Event,Actual_Sm());}
+void Free_Schedule_1Min			(void)	{Free_Schedule(Timeout_1Min_Event,Actual_Sm());}
+void Resume_Or_New_Periodic_1Min	(void)	{if(!Resume_Schedule(Timeout_1Min_Event,Actual_Sm())) Periodic_1Min();}
 //----------------------------------------------------------------------
 
 

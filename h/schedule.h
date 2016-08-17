@@ -1,4 +1,3 @@
-//.h del archivo dedicado al manejo de tim_out que pueden ser usados por todas las maquinas...
 #ifndef SCHEDULE
 #define SCHEDULE
 #include <state_machine.h>
@@ -7,8 +6,10 @@
 
 enum Schedule_Events 
        	{
-	 Sec1_Event		=0x5000,
-	 Min1_Event		=0x5001
+	 Timeout_1Sec_Event	=0x5000,
+	 Timeout_2Sec_Event	=0x5001,
+	 Timeout_1Min_Event	=0x5002,
+	 Timeout_10Sec_Event	=0x5003
 	};
 //------------------------------------------------------------------------
 extern void 		Init_Schedule				(void);
