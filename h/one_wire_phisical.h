@@ -34,14 +34,16 @@ enum One_Wire_DS1990_Network_Command
 };
 
 //----------------------------------
-#define ONE_WIRE_BUS_LO()	(1) //PTS&=~(1<<1),PTJ|=(1<<6))
-#define ONE_WIRE_BUS_HI()	(1) //PTS|= (1<<1),PTJ|=(1<<6))
-#define ONE_WIRE_BUS_HIZ()	(1) //PTJ&=~(1<<6))
-#define STRONG_PULLUP()		(1) //PTS|=(1<<1),PTJ|=(1<<6),_asm("nop"),PTJ&=~(1<<6))
-#define ONE_WIRE_BUS_READ()	(1) //(PTIS&(1<<0))!=0)
-#define INIT_ONE_WIRE_BUS()	(1) //DDRS|=(1<<1),DDRJ|=(1<<6))		//el pin de tx como salida, el de Rx como entradaa sin pullups porque en este circuito tiene una externa con un diodo haciendo on OR
+#define ONE_WIRE_BUS_LO()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x00))
+#define ONE_WIRE_BUS_HI()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10))
+#define ONE_WIRE_BUS_HIZ()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10))	//es lo mismo que HI, porque el pin esta como open drain
+#define STRONG_PULLUP()		(1) 
+			//	MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10),\
+			//	MAP_PinTypeGPIO(PIN_03,PIN_MODE_0,false),\
+			//	MAP_PinTypeGPIO(PIN_03,PIN_MODE_0,true))  	//primerp lo pongo en 1,//despues lo pongo en modo push pull//y por ultimo a open drain
+#define ONE_WIRE_BUS_READ()	(MAP_GPIOPinRead(GPIOA1_BASE,0x10)!=0x00) 
 //------------------------------------------------------ 
-extern void 		Init_One_Wire_Phicical		(void);
+extern void 		Init_One_Wire_Phisical		(void);
 extern void 		One_Wire_Power_On_Reset		(void);
 extern unsigned char 	Presence			(void);
 extern unsigned char	Write_Bit_One_And_Read		(void);

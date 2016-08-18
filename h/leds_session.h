@@ -22,7 +22,13 @@ extern void 	Set_Toogle_Led_Effect	(unsigned char Led);
 //---------------------------------------------------------
 enum Leds_Position
 {
- Led_Run	=0
+ Led_Run	=0,
+ Led_TR		=1,
+ Led_TG		=2,
+ Led_TB		=3,
+ Led_THR	=4,
+ Led_THG	=5,
+ Led_THB	=6
 };
 struct Led_Effect_Struct
  {

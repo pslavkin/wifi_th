@@ -1,5 +1,6 @@
 #include "hw_types.h"
 #include "hw_memmap.h"
+#include "uart_if.h"
 #include "pin.h"
 #include "rom_map.h"
 #include "gpio.h"
@@ -13,7 +14,6 @@
 #include <one_wire_transport.h>
 #include <type_conversion.h>
 #include <string.h>
-#include <debug.h>
 #include <checksum.h>
 #include <debug.h>
 #include <string.h>
@@ -36,27 +36,27 @@ static const State
 unsigned int Reload_One_Wire_Nodes_TOut	=0;	//1 vez por minuto
 //#pragma section ()
 
-State *One_Wire_Transport_Sm;
+const State *One_Wire_Transport_Sm;
 unsigned char Actual_Node,Snapshot_On_Line_Nodes,Actual_Sending_Node;
 //------------------------------------------------------------------
-State** One_Wire_Transport(void)	{return &One_Wire_Transport_Sm;}
+const State** One_Wire_Transport(void)	{return &One_Wire_Transport_Sm;}
 void Init_One_Wire_Transport(void)	
 {
  Init_One_Wire_Network();
  Set_State(Searching_Rom_Codes,One_Wire_Transport());
- New_None_Periodic_Schedule(5*2,Timeout_1Sec_Event,One_Wire_Transport());	//2 segs
- if(Reload_One_Wire_Nodes_TOut) New_Periodic_Func_Schedule(5*Reload_One_Wire_Nodes_TOut,Reload_One_Wire_Codes);
+ New_None_Periodic_Schedule(20,Timeout_1Sec_Event,One_Wire_Transport());	//2 segs
+ if(Reload_One_Wire_Nodes_TOut) New_Periodic_Func_Schedule(10*Reload_One_Wire_Nodes_TOut,Reload_One_Wire_Codes);
 }
 //------------------------------------------------------------------
-void Refresh_Reload_One_Wire_Nodes_TOut		(unsigned int Time)			{if(Time) Update_Func_Schedule(5*Time,Reload_One_Wire_Codes); else Free_Func_Schedule(Reload_One_Wire_Codes);}
+void Refresh_Reload_One_Wire_Nodes_TOut		(unsigned int Time)			{if(Time) Update_Func_Schedule(10*Time,Reload_One_Wire_Codes); else Free_Func_Schedule(Reload_One_Wire_Codes);}
 void Save_Reload_One_Wire_Nodes_TOut		(unsigned int TOut)	
 {
- unsigned int Time=TOut>MIN_RELOAD_ONE_WIRE_NODES_TOUT?TOut:0;
- Save_Int2Flash(&Reload_One_Wire_Nodes_TOut,Time);
- Refresh_Reload_One_Wire_Nodes_TOut(Time);									//habra que ejecutar 2 veces esto para que lo tome porque sino tomara el valor anterior...
+ //unsigned int Time=TOut>MIN_RELOAD_ONE_WIRE_NODES_TOUT?TOut:0;
+ //Save_Int2Flash(&Reload_One_Wire_Nodes_TOut,Time);
+ //Refresh_Reload_One_Wire_Nodes_TOut(Time);									//habra que ejecutar 2 veces esto para que lo tome porque sino tomara el valor anterior...
 }
-void Save_Reload_One_Wire_Nodes_TOut4Loaded_Int		(void)			{Save_Reload_One_Wire_Nodes_TOut(Dec_Bcd2Int(Socket_Rx_Buffer()));}
-void Send_Reload_One_Wire_Nodes_TOut2Tcp		(void)			{Send_NLine_Int_NLine2Socket_Fifo(Reload_One_Wire_Nodes_TOut);}
+void Save_Reload_One_Wire_Nodes_TOut4Loaded_Int		(void)			{1;}//Save_Reload_One_Wire_Nodes_TOut(Dec_Bcd2Int(Socket_Rx_Buffer()));}
+void Send_Reload_One_Wire_Nodes_TOut2Tcp		(void)			{1;}//Send_NLine_Int_NLine2Socket(Reload_One_Wire_Nodes_TOut);}
 //------------------------------------------------------------------
 void Reset_Actual_Node			(void)	{Actual_Node=0;}
 void Inc_Actual_Node			(void)	{Actual_Node++;}
@@ -68,10 +68,10 @@ void Reload_One_Wire_Codes		(void)	{Atomic_Send_Event(Reload_Codes_Event,One_Wir
 //------------------------------------------------------------------
 void Print_Nobody_On_Bus		(void)	
 {
-	Send_NVDebug_One_Wire_Transport_Data2Serial(14,"Nobody on Bus\n");
+	DBG_ONE_WIRE_TRANSPORT_PRINT("Nobody on Bus\n");
 //		Set_Fixed_Led_Effect(Led_One_Wire,0x8000);
 }
-void Print_All_Measured			(void)	{Send_NVDebug_One_Wire_Transport_Data2Serial(13,"All Measured\n");}
+void Print_All_Measured			(void)	{DBG_ONE_WIRE_TRANSPORT_PRINT("All Measured\n");}
 //-------------------------------------------------
 void Check_Crcs(void)
 {
@@ -95,18 +95,18 @@ void Begin_Send_One_Wire_Info2Tcp(void)
  String_Copy(Header,Buf,sizeof(Header)-1);
  Snapshot_On_Line_Nodes=On_Line_Nodes();
  Char2Bcd(Buf+2,Snapshot_On_Line_Nodes);
- Send_String2Socket_Fifo(sizeof(Header)-1,Buf);
+ Send_Data2Socket(Buf,sizeof(Header)-1);
  Actual_Sending_Node=0;
 }
 void Send_Next_One_Wire_Info2Tcp(void)
 {
  unsigned char Buf[46],i;
  for(i=0;i<5 && Actual_Sending_Node<Snapshot_On_Line_Nodes;i++,Actual_Sending_Node++)
-  Send_String2Socket_Fifo(Convert_Node_Bin2Ascci(Actual_Sending_Node,Buf),Buf);
+  Send_Data2Socket(Buf,Convert_Node_Bin2Ascci(Actual_Sending_Node,Buf));
 
  if(Actual_Sending_Node>=Snapshot_On_Line_Nodes)
   {
-   Send_String2Socket_Fifo(5,"EOF\r\n");
+   Send_Data2Socket("EOF\r\n",5);
    Atomic_Send_Event('<',Actual_Sm());
   }
 }
@@ -114,16 +114,17 @@ void Send_Temp2Tcp(void)
 {
  unsigned char Buf[46];
  if(!On_Line_Nodes())
-  Send_String_NLine2Socket_Fifo(12,"Not detected");
+  Send_Data2Socket("Not detected\r\n",14);
  else
  {
-  Add_String2Socket_Fifo(9,"Temp=    ");
-  Send_String_NLine2Socket_Fifo(Convert_Node_Bin2Ascci(0,Buf)-29,Buf+17);
+  Send_Data2Socket("Temp=    ",9);
+  Send_Data2Socket(Buf+17,Convert_Node_Bin2Ascci(0,Buf)-29);
+  Send_NLine2Socket();
  }
 }
 //------------------------------------------------------------------------
 signed int 	One_Wire_Bin		(unsigned char Pos)				{return (On_Line_Nodes()>Pos && Read_One_Wire_Crc(Pos))?Read_One_Wire_T(Pos):0x7FFF;} //si hay error devuelve el numero mas grande de signed int 0x7FFF
-void 		One_Wire_T2Tcp		(unsigned char Node)				{unsigned char Buf[25];Send_String_NLine2Socket_Fifo(One_Wire_Bin2Ascci(Node,Buf)-2,Buf);}
+void 		One_Wire_T2Tcp		(unsigned char Node)				{unsigned char Buf[25];Send_Data2Socket(Buf,One_Wire_Bin2Ascci(Node,Buf));}
 unsigned char 	One_Wire_Bin2Ascci	(unsigned char Node,unsigned char *Buf)	
 {
  const unsigned char T_Template[]="00002 T =+000.00 C ST=2\r\n";
@@ -149,9 +150,9 @@ void Inc_Actual_Node_And_Parse_Next_Family_Code					(void)	{Inc_Actual_Node();Pa
 void Print_All_Measured_And_Broadcast_V						(void)	{Print_All_Measured();Broadcast_V();}
 void Print_Nobody_On_Bus_And_Wait1Sec						(void)	{Print_Nobody_On_Bus();None_Periodic_1Sec();}
 void Calculate_DS18S20_12Bit_T_And_Inc_Actual_Node_And_Parse_Next_Family_Code	(void)	{Calculate_DS18S20_12Bit_T(Actual_Node);Inc_Actual_Node_And_Parse_Next_Family_Code();}
-void Calculate_DS18B20_12Bit_T_And_Inc_Actual_Node_And_Parse_Next_Family_Code	(void)	{Calculate_DS18B20_12Bit_T(Actual_Node);Inc_Actual_Node_And_Parse_Next_Family_Code();}
+void Calculate_DS18B20_12Bit_T_And_Inc_Actual_Node_And_Parse_Next_Family_Code	(void)	{Calculate_DS18B20_12Bit_T(Actual_Node);Inc_Actual_Node_And_Parse_Next_Family_Code();DBG_ONE_WIRE_TRANSPORT_PRINT("encontrado!!\r\n");}
 void Calculate_DS2834_T_V_Inc_Actual_Node_And_Parse_Next_Family_Code		(void)	{Calculate_DS2834_T_V(Actual_Node);	Inc_Actual_Node_And_Parse_Next_Family_Code();}
-void Free_Wait1Sec_And_Search_Codes						(void)	{Free_Wait1Sec();Search_Codes();}
+void Free_Wait1Sec_And_Search_Codes						(void)	{Free_Schedule_1Sec();Search_Codes();}
 void One_Wire_Power_On_Reset_And_Wait1Sec					(void)	{One_Wire_Power_On_Reset();None_Periodic_1Sec();}
 //-------------------------------------------------
 static const State Searching_Rom_Codes[]=

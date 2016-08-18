@@ -1,5 +1,6 @@
 #include "hw_types.h"
 #include "hw_memmap.h"
+#include "uart_if.h"
 #include "pin.h"
 #include "rom_map.h"
 #include "gpio.h"
@@ -28,9 +29,9 @@ static const State
 struct Rom_Codes_Struct Rom_Codes[MAX_ROM_CODES];
 static unsigned char Actual_Bit,Actual_Code,Actual_Marker,Last_Marker;
 static unsigned char Rx_Buffer[ONE_WIRE_RX_BUFFER],Bytes2Read,*Point2Write,*Point2Read;
-State *One_Wire_Network_Sm;
+const State *One_Wire_Network_Sm;
 //------------------------------------------------------------------
-State** One_Wire_Network		(void)			{return &One_Wire_Network_Sm;}
+const State** One_Wire_Network		(void)			{return &One_Wire_Network_Sm;}
 //------------------------------------------------------------------
 unsigned char  	One_Wire_Rx_As_Char	(unsigned char Pos)	{return *(unsigned char*)(Rx_Buffer+Pos);}
 unsigned char* 	One_Wire_Rx_As_PChar	(unsigned char Pos)	{return (unsigned char*) (Rx_Buffer+Pos);}
@@ -56,9 +57,9 @@ void 		Search_Rom		(void)				{Write_Read_Byte(SEARCH_ROM);}
 void 		Read_Rom		(void)				{Execute_Cmd(9,READ_ROM_STRING);}
 void 		Match_Rom		(unsigned char* Rom_Code)	{Execute_Cmd(9,Rom_Code);}
 void 		Skip_Rom		(void)				{Execute_Cmd(1,SKIP_ROM_STRING);}
-void 		Broadcast_T		(void)				{Execute_Cmd(2,"\x44\xCC");}
-void 		Broadcast_V		(void)				{Execute_Cmd(2,"\xB4\xCC");}
-void 		Broadcast_Recall_Page0	(void)				{Execute_Cmd(3,"\x00\xB8\xCC");}
+void 		Broadcast_T		(void)				{Execute_Cmd(2,"\x44\xCC");DBG_ONE_WIRE_NETWORK_PRINT("Broadcast T\r\n");}
+void 		Broadcast_V		(void)				{Execute_Cmd(2,"\xB4\xCC");DBG_ONE_WIRE_NETWORK_PRINT("Broadcast V\r\n");}
+void 		Broadcast_Recall_Page0	(void)				{Execute_Cmd(3,"\x00\xB8\xCC");DBG_ONE_WIRE_NETWORK_PRINT("Broadcast V\r\n");}
 unsigned char 	Read_One_Wire_Crc	(unsigned char Node)		{return Rom_Codes[Node].Crc;}
 unsigned int 	Read_One_Wire_T		(unsigned char Node)		{return Rom_Codes[Node].T;}
 void 		Check_Rom_Codes_Crc	(void)				
@@ -159,13 +160,13 @@ void Actual_Marker2Last		(void)			{Last_Marker=Actual_Marker;}
 void Actual_Bit2Marker		(void)			{Actual_Marker=Actual_Bit;}
 void Mark_All_Crc_Fail		(void)			{unsigned char i=Actual_Code;while(i--) Rom_Codes[i].Crc=0;}
 //-------------------------------------------------
-void Bit_Colision		(void)			{Atomic_Send_Event(Actual_Bit<Last_Marker?Smaller_Discrepance_Event:(Actual_Bit==Last_Marker)?Equal_Discrepance_Event:Bigger_Discrepance_Event,One_Wire_Network());Send_NVDebug_One_Wire_Network_Data2Serial(9,"Colision\n");}
+void Bit_Colision		(void)			{Atomic_Send_Event(Actual_Bit<Last_Marker?Smaller_Discrepance_Event:(Actual_Bit==Last_Marker)?Equal_Discrepance_Event:Bigger_Discrepance_Event,One_Wire_Network());}//DBG_ONE_WIRE_NETWORK_PRINT("Colision\n");}
 void Select_Bit_One		(void)			{Write_Bit_One_And_Read();Set_Bit_On_String(Rom_Codes[Actual_Code].Code,Actual_Bit);}
 void Select_Bit_Zero		(void)			{Write_Bit_Zero();Clear_Bit_On_String(Rom_Codes[Actual_Code].Code,Actual_Bit);}
 void Search_Next_Bit		(void)			{Atomic_Send_Event(Actual_Bit--?Read2Bits():Actual_Code_End_Event,One_Wire_Network());}
 void Search_Next_Code		(void)			
 {
- DBG_ONE_WIRE_NETWORK_PRINT("Next Code\n");
+ DBG_ONE_WIRE_NETWORK_PRINT("Next Code\r\n");
  Actual_Marker2Last();
  Reset_Actual_Bit();
  Reset_Actual_Marker();
@@ -180,14 +181,14 @@ void 		Ans_Anybody2App		(void)			{Atomic_Send_Event(Anybody_On_Bus_Event,One_Wir
 void 		Ans_Nobody2App		(void)			{Atomic_Send_Event(Nobody_On_Bus_Event,One_Wire_Transport());}
 void 		Ans_End_Of_Msg2App	(void)			{Atomic_Send_Event(End_Of_One_Wire_Msg_Event,One_Wire_Transport());}
 //-------------------------------------------------
-void Print_Rom_Codes		(void)			{Send_NVData2Serial(Convert_Nodes_Bin2Ascci(Serial_Tx_As_PChar(0)),Serial_Tx_As_PChar(0));}
-void Print_Detected		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Detected\n");}
-void Print_Not_Detected		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Not Detected\n");}
-void Print_Bit_Error		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Bit Error\n");}
-void Print_Crc_Ok		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Crc Ok\n");}
-void Print_Crc_Fail		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Crc Fail\n");}
+void Print_Rom_Codes		(void)			{1;}//Convert_Nodes_Bin2Ascci(Serial_Tx_As_PChar(0));DBG_ONE_WIRE_NETWORK_PRINT(Serial_Tx_As_PChar(0));}
+void Print_Detected		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Detected\r\n");}
+void Print_Not_Detected		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Not Detected\r\n");}
+void Print_Bit_Error		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Bit Error\r\n");}
+void Print_Crc_Ok		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Crc Ok\r\n");unsigned char Buf[18];Buf[16]='\r';Buf[17]='\n';String2Hex_Bcd(Buf,Rom_Codes[0].Code,8);DBG_ONE_WIRE_NETWORK_PRINT(Buf);}
+void Print_Crc_Fail		(void)			{DBG_ONE_WIRE_NETWORK_PRINT("Crc Fail\r\n");}
 //-------------------------------------------------
-void Init_One_Wire_Network	(void)			{Init_One_Wire_Link();Set_State(Idle,One_Wire_Network());Reset_Actual_Code();}
+void Init_One_Wire_Network	(void)			{Init_One_Wire_Phisical();Set_State(Idle,One_Wire_Network());Reset_Actual_Code();}
 //-------------------------------------------------
 void Print_Detected_And_Write_Read_Next_Byte			(void)	{Print_Detected();Write_Read_Next_Byte();}
 void Read_Presence_And_Init_Markers				(void)	{Read_Presence();Init_Markers();}

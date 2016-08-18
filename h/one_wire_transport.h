@@ -19,7 +19,7 @@ enum One_Wire_Maxim_Ic_Codes
 	};
 //------------------------------------------------------ 
 extern void 		Init_One_Wire_Transport		(void);
-extern State** 		One_Wire_Transport		(void);
+extern const State** 	One_Wire_Transport		(void);
 //------------------------------------------------------ 
 extern void 		Reload_One_Wire_Codes		(void);
 extern void 		Send_Temp2Tcp			(void);

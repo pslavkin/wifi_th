@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------------------------------
 #define String_Copy(Source,Destiny,Length)	String_Copy_Backward(Source,Destiny,Length)
 extern void 		String_Copy_Forward		(unsigned char* Source,unsigned char* Destiny,unsigned int Length);
-extern void 		String_Copy_Backward		(unsigned char* Source,unsigned char* Destiny,unsigned int Length);
+extern void 		String_Copy_Backward		(const unsigned char* Source,unsigned char* Destiny,unsigned int Length);
 extern unsigned char 	String_Cmp			(unsigned char* A,unsigned char* B,unsigned char Length);
 extern unsigned char 	Long_Compare			(unsigned long* A,unsigned long*  B);
 extern void 		String_Fill			(unsigned char* Source,unsigned char Data,unsigned int Length);

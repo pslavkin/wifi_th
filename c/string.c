@@ -2,7 +2,7 @@
 #include <string.h>
 
 //----------------------------------------------------------------------------------------
-void String_Copy_Backward(unsigned char* Source,unsigned char* Destiny,unsigned int Length)
+void String_Copy_Backward(const unsigned char* Source,unsigned char* Destiny,unsigned int Length)
 {
  while(Length--) Destiny[Length]=Source[Length];
 }

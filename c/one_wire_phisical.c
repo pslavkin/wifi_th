@@ -14,13 +14,16 @@
 //esto deberia ir en flash...pero aun no se como...
 unsigned int One_Wire_Read_Delay	=4;	//es el parametro critico que depende del cable... nominalmente 5 microsegs...
 //------------------------------------------------------------------
-void Inc_One_Wire_Read_Delay			(void)		{if(One_Wire_Read_Delay<50) Inc_Flash_Int(&One_Wire_Read_Delay);}
-void Dec_One_Wire_Read_Delay			(void)		{if(One_Wire_Read_Delay>0)  Dec_Flash_Int(&One_Wire_Read_Delay);}
-void Send_One_Wire_Read_Delay2Socket		(void)		{Send_NLine_Int_NLine2Socket(One_Wire_Read_Delay);}
+void Inc_One_Wire_Read_Delay			(void)		{1;}//if(One_Wire_Read_Delay<50) Inc_Flash_Int(&One_Wire_Read_Delay);}
+void Dec_One_Wire_Read_Delay			(void)		{1;}//if(One_Wire_Read_Delay>0)  Dec_Flash_Int(&One_Wire_Read_Delay);}
+void Send_One_Wire_Read_Delay2Socket		(void)		{Send_Int_NLine2Socket(One_Wire_Read_Delay);}
 //------------------------------------------------------------------
-void Init_One_Wire_Phicical(void)
+void Init_One_Wire_Phisical(void)
 {
- INIT_ONE_WIRE_BUS();
+	//Pin de 1wire interno y externo pero no a traves del sn176, directo la gpio
+    MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA1, 	PRCM_RUN_MODE_CLK);
+    MAP_PinTypeGPIO		(PIN_03,	PIN_MODE_0, 	true);			//setea pin modo 0 (gpio) open drain y 2mA
+    MAP_GPIODirModeSet		(GPIOA1_BASE, 	0x10, 		GPIO_DIR_MODE_OUT);
 }
 //------------------------------------------------------------------
 void One_Wire_Power_On_Reset(void)

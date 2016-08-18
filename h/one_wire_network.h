@@ -34,7 +34,7 @@ typedef struct Rom_Codes_Struct
 };
 //------------------------------------------------------ 
 extern void 		Init_One_Wire_Network	(void);
-extern State** 		One_Wire_Network	(void);
+extern const State** 	One_Wire_Network	(void);
 //-----------
 extern unsigned char  	One_Wire_Rx_As_Char	(unsigned char Pos);
 extern unsigned char* 	One_Wire_Rx_As_PChar	(unsigned char Pos);
