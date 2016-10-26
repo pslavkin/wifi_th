@@ -2,6 +2,7 @@
 #define  WIFI_SESSION
 
 #include "state_machine.h"
+#define FILE_NAME_SIZE 20
 //----------------------------------------------------------------------------------------------------
 enum Wifi_Session_Event_Code	{
 					Wifi_Session_Null_Event		= 0x0C00

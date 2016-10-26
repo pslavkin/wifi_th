@@ -5,6 +5,7 @@
 #define Lo(Int)		(*((unsigned char*)&Int+1))
 #define Char(Int)	(*(unsigned char*)&Int+1))
 #define Int(Char)	(*(unsigned int*)(Char))
+#define MIN(A,B)	(A<B?A:B)
 
 extern unsigned char* 	Long2Bcd				(unsigned char* Bcd,unsigned long Bin);
 extern unsigned char* 	Int2Bcd					(unsigned char* Bcd,unsigned short int Bin);

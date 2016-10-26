@@ -41,9 +41,10 @@ struct Socket_Struct
 	const State* 		Sm;
 	const State* 		App;
 	int			Sd;
-	unsigned char 		Rx_Buff[100];		//lo usa cada sockete para guardar data entry del usuario y poder parsearlo a gusto..
-	unsigned char 		Rx_Pos;			//para ir contando mientras recibe datos
-	unsigned char 		Rx_Length;		//numero de bytes a recibir
+	unsigned char 		Rx_Buff[SOCKET_RX_BUF_SIZE];		//lo usa cada sockete para guardar data entry del usuario y poder parsearlo a gusto..
+	unsigned int 		Rx_Pos;			//para ir contando mientras recibe datos
+	unsigned int 		Rx_Length;		//numero de bytes a recibir
+	unsigned char 		Rx_Delimiter;		//lo uso para terminar el ingreso de datos
 	void 			(*Rx_Func)(void);	//se ejecuta cuando termina de recibir el dato pedido
 	unsigned short		Port;			//almaceno el puerto de conexion.. por lo pronto fijo...
 }Socket_List[MAX_SOCKETS];
@@ -215,11 +216,11 @@ void Send_Ip2Socket		(unsigned int  Ip)
 	Send_Data2Socket(Buf,sizeof(Buf));
 }
 //----------
-void Send_NLine2Socket4Sm	(void)			{Send_Data2Socket4Sm("\r\n",2);}
-void Send_Char2Socket4Sm	(unsigned char Data) 	{unsigned char Buf[3]; Send_Data2Socket4Sm(Char2Bcd		(Buf,Data),3);}
-void Send_Int2Socket4Sm		(unsigned int  Data) 	{unsigned char Buf[5]; Send_Data2Socket4Sm(Int2Bcd		(Buf,Data),5);}
-void Send_Char_NLine2Socket4Sm	(unsigned char Data) 	{unsigned char Buf[5]; Send_Data2Socket4Sm(Char2Bcd_NLine	(Buf,Data),5);}
-void Send_Int_NLine2Socket4Sm	(unsigned int  Data) 	{unsigned char Buf[7]; Send_Data2Socket4Sm(Int2Bcd_NLine	(Buf,Data),7);}
+void Send_NLine2Socket4Sm	(void)						{Send_Data2Socket4Sm("\r\n",2);}
+void Send_Char2Socket4Sm	(unsigned char Data)				{unsigned char Buf[3]; Send_Data2Socket4Sm(Char2Bcd		(Buf,Data),3);}
+void Send_Int2Socket4Sm		(unsigned int  Data)				{unsigned char Buf[5]; Send_Data2Socket4Sm(Int2Bcd		(Buf,Data),5);}
+void Send_Char_NLine2Socket4Sm	(unsigned char Data)				{unsigned char Buf[5]; Send_Data2Socket4Sm(Char2Bcd_NLine	(Buf,Data),5);}
+void Send_Int_NLine2Socket4Sm	(unsigned int  Data)				{unsigned char Buf[7]; Send_Data2Socket4Sm(Int2Bcd_NLine	(Buf,Data),7);}
 //----------------------------------------------------------------------------------------------------
 void Send_Data2Socket(unsigned char* Buf,unsigned int Length)
 {
@@ -251,23 +252,32 @@ void Save_Byte2Buffer(void)
 	iStatus = sl_Recv(Actual_Sd4Sm(), &Data, 1, 0);
 	if(iStatus==1) 	{
 		DBG_WIFI_SOCKET_PRINT("---->Data Received from Server2Save2Buffer: %c Status: %d Sd= %d\n\r",Data,iStatus,Actual_Sd4Sm());
-		*(Actual_Rx_Buff4Sm()+Actual_Rx_Pos4Sm())=Data;
-		DBG_WIFI_SOCKET_PRINT("1 byte recibido y van= %d\r\n",Actual_Rx_Pos4Sm());
-		(*Actual_Rx_PPos4Sm())++;
-		if(Actual_Rx_Pos4Sm()<Actual_Rx_Length4Sm()) {
+		if(Actual_Rx_Pos4Sm()<Actual_Rx_Length4Sm() && Data!=Actual_Rx_Delimiter4Sm()) {
+			*(Actual_Rx_Buff4Sm()+Actual_Rx_Pos4Sm())=Data;
+			(*Actual_Rx_PPos4Sm())++;
+			DBG_WIFI_SOCKET_PRINT("1 byte recibido y van= %d\r\n",Actual_Rx_Pos4Sm());
 			Atomic_Send_Event(Rti_Event,Actual_Sm()); 		//para acelerar la lectura del supuesto proximo byte...
 		}
 		else 	Atomic_Send_Event(Save_Ready_Event,Actual_Sm());
 	}
 	else 	if(iStatus>=-1) Atomic_Send_Event(Receiving_Data_Error_Event,Actual_Sm()); 	//ojo que si pasa esto hay que reventar el socket... poque quiere decir que lo cerraron..o sea si intento leer el socket y me da cero bytes o -1 significa que revento el sockete.. si en cambio esta todo ok pero no hay nada para leer, entonces devuelve una cosas como -11 o una pabada asi...horrible...pero es asi....
 }
-void Config2Save(unsigned char Length,void (*Func) (void))
+void Config2Save_Til_Delimiter(unsigned int Length,void (*Func) (void),unsigned char Offset,unsigned char Del)
 {
 	Set_Actual_Rx_Length4App(Length); 
 	Set_Actual_Rx_Func4App(Func);  
-	Set_Rx_Pos4App(0);
+	Set_Rx_Pos4App(Offset);
+	Set_Rx_Delimiter4App(Del);
 	Atomic_Insert_Event(Begin_Save_Event,Actual_Sm4App());
 	DBG_WIFI_SOCKET_PRINT("Ready2Save bytes: %d\r\n",Length);
+}
+void Config2Save_Til_Enter(unsigned int Length,void (*Func) (void),unsigned char Offset)
+{
+	Config2Save_Til_Delimiter(Length,Func,Offset,'\n');
+}
+void Config2Save(unsigned int Length,void (*Func) (void))
+{
+	Config2Save_Til_Delimiter(Length,Func,0,0);
 }
 void Execute_Rx_Func(void)
 {
@@ -278,17 +288,19 @@ void Execute_Rx_Func(void)
 //----------------------------------------------------------------------------------------------------
 int  		Actual_Sd4Sm			(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Sd;}
 unsigned char*	Actual_Rx_Buff4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Buff;}
-unsigned char	Actual_Rx_Pos4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Pos;}
+unsigned int	Actual_Rx_Pos4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Pos;}
+unsigned char 	Actual_Rx_Delimiter4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Delimiter;}
 unsigned short	Actual_Port4Sm			(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Port;}
 void		Set_Actual_Port4Sm		(unsigned short Port)	{        ((struct Socket_Struct*)Actual_Sm())->Port=Port;}
-unsigned char	Actual_Rx_Length4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Length;}
-unsigned char*	Actual_Rx_PPos4Sm		(void)			{return &((struct Socket_Struct*)Actual_Sm())->Rx_Pos;}
+unsigned int	Actual_Rx_Length4Sm		(void)			{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Length;}
+unsigned int*	Actual_Rx_PPos4Sm		(void)			{return &((struct Socket_Struct*)Actual_Sm())->Rx_Pos;}
 unsigned char*	Actual_Rx_Buff4App		(void)			{return  ((struct Socket_Struct*)Actual_Sm4App())->Rx_Buff;}
 void 		(*Actual_Rx_Func4Sm		(void))	(void)		{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Func;}
 void 		Set_Schedule4Sm			(unsigned char TOut)	{Update_Schedule(TOut,Rti_Event,Actual_Sm());}
 void 		Set_Actual_Rx_Func4App		(void(*Func)(void))	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Func=Func;}
-void 		Set_Actual_Rx_Length4App	(unsigned char Data)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Length=Data;}
-void 		Set_Rx_Pos4App			(unsigned char Pos)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Pos=0;}
+void 		Set_Actual_Rx_Length4App	(unsigned int Length)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Length=Length;}
+void 		Set_Rx_Pos4App			(unsigned int Pos)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Pos=Pos;}
+void 		Set_Rx_Delimiter4App		(unsigned char Del)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Delimiter=Del;}
 const State**	Actual_App4Sm			(void)			{return Actual_Sm()+1;}
 const State**	Actual_Sm4App			(void)			{return Actual_Sm()-1;}
 int  		Actual_Sd4App			(void)			{return  ((struct Socket_Struct*)(Actual_Sm()-1))->Sd;}

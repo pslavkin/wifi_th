@@ -14,5 +14,6 @@ extern void 		Set_Bit_On_String		(unsigned char* Data, unsigned char Bit);
 extern void 		Clear_Bit_On_String_Array	(unsigned char* Data, unsigned char Bit, unsigned char Size, unsigned char Number);
 extern unsigned char 	Read_Bit4String			(unsigned char* Data,unsigned char Bit);
 extern unsigned int 	Search_NLine_On_String		(unsigned char* In,unsigned int In_Length);
+extern unsigned int 	Search_Null_On_String		(unsigned char* In,unsigned int In_Length);
 //----------------------------------------------------------------------------------------------------
 #endif

@@ -17,9 +17,11 @@ extern void InitializeAppVariables();
 #define MAX_CLIENTS 	1
 #define MAX_BIND 	1		
 #define MAX_SERVERS 	2
-#define PORT_BASE       49152                          
-
+#define PORT_BASE       49152 
+//------------------------------------------------------------------------------------                         
+#define SOCKET_RX_BUF_SIZE 1000
 // Application specific status/error codes
+//------------------------------------------------------------------------------------                         
 typedef enum{
 	// Choosing -0x7D0 to avoid overlap w/ host-driver's error codes
 	SOCKET_CREATE_ERROR 		= 			-0x7D0,
@@ -81,15 +83,17 @@ extern int  		Actual_Sd4App		 	(void);
 extern int  		Actual_Port4App			(void);
 extern unsigned short	Actual_Port4Sm			(void);	
 extern unsigned char*	Actual_Rx_Buff4Sm		(void);
-extern unsigned char	Actual_Rx_Pos4Sm		(void);
+extern unsigned int	Actual_Rx_Pos4Sm		(void);
+extern unsigned char 	Actual_Rx_Delimiter4Sm		(void);
 extern void		Set_Actual_Port4Sm		(unsigned short Port);
-extern unsigned char	Actual_Rx_Length4Sm		(void);
-extern unsigned char*	Actual_Rx_PPos4Sm		(void);
+extern unsigned int	Actual_Rx_Length4Sm		(void);
+extern unsigned int*	Actual_Rx_PPos4Sm		(void);
 extern void 		(*Actual_Rx_Func4Sm		(void))	(void);	
 extern unsigned char*	Actual_Rx_Buff4App		(void);
-extern void 		Set_Rx_Pos4App			(unsigned char Pos);
+extern void 		Set_Rx_Pos4App			(unsigned int Pos);
+extern void 		Set_Rx_Delimiter4App		(unsigned char Del);
 extern void 		Set_Actual_Rx_Func4App		(void (*Func)(void));
-extern void 		Set_Actual_Rx_Length4App	(unsigned char Data);
+extern void 		Set_Actual_Rx_Length4App	(unsigned int Length);
 extern int  		Set_Actual_Sd4Sm		(int Sd);
 extern const State* 	Set_Actual_App4Sm		(const State* App);
 extern void 		Set_Schedule4Sm			(unsigned char TOut);	
@@ -97,7 +101,10 @@ extern void 		Send_Data2Socket4Sm		(unsigned char* Buf,unsigned int Length);
 extern void 		Send_Data2Socket		(unsigned char* Buf,unsigned int Length);
 extern void 		Resend_Byte2Session		(void);
 //----------------------------------------------------
-extern void 		Config2Save			(unsigned char Length,void (*Func) (void));
+extern void 		Config2Save_Til_Delimiter	(unsigned int Length,void (*Func) (void),unsigned char Offset,unsigned char Del);
+extern void 		Config2Save_Til_Enter		(unsigned int Length,void (*Func) (void),unsigned char Offset);
+extern void 		Config2Save			(unsigned int Length,void (*Func) (void));
+//----------------------------------------------------
 extern unsigned char 	Number_Of_Socket_Opened		(void);
 //----------------------------------------------------
 

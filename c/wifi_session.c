@@ -12,6 +12,7 @@
 #include "parameters.h"
 #include "flash.h"
 #include "debug.h"
+#include "string.h"
 
 static const State   
 	Welcome[],
@@ -78,6 +79,7 @@ unsigned char File_System_Help_Data[]=
 "D Write File\r\n"
 "E Info File\r\n"
 "F Del File\r\n"
+"G Copy File\r\n"
 "< Back\r\n"
 "? Help\r\n"
 };
@@ -101,46 +103,82 @@ void  Virtual_Buttons_C		(void)	{}//Atomic_Send_Event(Button1_Holding_Event,		Sp
 void  Virtual_Buttons_D		(void)	{}//Atomic_Send_Event(Button1_Released_Event,		Spi_Session());}
 //----------------------------------------------------------------------------------------------------
 void	File_System_A4Buff	(void)	{
-	String_Copy(Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+10,3);
-	Actual_Rx_Buff4Sm()[13]=0; 					//fuerzo fin del nombre..	
-	DBG_WIFI_SESSION_PRINT("Nombre %s\r\n",Actual_Rx_Buff4Sm()+10);
+	Actual_Rx_Buff4Sm()[Actual_Rx_Pos4Sm()]=0; 					//fuerzo fin del nombre justo al final del largo del nombre que ingreso el usuario..	
+	DBG_WIFI_SESSION_PRINT("Nombre %s\r\n",Actual_Rx_Buff4Sm());
 }
 void	File_System_B4Buff	(void)	{
-	Create_File(Actual_Rx_Buff4Sm()+10,Dec_Bcd2Char(Actual_Rx_Buff4Sm()));
-	DBG_WIFI_SESSION_PRINT("Archivo %s creado. Tamanio %d \r\n",Actual_Rx_Buff4Sm()+10,Dec_Bcd2Char(Actual_Rx_Buff4Sm()));
+	Send_Data2Socket(Actual_Rx_Buff4App(),Search_Null_On_String(Actual_Rx_Buff4App(),FILE_NAME_SIZE));
+	if(File_Create(Actual_Rx_Buff4App(),100)==0) {					//lo creo con un tamanio minimo y luego cuando se escribe lo agrando de ser neceario (creando otro fila claro...)
+		Send_Data2Socket(" created\r\n",10);
+	}
+	else	Send_Data2Socket("not created\r\n",13);
+	DBG_WIFI_SESSION_PRINT("Archivo %s creado\r\n",Actual_Rx_Buff4App());
 }
 void	File_System_C4Buff	(void)	{
-	unsigned char Buf[20];
-	unsigned short int Ret;
-	Ret=Read_File(Actual_Rx_Buff4Sm()+10,Buf,Dec_Bcd2Char(Actual_Rx_Buff4Sm()));
-	Send_Data2Socket4Sm(Buf,Ret);
-	DBG_WIFI_SESSION_PRINT("Leyendo desde %s tamanio %d data %s \r\n",Actual_Rx_Buff4Sm()+10,Dec_Bcd2Char(Actual_Rx_Buff4Sm()),Buf);
+	signed long Ret;
+	unsigned char Buf[MAX_FILE_LENGTH];
+	Ret=File_Read(Actual_Rx_Buff4App(),Buf,0,MAX_FILE_LENGTH); 		//pido para leer todo lo que pueda.. pero en realidad el fs.h es inteligente y me devuelve todo lo que tiene..
+	if(Ret>0) Send_Data2Socket(Buf,Ret);					//File_Read me dice cuando leyo exactamente..
+	Send_Data2Socket("EOF\r\n",5);
+	DBG_WIFI_SESSION_PRINT("Leyendo desde %s tamanio %d data %s \r\n",Actual_Rx_Buff4App(),Ret,Buf);
 }
 void	File_System_D4Buff	(void)	{
-	Write_File(Actual_Rx_Buff4Sm()+10,Actual_Rx_Buff4Sm(),10);
-	DBG_WIFI_SESSION_PRINT("grabando en %s datos %s tamanio fijo 10 \r\n",Actual_Rx_Buff4Sm()+10,Actual_Rx_Buff4Sm());
+	signed long Ret;
+	Ret=File_Write(Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE,Actual_Rx_Pos4Sm()-FILE_NAME_SIZE); 	//grabo en el file desde la FILE_NAME_SIZE, que ahi termina el nombre y hasta lo que indica la pos, que es la cantidad de datos que llegaron antes del delimiter
+	if(Ret>0) {
+		Send_Int2Socket4Sm(Ret);
+		Send_Data2Socket4Sm(" bytes written\r\n",16);
+	}
+	else 	Send_Data2Socket4Sm("error\r\n",7);
+	DBG_WIFI_SESSION_PRINT("grabando en %s datos %s tamanio %d \r\n",Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE,Ret);
 }
 void	File_System_E4Buff	(void)	{
 	SlFsFileInfo_t Fileinfo;
-	Info_File(Actual_Rx_Buff4App()+10,&Fileinfo);
-	Send_Data2Socket("Fill=",5);
-	Send_Int_NLine2Socket(Fileinfo.FileLen);
-	Send_Data2Socket("Size=",5);
-	Send_Int_NLine2Socket(Fileinfo.AllocatedLen);
-	DBG_WIFI_SESSION_PRINT("Info de archivo %s len= %d usado = %d\r\n",Actual_Rx_Buff4App()+10,Fileinfo.FileLen,Fileinfo.AllocatedLen);
+	File_Info(Actual_Rx_Buff4App(),&Fileinfo);
+	Send_Data2Socket(Actual_Rx_Buff4App(),Search_Null_On_String(Actual_Rx_Buff4App(),FILE_NAME_SIZE));
+	Send_NLine2Socket();
+	if(Fileinfo.AllocatedLen>0) {
+		Send_Data2Socket("fill=",5);
+		Send_Int_NLine2Socket(Fileinfo.FileLen);
+		Send_Data2Socket("size=",5);
+		Send_Int_NLine2Socket(Fileinfo.AllocatedLen);
+	} 
+	else	Send_Data2Socket("not exist\r\n",11);
+	DBG_WIFI_SESSION_PRINT("Info de archivo %s len= %d usado = %d\r\n",Actual_Rx_Buff4App(),Fileinfo.FileLen,Fileinfo.AllocatedLen);
 }
 void	File_System_F4Buff	(void)	{
-	Del_File(Actual_Rx_Buff4App()+10);
-	Send_Data2Socket("deleted\r\n ",9);
-	DBG_WIFI_SESSION_PRINT("archivo %s borrado\r\n",Actual_Rx_Buff4App()+10);
+	signed long Ret;
+	Ret=File_Del(Actual_Rx_Buff4App());
+	Send_Data2Socket(Actual_Rx_Buff4App(),Search_Null_On_String(Actual_Rx_Buff4App(),FILE_NAME_SIZE));
+	Send_Data2Socket(Ret==0?" deleted  \r\n ":" not exist\r\n",12);
+	DBG_WIFI_SESSION_PRINT("archivo %s borrado\r\n",Actual_Rx_Buff4App());
+} 
+void	File_System_G4Buff	(void)	{
+	signed long Ret;
+	Ret=File_Copy(Actual_Rx_Buff4App(),"tmp");
+	Send_Data2Socket(Actual_Rx_Buff4App(),Search_Null_On_String(Actual_Rx_Buff4App(),FILE_NAME_SIZE));
+	Send_Data2Socket(Ret>0?" copy \r\n ":" error\r\n",8);
+	DBG_WIFI_SESSION_PRINT("archivo %s copiado a tmp\r\n",Actual_Rx_Buff4App());
+} 
+void	File_System_H4Buff	(void)	{
+	signed long Ret;
+	Ret=File_Append(Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE,Actual_Rx_Pos4Sm()-FILE_NAME_SIZE); 		//grabo en el file desde la FILE_NAME_SIZE, que ahi termina el nombre y hasta lo que indica la pos, que es la cantidad de datos que llegaron antes del delimiter
+	if(Ret>0) {
+		Send_Int2Socket4Sm(Ret);
+		Send_Data2Socket4Sm(" bytes total\r\n",14);
+	}
+	else 	Send_Data2Socket4Sm("error\r\n",7);
+	DBG_WIFI_SESSION_PRINT("datos agregados en %s datos %s \r\n",Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE);
 }
 //------------------
-void	File_System_A		(void)	{Config2Save( 3,File_System_A4Buff);}
-void	File_System_B		(void)	{Config2Save( 3,File_System_B4Buff);}
-void	File_System_C		(void)	{Config2Save( 3,File_System_C4Buff);}
-void	File_System_D		(void)	{Config2Save(10,File_System_D4Buff);}
+void	File_System_A		(void)	{Config2Save_Til_Enter(19,File_System_A4Buff,0);}	//19 maximo largo del nombre, uno mas para el '\0'
+void	File_System_B		(void)	{File_System_B4Buff();}
+void	File_System_C		(void)	{File_System_C4Buff();}
+void	File_System_D		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_D4Buff,FILE_NAME_SIZE,'!');}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
 void	File_System_E		(void)	{File_System_E4Buff();}
 void	File_System_F		(void)	{File_System_F4Buff();}
+void	File_System_G		(void)	{File_System_G4Buff();}
+void	File_System_H		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_H4Buff,FILE_NAME_SIZE,'!');}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
 //----------------------------------------------------------------------------------------------------
 void  Welcome_Help		(void)	{Send_Data2Socket(Welcome_Help_Data,		sizeof(Welcome_Help_Data)-1);}
 void  Info_Help			(void)	{Send_Data2Socket(Info_Help_Data,		sizeof(Info_Help_Data)-1);}
@@ -193,6 +231,8 @@ static const State File_System[] =
  'D'				,File_System_D					,File_System, 	// escribe
  'E'				,File_System_E					,File_System, 	// info
  'F'				,File_System_F					,File_System, 	// borrar
+ 'G'				,File_System_G					,File_System, 	// copia a tmp
+ 'H'				,File_System_H					,File_System, 	// append
  '<'				,Rien 						,Welcome,
  '?'				,File_System_Help				,File_System,
  ANY_Event			,Rien						,File_System,
