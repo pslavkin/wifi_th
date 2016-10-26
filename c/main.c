@@ -47,11 +47,12 @@ void main()
 	Init_Wifi_Network();
 	Init_Wifi_Socket();
 	Init_Wdog();
+
 	MAP_IntMasterEnable();
 
     for(;;)
 	{
-		Wdog_Clear();
+	//	Wdog_Clear();
 		State_Machine();
 	}	
 }

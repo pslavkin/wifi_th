@@ -133,7 +133,7 @@ void _SlDrvHandleGeneralEvents(SlDeviceEvent_t *slGeneralEvent)
 
 }
 #endif
-
+ 
 
 
 /* WLAN Events handling*/
@@ -585,6 +585,7 @@ void _SlDrvRxIrqHandler(void *pValue)
     }
     else
     {
+	DBG_NONOS_PRINT("Spawn\r\b");
         sl_Spawn((_SlSpawnEntryFunc_t)_SlDrvMsgReadSpawnCtx, NULL, 0);
     }
 }
@@ -604,16 +605,13 @@ _SlReturnVal_t _SlDrvCmdOp(
     
     g_pCB->IsCmdRespWaited = TRUE;
 
-    SL_TRACE0(DBG_MSG, MSG_312, "_SlDrvCmdOp: call _SlDrvMsgWrite");
-
+    SL_TRACE0(DBG_MSG, MSG_312, "_SlDrvCmdOp: call _SlDrvMsgWrite\r\n");
 
     /* send the message */
     RetVal = _SlDrvMsgWrite(pCmdCtrl, pCmdExt, pTxRxDescBuff);
 
     if(SL_OS_RET_CODE_OK == RetVal)
     {
-
-#ifndef SL_IF_TYPE_UART    
         /* Waiting for SPI to stabilize after first command */
         if( 0 == gFirstCmdMode )
         {
@@ -622,15 +620,12 @@ _SlReturnVal_t _SlDrvCmdOp(
             CountVal = CPU_FREQ_IN_MHZ*USEC_DELAY;
             while( CountVal-- );
         }   
-#endif 
         /* wait for respond */
         RetVal = _SlDrvMsgReadCmdCtx(); /* will free global lock */
-        SL_TRACE0(DBG_MSG, MSG_314, "_SlDrvCmdOp: exited _SlDrvMsgReadCmdCtx");
+        SL_TRACE0(DBG_MSG, MSG_314, "_SlDrvCmdOp: exited _SlDrvMsgReadCmdCtx\r\n");
     }
     else
-    {
         _SlDrvObjUnLock(&g_pCB->GlobalLockObj);
-    }
     
     return RetVal;
 }
@@ -813,13 +808,13 @@ _SlReturnVal_t _SlDrvMsgWrite(_SlCmdCtrl_t  *pCmdCtrl,_SlCmdExt_t  *pCmdExt, _u8
     sl_IfStartWriteSequence(g_pCB->FD);
 #endif
 
-#ifdef SL_IF_TYPE_UART
-    /*  Write long sync pattern */
-    NWP_IF_WRITE_CHECK(g_pCB->FD, (_u8 *)&g_H2NSyncPattern.Long, 2*SYNC_PATTERN_LEN);
-#else
+//#ifdef SL_IF_TYPE_UART
+//    /*  Write long sync pattern */
+//    NWP_IF_WRITE_CHECK(g_pCB->FD, (_u8 *)&g_H2NSyncPattern.Long, 2*SYNC_PATTERN_LEN);
+//#else
     /*  Write short sync pattern */
     NWP_IF_WRITE_CHECK(g_pCB->FD, (_u8 *)&g_H2NSyncPattern.Short, SYNC_PATTERN_LEN);
-#endif
+//#endif
 
     /*  Header */
     NWP_IF_WRITE_CHECK(g_pCB->FD, (_u8 *)&g_pCB->TempProtocolHeader, _SL_CMD_HDR_SIZE);
@@ -1208,13 +1203,16 @@ _SlReturnVal_t _SlDrvMsgReadCmdCtx(void)
     /*  by spi_singleRead and isCmdRespWaited was set FALSE. */
     while (TRUE == g_pCB->IsCmdRespWaited)
     {
+	DBG_NONOS_PRINT("paso1\r\n");
         if(_SL_PENDING_RX_MSG(g_pCB))
         {
+	    DBG_NONOS_PRINT("paso2\r\n");
             VERIFY_RET_OK(_SlDrvMsgRead());
             g_pCB->RxDoneCnt++;
 
             if (CMD_RESP_CLASS == g_pCB->FunctionParams.AsyncExt.RxMsgClass)
             {
+	    	DBG_NONOS_PRINT("paso3\r\n");
                 g_pCB->IsCmdRespWaited = FALSE;
 
                 /*  In case CmdResp has been read without  waiting on CmdSyncObj -  that */
@@ -1229,19 +1227,16 @@ _SlReturnVal_t _SlDrvMsgReadCmdCtx(void)
                 /*  This way there will be no "dry shots" from CmdResp context to */
                 /*  temporary context, i.e less waste of CPU and faster buffer */
                 /*  release. */
+	    	DBG_NONOS_PRINT("paso4\r\n");
                 _SlAsyncEventGenericHandler();
-                
-                
-#ifdef SL_MEMORY_MGMT_DYNAMIC
-                sl_Free(g_pCB->FunctionParams.AsyncExt.pAsyncBuf);
-#else
+	    	DBG_NONOS_PRINT("paso5\r\n");
                 g_pCB->FunctionParams.AsyncExt.pAsyncBuf = NULL;
-#endif
             }
         }
         else
         {
             /* CmdSyncObj will be signaled by IRQ */
+	    DBG_NONOS_PRINT("paso6\r\n");
              _SlDrvSyncObjWaitForever(&g_pCB->CmdSyncObj);
         }
     }
@@ -1253,9 +1248,11 @@ _SlReturnVal_t _SlDrvMsgReadCmdCtx(void)
     /* sl_Spawn is activated, using a different context */
 
     _SlDrvObjUnLock(&g_pCB->GlobalLockObj);
+   DBG_NONOS_PRINT("paso7\r\n");
     
     if(_SL_PENDING_RX_MSG(g_pCB))
     {
+   	DBG_NONOS_PRINT("paso8\r\n");
         sl_Spawn((_SlSpawnEntryFunc_t)_SlDrvMsgReadSpawnCtx, NULL, 0);
     }
 

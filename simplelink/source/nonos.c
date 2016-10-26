@@ -38,50 +38,30 @@ _SlNonOsRetVal_t _SlNonOsSemSet(_SlNonOsSemObj_t* pSemObj , _SlNonOsSemObj_t Val
 
 _SlNonOsRetVal_t _SlNonOsSemGet(_SlNonOsSemObj_t* pSyncObj, _SlNonOsSemObj_t WaitValue, _SlNonOsSemObj_t SetValue, _SlNonOsTime_t Timeout)
 {
-// if (WaitValue == *pSyncObj)
-//  {
-//   *pSyncObj = SetValue;
-//   return NONOS_RET_OK;
-//  }
-// else
-//     return NONOS_RET_ERR;
-//
-
-
-#ifdef _SlSyncWaitLoopCallback
-    _SlNonOsTime_t timeOutRequest = Timeout; 
-#endif
     while (Timeout>0)
     {
         if (WaitValue == *pSyncObj)
         {
+	    DBG_NONOS_PRINT("paso 14\r\n");
             *pSyncObj = SetValue;
             break;
         }
         if (Timeout != NONOS_WAIT_FOREVER)
         {		
+	    DBG_NONOS_PRINT("paso 15\r\n");
             Timeout--;
         }
         _SlNonOsMainLoopTask();
-#ifdef _SlSyncWaitLoopCallback
-        if( (__NON_OS_SYNC_OBJ_SIGNAL_VALUE == WaitValue) && (timeOutRequest != NONOS_NO_WAIT) )
-        {
-            if (WaitValue == *pSyncObj)
-            {
-                *pSyncObj = SetValue;
-                break;
-            }
-            _SlSyncWaitLoopCallback();
-        }
-#endif
     }
 
     if (0 == Timeout)
     {
+	DBG_NONOS_PRINT("paso 19\r\n");
         return NONOS_RET_ERR;
     }
     else
     {
+	DBG_NONOS_PRINT("paso 20\r\n");
         return NONOS_RET_OK;
     }
 }
@@ -115,21 +95,17 @@ _SlNonOsRetVal_t _SlNonOsSpawn(_SlSpawnEntryFunc_t pEntry , void* pValue , _u32 
 _SlNonOsRetVal_t _SlNonOsMainLoopTask(void)
 {
 	_i8 i=0;
-
-
-#ifndef SL_TINY_EXT
 	for (i=0 ; i<NONOS_MAX_SPAWN_ENTRIES ; i++)
-#endif
 	{
 		_SlNonOsSpawnEntry_t* pE = &g__SlNonOsCB.SpawnEntries[i];
 		_SlSpawnEntryFunc_t 		pF = pE->pEntry;
 		
 		if (NULL != pF)
 		{
-            if(RxIrqCnt != (g_pCB)->RxDoneCnt)
-            {
-                pF(0); /* (pValue) */
-            }
+		    if(RxIrqCnt != (g_pCB)->RxDoneCnt)
+		    {
+			pF(0); /* (pValue) */
+		    }
             
 			pE->pEntry = NULL;
 			pE->pValue = NULL;

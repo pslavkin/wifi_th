@@ -21,8 +21,8 @@ extern "C" {
 
 
 
-#define NONOS_WAIT_FOREVER   						0xFF
-#define NONOS_NO_WAIT        						0x00
+#define NONOS_WAIT_FOREVER   							0xFF
+#define NONOS_NO_WAIT        							0x00
 
 #define NONOS_RET_OK                            (0)
 #define NONOS_RET_ERR                           (0xFF)

@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in {00045..00050}; do  
+for i in {00000..00000}; do  
  	echo "compilando ID=$i"
  	echo "#define SERIAL_ID \"justbody$i\"" > ../h/id.h
  	cd ..

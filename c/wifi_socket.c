@@ -267,7 +267,7 @@ void Config2Save(unsigned char Length,void (*Func) (void))
 	Set_Actual_Rx_Func4App(Func);  
 	Set_Rx_Pos4App(0);
 	Atomic_Insert_Event(Begin_Save_Event,Actual_Sm4App());
-	DBG_WIFI_SOCKET_PRINT("Readey2Save bytes: %d\r\n",Length);
+	DBG_WIFI_SOCKET_PRINT("Ready2Save bytes: %d\r\n",Length);
 }
 void Execute_Rx_Func(void)
 {

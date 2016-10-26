@@ -146,18 +146,19 @@ extern "C" {
 #define ARG_CHECK_PTR(Ptr)
 #endif
 
-/*#define SL_DBG_TRACE_ENABLE*/
+//#define SL_DBG_TRACE_ENABLE
+
 #ifdef SL_DBG_TRACE_ENABLE
-#define SL_TRACE0(level,msg_id,str)                     printf(str)
-#define SL_TRACE1(level,msg_id,str,p1)                  printf(str,(p1))
-#define SL_TRACE2(level,msg_id,str,p1,p2)               printf(str,(p1),(p2))
-#define SL_TRACE3(level,msg_id,str,p1,p2,p3)            printf(str,(p1),(p2),(p3))
-#define SL_TRACE4(level,msg_id,str,p1,p2,p3,p4)         printf(str,(p1),(p2),(p3),(p4))
-#define SL_ERROR_TRACE(msg_id,str)                      printf(str)
-#define SL_ERROR_TRACE1(msg_id,str,p1)                  printf(str,(p1))
-#define SL_ERROR_TRACE2(msg_id,str,p1,p2)               printf(str,(p1),(p2))
-#define SL_ERROR_TRACE3(msg_id,str,p1,p2,p3)            printf(str,(p1),(p2),(p3))
-#define SL_ERROR_TRACE4(msg_id,str,p1,p2,p3,p4)         printf(str,(p1),(p2),(p3),(p4))
+#define SL_TRACE0(level,msg_id,str)                     Report(str)
+#define SL_TRACE1(level,msg_id,str,p1)                  Report(str,(p1))
+#define SL_TRACE2(level,msg_id,str,p1,p2)               Report(str,(p1),(p2))
+#define SL_TRACE3(level,msg_id,str,p1,p2,p3)            Report(str,(p1),(p2),(p3))
+#define SL_TRACE4(level,msg_id,str,p1,p2,p3,p4)         Report(str,(p1),(p2),(p3),(p4))
+#define SL_ERROR_TRACE(msg_id,str)                      Report(str)
+#define SL_ERROR_TRACE1(msg_id,str,p1)                  Report(str,(p1))
+#define SL_ERROR_TRACE2(msg_id,str,p1,p2)               Report(str,(p1),(p2))
+#define SL_ERROR_TRACE3(msg_id,str,p1,p2,p3)            Report(str,(p1),(p2),(p3))
+#define SL_ERROR_TRACE4(msg_id,str,p1,p2,p3,p4)         Report(str,(p1),(p2),(p3),(p4))
 #define SL_TRACE_FLUSH()
 #else
 #define SL_TRACE0(level,msg_id,str)
