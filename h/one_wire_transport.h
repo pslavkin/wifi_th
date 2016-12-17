@@ -24,14 +24,15 @@ extern const State** 	One_Wire_Transport		(void);
 extern void 		Reload_One_Wire_Codes		(void);
 extern void 		Send_Temp2Tcp			(void);
 extern unsigned char 	One_Wire_Bin2Ascci		(unsigned char Node,unsigned char *Buf);
-extern signed int 	One_Wire_Bin			(unsigned char Pos);
+extern signed short int One_Wire_Bin			(unsigned char Pos);
 extern void 		Begin_Send_One_Wire_Info2Tcp	(void);
 extern void 		Send_Next_One_Wire_Info2Tcp	(void);
+extern void 		Send_One_Wire_Info2Tcp		(void);
 extern unsigned char 	Convert_Node_Bin2Ascci		(unsigned char Node,unsigned char* Buf);
 extern void 		One_Wire_T2Tcp			(unsigned char Node);
 //------------------------------------------------------ 
-extern void 		Refresh_Reload_One_Wire_Nodes_TOut		(unsigned int Time);
-extern void 		Save_Reload_One_Wire_Nodes_TOut			(unsigned int TOut);
+extern void 		Refresh_Reload_One_Wire_Nodes_TOut		(unsigned short int Time);
+extern void 		Save_Reload_One_Wire_Nodes_TOut			(unsigned short int TOut);
 extern void 		Save_Reload_One_Wire_Nodes_TOut4Loaded_Int	(void);
 extern void 		Send_Reload_One_Wire_Nodes_TOut2Tcp		(void);
 //------------------------------------------------------ 

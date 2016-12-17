@@ -13,13 +13,15 @@
 #include "flash.h"
 #include "debug.h"
 #include "string.h"
+#include "one_wire_transport.h"
 
 static const State   
 	Welcome[],
 	Info[],
 	Network[],
 	Virtual_Buttons[],
-	File_System[];
+	File_System[],
+	Temp[];
 
 const State* 		Wifi_Session_Sm;
 const State* 		Wifi_Session_App(void)	{return Welcome;}
@@ -42,6 +44,7 @@ unsigned char Welcome_Help_Data[]=
 "B Network\r\n"
 "C Buttons\r\n"
 "D File System\r\n"
+"E Temperature\r\n"
 "? Help\r\n"
 };
 unsigned char Info_Help_Data[]=
@@ -80,14 +83,31 @@ unsigned char File_System_Help_Data[]=
 "E Info File\r\n"
 "F Del File\r\n"
 "G Copy File\r\n"
+"H Append File\r\n"
 "< Back\r\n"
 "? Help\r\n"
+};
+unsigned char Temp_Help_Data[]=
+{
+"Temperature\r\n"
+"A View Temperature\r\n"
+"B Refresh Nodes\r\n"
+"C-Load Refresh Nodes Period\r\n"
+"D-View\r\n"
+"E-Save\r\n"
+"F-Actual\r\n"
+"G-Inc Delay\r\n"
+"H-Dec Delay\r\n"
+"I-Actual Delay\r\n"
+"? Help\r\n"
+"< Return\r\n"
 };
 //------------WELCOME----------------------------------------------------------------------------------------
 void  Welcome_A	(void)	{}
 void  Welcome_B	(void)	{}
 void  Welcome_C	(void)	{}
 void  Welcome_D	(void)	{}
+void  Welcome_E	(void)	{}
 //------------ INFO----------------------------------------------------------------------------------------
 void  Info_A		(void)	{Send_Data2Socket(SERIAL_ID,SERIAL_ID_LENGTH);}
 //------------ NETWORK----------------------------------------------------------------------------------------
@@ -170,7 +190,7 @@ void	File_System_H4Buff	(void)	{
 	else 	Send_Data2Socket4Sm("error\r\n",7);
 	DBG_WIFI_SESSION_PRINT("datos agregados en %s datos %s \r\n",Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE);
 }
-//------------------
+//--------------FILE SYSTEM----
 void	File_System_A		(void)	{Config2Save_Til_Enter(19,File_System_A4Buff,0);}	//19 maximo largo del nombre, uno mas para el '\0'
 void	File_System_B		(void)	{File_System_B4Buff();}
 void	File_System_C		(void)	{File_System_C4Buff();}
@@ -179,12 +199,26 @@ void	File_System_E		(void)	{File_System_E4Buff();}
 void	File_System_F		(void)	{File_System_F4Buff();}
 void	File_System_G		(void)	{File_System_G4Buff();}
 void	File_System_H		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_H4Buff,FILE_NAME_SIZE,'!');}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
+//--------------TEMPERATURE----
+void  	Temp_A4Buff  		(void)  {unsigned int  A=Dec_Bcd2Int(Actual_Rx_Buff4Sm());Send_Int_NLine2Socket(A);}
+//----------
+void	Temp_A		(void)	{Send_One_Wire_Info2Tcp();}
+void	Temp_B		(void)	{Reload_One_Wire_Codes();}
+void	Temp_C		(void)	{Config2Save(5,Temp_A4Buff);}
+void	Temp_D		(void)	{}
+void	Temp_E		(void)	{}
+void	Temp_F		(void)	{}
+void	Temp_G		(void)	{}
+void	Temp_H		(void)	{}
+void	Temp_I		(void)	{}
 //----------------------------------------------------------------------------------------------------
 void  Welcome_Help		(void)	{Send_Data2Socket(Welcome_Help_Data,		sizeof(Welcome_Help_Data)-1);}
 void  Info_Help			(void)	{Send_Data2Socket(Info_Help_Data,		sizeof(Info_Help_Data)-1);}
 void  Network_Help		(void)	{Send_Data2Socket(Network_Help_Data,		sizeof(Network_Help_Data)-1);}
 void  Virtual_Buttons_Help	(void)	{Send_Data2Socket(Virtual_Buttons_Help_Data,	sizeof(Virtual_Buttons_Help_Data)-1);}
 void  File_System_Help		(void)	{Send_Data2Socket(File_System_Help_Data,	sizeof(File_System_Help_Data)-1);}
+void  Temp_Help			(void)	{Send_Data2Socket(Temp_Help_Data,		sizeof(Temp_Help_Data)-1);}
+void  Send_Comm_Error		(void)  {Send_Data2Socket("Can't send data\r\n",17);}
 //----------------------------------------------------------------------------------------------------
 static const State Welcome[] =
 {
@@ -192,7 +226,9 @@ static const State Welcome[] =
  'B'				,Welcome_B					,Network,
  'C'				,Welcome_C					,Virtual_Buttons,
  'D'				,Welcome_D					,File_System,
+ 'E'				,Welcome_E					,Temp,
  '?'				,Welcome_Help					,Welcome,
+ Data_Sended_Event		,Send_Comm_Error				,Welcome,
  ANY_Event			,Rien						,Welcome,
 };
 static const State Info[] =
@@ -236,6 +272,32 @@ static const State File_System[] =
  '<'				,Rien 						,Welcome,
  '?'				,File_System_Help				,File_System,
  ANY_Event			,Rien						,File_System,
+};
+static const State Temp[] =
+{
+ 'A'				,Temp_A					,Temp, 
+ 'B'				,Temp_B					,Temp, 
+ 'C'				,Temp_C					,Temp, 
+ 'D'				,Temp_D					,Temp, 
+ 'E'				,Temp_E					,Temp, 
+ 'F'				,Temp_F					,Temp, 
+ 'G'				,Temp_G					,Temp, 
+ 'H'				,Temp_H					,Temp, 
+ 'I'				,Temp_I					,Temp, 
+ '<'				,Rien					,Welcome,
+ '?'				,Temp_Help				,Temp,
+ ANY_Event			,Rien					,Temp,
+
+// Data_Ready_Event		,Parse_Tcp_Packet_And_Restore_Emac		,Temp,
+// 'A'				,Begin_Send_One_Wire_Info2Tcp			,Sending_Tmp,
+// 'B'				,Reload_One_Wire_Codes				,Temp,
+// 'C'				,Load_Int4Tcp					,Temp,
+// 'D'				,Send_Loaded_Int2Tcp				,Temp,
+// 'E'				,Save_Reload_One_Wire_Nodes_TOut4Loaded_Int	,Temp,
+// 'F'				,Send_Reload_One_Wire_Nodes_TOut2Tcp		,Temp,
+// 'G'				,Inc_One_Wire_Read_Delay			,Temp,
+// 'H'				,Dec_One_Wire_Read_Delay			,Temp,
+// 'I'				,Send_One_Wire_Read_Delay2Tcp			,Temp,
 };
 //----------------------------------------------------------------------------------------------------
 

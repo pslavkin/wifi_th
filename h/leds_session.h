@@ -38,6 +38,20 @@ struct Led_Effect_Struct
   void (*Off_Function)(void);
  };
 //---------------------------------------------------------
+extern void Led_Run_Off		(void);
+extern void Led_Run_On		(void);
+extern void Led_TR_Off		(void);
+extern void Led_TR_On		(void);
+extern void Led_TG_Off		(void);
+extern void Led_TG_On		(void);
+extern void Led_TB_Off		(void);
+extern void Led_TB_On		(void);
+extern void Led_THR_Off		(void);
+extern void Led_THR_On		(void);
+extern void Led_THG_Off		(void);
+extern void Led_THG_On		(void);
+extern void Led_THB_Off		(void);
+extern void Led_THB_On		(void);
 
 #endif
 

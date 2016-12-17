@@ -43,6 +43,14 @@ void Connect2Pyj(void)
 	 //Set_Led_Effect		(Led1,0x0000);
 	 Turn_On_Wifi		(); 
 }
+void Connect2Dci(void)
+{
+	 Set_Ssid_Name		("DCI",3);
+	 Set_Security_Key	("DisenioconingeniO",17);
+	 DBG_WIFI_PHISICAL_PRINT("Wifi_dci\r\n"); 
+	 //Set_Led_Effect		(Led1,0x0000);
+	 Turn_On_Wifi		(); 
+}
 //------------------------------------------------------------------
 void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
 {
@@ -158,7 +166,8 @@ void 		Init_Wifi_Phisical	(void)
 { 
  Wifi_Phisical_Sm=Start_State;
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
- Connect2Pyj();
+// Connect2Pyj();
+ Connect2Dci();
 }	
 void Clear_SSID_BSSID(void)
 {

@@ -69,9 +69,9 @@ struct Led_Effect_Struct Led_Effects[]=
  {0x8800,0x800A,Led_TR_On	,Led_TR_Off},
  {0x8080,0x80A0,Led_TG_On	,Led_TG_Off},
  {0x8008,0x8A00,Led_TB_On	,Led_TB_Off},
- {0x8800,0x800A,Led_THR_On	,Led_THR_Off},
- {0x8080,0x80A0,Led_THG_On	,Led_THG_Off},
- {0x8008,0x8A00,Led_THB_On	,Led_THB_Off},
+ {0x0000,0x800A,Led_THR_On	,Led_THR_Off},
+ {0x0000,0x80A0,Led_THG_On	,Led_THG_Off},
+ {0x0000,0x8A00,Led_THB_On	,Led_THB_Off},
 };
 void Set_Led_Effect		(unsigned char Led,unsigned int Effect)		{Led_Effects[Led].Effect=Led_Effects[Led].Temp_Effect=Effect;}
 void Set_Temp_Led_Effect	(unsigned char Led,unsigned int Effect)		{Led_Effects[Led].Temp_Effect=Effect;}

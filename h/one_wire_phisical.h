@@ -34,13 +34,10 @@ enum One_Wire_DS1990_Network_Command
 };
 
 //----------------------------------
-#define ONE_WIRE_BUS_LO()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x00))
-#define ONE_WIRE_BUS_HI()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10))
-#define ONE_WIRE_BUS_HIZ()	(MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10))	//es lo mismo que HI, porque el pin esta como open drain
-#define STRONG_PULLUP()		(1) 
-			//	MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10),\
-			//	MAP_PinTypeGPIO(PIN_03,PIN_MODE_0,false),\
-			//	MAP_PinTypeGPIO(PIN_03,PIN_MODE_0,true))  	//primerp lo pongo en 1,//despues lo pongo en modo push pull//y por ultimo a open drain
+#define ONE_WIRE_BUS_LO()	(MAP_GPIODirModeSet(GPIOA1_BASE,0x10,GPIO_DIR_MODE_OUT),MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x00))
+#define ONE_WIRE_BUS_HI()	(MAP_GPIODirModeSet(GPIOA1_BASE,0x10,GPIO_DIR_MODE_OUT),MAP_GPIOPinWrite(GPIOA1_BASE,0x10,0x10))
+#define ONE_WIRE_BUS_HIZ()	(MAP_GPIODirModeSet(GPIOA1_BASE,0x10,GPIO_DIR_MODE_IN))
+#define STRONG_PULLUP()		(ONE_WIRE_BUS_HI(),ONE_WIRE_BUS_HIZ())
 #define ONE_WIRE_BUS_READ()	(MAP_GPIOPinRead(GPIOA1_BASE,0x10)!=0x00) 
 //------------------------------------------------------ 
 extern void 		Init_One_Wire_Phisical		(void);

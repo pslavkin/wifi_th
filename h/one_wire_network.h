@@ -28,8 +28,8 @@ enum One_Wire_Network_Events
 typedef struct Rom_Codes_Struct
 {
  unsigned char Code[8];		//guarda el cogido del nodo...
- unsigned int T;		//guarda la temperatura actual del nodo, 
- unsigned int V;		//guarda la tension medida en el modelo DS2438
+ unsigned short int T;		//guarda la temperatura actual del nodo, 
+ unsigned short int V;		//guarda la tension medida en el modelo DS2438
  unsigned char Crc;		//guarda la tension medida en el modelo DS2438
 };
 //------------------------------------------------------ 
@@ -47,13 +47,13 @@ extern void 		Broadcast_V		(void);
 extern void 		Broadcast_T		(void);	
 extern void 		Broadcast_Recall_Page0	(void);
 //----------------- ALL -------------------------------
-extern unsigned char 	On_Line_Nodes		(void);
-extern unsigned char 	Family_Code		(unsigned char Node);
-extern void 		Print_Rom_Codes		(void);
-extern void 		Search_Codes		(void);
-extern unsigned int 	Convert_Nodes_Bin2Ascci	(unsigned char* Buf);
-extern unsigned char 	Read_One_Wire_Crc	(unsigned char Node);
-extern unsigned int 	Read_One_Wire_T		(unsigned char Node);
+extern unsigned char 		On_Line_Nodes		(void);
+extern unsigned char 		Family_Code		(unsigned char Node);
+extern void 			Print_Rom_Codes		(void);
+extern void 			Search_Codes		(void);
+extern unsigned short int 	Convert_Nodes_Bin2Ascci	(unsigned char* Buf);
+extern unsigned char 		Read_One_Wire_Crc	(unsigned char Node);
+extern unsigned short int 	Read_One_Wire_T		(unsigned char Node);
 //------------------DS18S20------------------------------------ 
 extern void 		Read_DS18S20_Scratchpad		(unsigned char Node);
 extern void 		Calculate_DS18S20_12Bit_T	(unsigned char Node);
