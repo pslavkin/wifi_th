@@ -27,6 +27,7 @@ extern unsigned int 	Read_Schedule_TOut			(unsigned int Event,const State** Mach
 //------------------------------------------------------------------------
 extern void 		New_None_Periodic_Func_Schedule		(unsigned int Time_Out,void (*Func)(void));
 extern void 		New_Periodic_Func_Schedule		(unsigned int Time_Out,void (*Func)(void));
+extern void 		New_Offset_Periodic_Func_Schedule	(unsigned long First_Time_Out,unsigned long Next_Time_Out,void (*Func)(void));
 extern void 		Pause_Func_Schedule			(void (*Func)(void));
 extern unsigned char 	Resume_Func_Schedule			(void (*Func)(void));
 extern void 		Free_Func_Schedule			(void (*Func)(void));

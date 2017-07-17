@@ -45,6 +45,7 @@ void Init_One_Wire_Transport(void)
  Set_State(Searching_Rom_Codes,One_Wire_Transport());
  New_None_Periodic_Schedule(50,Timeout_1Sec_Event,One_Wire_Transport());	//2 segs
 // if(Reload_One_Wire_Nodes_TOut) New_Periodic_Func_Schedule(10*Reload_One_Wire_Nodes_TOut,Reload_One_Wire_Codes);
+ Init_Tmp_Control();
 }
 //------------------------------------------------------------------
 void Refresh_Reload_One_Wire_Nodes_TOut		(unsigned short int Time)			{if(Time) Update_Func_Schedule(10*Time,Reload_One_Wire_Codes); else Free_Func_Schedule(Reload_One_Wire_Codes);}

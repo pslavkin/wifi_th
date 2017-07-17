@@ -139,6 +139,11 @@ void New_Periodic_Func_Schedule(unsigned int Time_Out,void (*Func)(void))    //e
  if((i=Search_Schedule_Index())<MAX_SCHEDULE_INDEX)
    Add_Schedule(i,Time_Out,Time_Out,Invalid_Event,Empty_Sm(),Func,1);	//como se pasa el parametro Sm_Func en uno, se refiere a un schedul de funcion, con lo cual el parametro Empty_SM(), no se usa!!...
 }
+void 		New_Offset_Periodic_Func_Schedule		(unsigned long First_Time_Out,unsigned long Next_Time_Out,void (*Func)(void))
+{
+ unsigned char i=Search_Schedule_Index();
+ if(i<MAX_SCHEDULE_INDEX) Add_Schedule(i,Next_Time_Out,First_Time_Out,Invalid_Event,Empty_Sm(),Func,1);
+}
 
 void Pause_Func_Schedule			(void (*Func)(void))						
 {
