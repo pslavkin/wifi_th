@@ -134,12 +134,14 @@ void Client_Connected	(void)
 	DBG_WIFI_SOCKET_PRINT("---->Client Connected sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
 	Set_Actual_App4Sm(Wifi_Session_App());									//una vez conectado le asigno la app.. lo hago aca para no hcerlo cada vez que intento conectarme al server... 
 	Set_Led_Effect(Led_Run,0xFFFF);
+	Set_Temp_Led_Effect(Buzzer,0x0001);
 	Set_Schedule4Sm(2);
 }
 void Server_Connected	(void) 	
 {
 	DBG_WIFI_SOCKET_PRINT("---->Server Connected sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
 	Set_Led_Effect(Led_Run,0xFFFF);
+	Set_Temp_Led_Effect(Buzzer,0x0001);
 	Set_Schedule4Sm(2);
 }
 void Server_Binded	(void)	{DBG_WIFI_SOCKET_PRINT("---->Server Binded sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());}
@@ -161,6 +163,7 @@ void Close_Socket	(void)
 	Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell
         sl_Close(Actual_Sd4Sm());
 	Set_Schedule4Sm(10);
+	Set_Temp_Led_Effect(Buzzer,0x0005);
 	if(Number_Of_Socket_Opened()==0) Set_Led_Effect(Led_Run,0xA800);	//si no quedo ningn socket abierto, 3 pulsos..
 }
 void Unwanted_Close_Socket(void)

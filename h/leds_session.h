@@ -28,7 +28,8 @@ enum Leds_Position
  Led_TB		=3,
  Led_THR	=4,
  Led_THG	=5,
- Led_THB	=6
+ Led_THB	=6,
+ Buzzer		=7
 };
 struct Led_Effect_Struct
  {

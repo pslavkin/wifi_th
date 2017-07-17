@@ -47,21 +47,28 @@ void Init_Leds(void)
     MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA3, 	PRCM_RUN_MODE_CLK);
     MAP_PinTypeGPIO		(PIN_20,	PIN_MODE_0, 	false);
     MAP_GPIODirModeSet		(GPIOA3_BASE, 	0x20, 		GPIO_DIR_MODE_OUT);
+	
+	//Buzzer 
+    MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA3, 	PRCM_RUN_MODE_CLK);
+    MAP_PinTypeGPIO		(PIN_53,	PIN_MODE_0, 	false);
+    MAP_GPIODirModeSet		(GPIOA3_BASE, 	0x40, 		GPIO_DIR_MODE_OUT);
 }
-void Led_Run_Off(void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x00);}
-void Led_Run_On	(void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x80);}
-void Led_TR_Off(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x02,0x02);}
-void Led_TR_On	(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x02,0x00);}
-void Led_TG_Off(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x04,0x04);}
-void Led_TG_On	(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x04,0x00);}
-void Led_TB_Off(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x08,0x08);}
-void Led_TB_On	(void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x08,0x00);}
-void Led_THR_Off(void)	{MAP_GPIOPinWrite(GPIOA2_BASE,0x40,0x40);}
-void Led_THR_On	(void)	{MAP_GPIOPinWrite(GPIOA2_BASE,0x40,0x00);}
-void Led_THG_Off(void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x10,0x10);}
-void Led_THG_On	(void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x10,0x00);}
-void Led_THB_Off(void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x20,0x20);}
-void Led_THB_On	(void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x20,0x00);}
+void Led_Run_Off (void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x00);}
+void Led_Run_On	 (void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x80);}
+void Led_TR_Off  (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x02,0x02);}
+void Led_TR_On	 (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x02,0x00);}
+void Led_TG_Off  (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x04,0x04);}
+void Led_TG_On	 (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x04,0x00);}
+void Led_TB_Off  (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x08,0x08);}
+void Led_TB_On	 (void)	{MAP_GPIOPinWrite(GPIOA1_BASE,0x08,0x00);}
+void Led_THR_Off (void)	{MAP_GPIOPinWrite(GPIOA2_BASE,0x40,0x40);}
+void Led_THR_On	 (void)	{MAP_GPIOPinWrite(GPIOA2_BASE,0x40,0x00);}
+void Led_THG_Off (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x10,0x10);}
+void Led_THG_On	 (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x10,0x00);}
+void Led_THB_Off (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x20,0x20);}
+void Led_THB_On	 (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x20,0x00);}
+void Buzzer_Off  (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x40,0x00);}
+void Buzzer_On	 (void)	{MAP_GPIOPinWrite(GPIOA3_BASE,0x40,0x40);}
 //-------------------------------------------------------------------
 struct Led_Effect_Struct Led_Effects[]=
 {
@@ -72,6 +79,7 @@ struct Led_Effect_Struct Led_Effects[]=
  {0x0000,0x800A,Led_THR_On	,Led_THR_Off},
  {0x0000,0x80A0,Led_THG_On	,Led_THG_Off},
  {0x0000,0x8A00,Led_THB_On	,Led_THB_Off},
+ {0x0000,0x0000,Buzzer_On	,Buzzer_Off},
 };
 void Set_Led_Effect		(unsigned char Led,unsigned int Effect)		{Led_Effects[Led].Effect=Led_Effects[Led].Temp_Effect=Effect;}
 void Set_Temp_Led_Effect	(unsigned char Led,unsigned int Effect)		{Led_Effects[Led].Temp_Effect=Effect;}

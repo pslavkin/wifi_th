@@ -42,6 +42,7 @@ void Ip_Acquire(void)
 	g_ulGatewayIP 				= pEventData->gateway;
 	DBG_WIFI_NETWORK_PRINT			("IP=%d.%d.%d.%d,Gateway=%d.%d.%d.%d\n\r", SL_IPV4_BYTE(g_ulIpAddr,3), SL_IPV4_BYTE(g_ulIpAddr,2), SL_IPV4_BYTE(g_ulIpAddr,1), SL_IPV4_BYTE(g_ulIpAddr,0), SL_IPV4_BYTE(g_ulGatewayIP,3), SL_IPV4_BYTE(g_ulGatewayIP,2), SL_IPV4_BYTE(g_ulGatewayIP,1), SL_IPV4_BYTE(g_ulGatewayIP,0));
 	Atomic_Send_Event2All_Sockets(Ip_Acquired_Event);
+	Set_Temp_Led_Effect(Buzzer,0x000D);
 	Set_Led_Effect(Led_Run,0xA800);		//3 pulsos
 }
 unsigned int Read_Actual_Ip(void)	{return g_ulIpAddr;}

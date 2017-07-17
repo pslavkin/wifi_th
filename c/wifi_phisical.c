@@ -166,8 +166,8 @@ void 		Init_Wifi_Phisical	(void)
 { 
  Wifi_Phisical_Sm=Start_State;
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
-// Connect2Pyj();
- Connect2Dci();
+ Connect2Pyj();
+// Connect2Dci();
 }	
 void Clear_SSID_BSSID(void)
 {
