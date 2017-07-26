@@ -73,6 +73,13 @@ void 			Check_Rom_Codes_Crc	(void)
  for(Codes=Actual_Code;Codes && One_Wire_Crc(Rom_Codes[Codes-1].Code,sizeof(Rom_Codes[0].Code));Codes--);	//revisa el CRC de toda la lista. Si todos estan ok, Codes sale encero...
  Atomic_Send_Event(Codes?Crc_Fail_Event:Crc_Ok_Event,One_Wire_Network());
 }
+
+unsigned char* Temp2_Fix_Point_Bcd(unsigned char* Buf, unsigned char Code)
+{
+  Signed_Int2_2Dec_Fix_Point_Bcd(Buf,Rom_Codes[Code].T);
+  return Buf;
+}
+
 //------------------------- DS18S20 ----------------------------------
 void Read_DS18S20_Scratchpad	(unsigned char Node)			
 {

@@ -8,7 +8,7 @@ if [ -f ../exe/app$NAME.bin ];
  then 
 	echo "Ok, inicio programacion"
 	cp ../exe/app$NAME.bin ../exe/app.bin
-	/opt/ti/uniflash_3.4/uniflashCLI.sh  -config ./cc3200.usf -setOptions com=167 -operation program
+	/opt/ti/uniflash_3.4/uniflashCLI.sh  -config ./cc3200.usf -setOptions com=0 -operation program
  else
 	echo "Nop, esta version no esta disponible"
  fi

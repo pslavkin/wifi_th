@@ -78,7 +78,7 @@ CFLAGS=-mthumb             \
        -std=c99            \
        -O0 		   \
        -g 		   \
-	-c
+       -c
 
 #
 # The command for calling the library archiver.

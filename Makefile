@@ -67,6 +67,8 @@ ${BINDIR}/app.axf: ${OBJDIR}/one_wire_network.o
 ${BINDIR}/app.axf: ${OBJDIR}/one_wire_transport.o
 ${BINDIR}/app.axf: ${OBJDIR}/tmp_control.o
 
+${BINDIR}/app.axf: ${OBJDIR}/ubidots.o
+
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_socket.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_network.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_session.o

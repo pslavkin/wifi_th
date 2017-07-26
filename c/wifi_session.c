@@ -47,6 +47,7 @@ unsigned char Welcome_Help_Data[]=
 "C Buttons\r\n"
 "D File System\r\n"
 "E Temperature\r\n"
+"F Temp Control\r\n"
 "? Help\r\n"
 };
 unsigned char Info_Help_Data[]=

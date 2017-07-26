@@ -33,6 +33,6 @@ void Init_Wdog(void)
     	MAP_WatchdogUnlock		(WDT_BASE);					//unclock para programar
 	MAP_IntPrioritySet		(INT_WDT,	INT_PRIORITY_LVL_1);
         MAP_WatchdogIntRegister		(WDT_BASE,	Wdog_Handler);
-    	MAP_WatchdogReloadSet		(WDT_BASE,	MILLISECONDS_TO_TICKS(10000)); //estaba en 2000, estoy probando unas cosas, lo pongo en 10000
-//	MAP_WatchdogEnable		(WDT_BASE); 					// Start the timer. Once the timer is started, it cannot be disable.
+    	MAP_WatchdogReloadSet		(WDT_BASE,	MILLISECONDS_TO_TICKS(2000)); //estaba en 2000, estoy probando unas cosas, lo pongo en 10000
+	MAP_WatchdogEnable		(WDT_BASE); 					// Start the timer. Once the timer is started, it cannot be disable.
 }

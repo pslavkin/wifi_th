@@ -16,7 +16,7 @@ extern void InitializeAppVariables();
 #define MAX_SOCKETS 	(MAX_CLIENTS+MAX_BIND+MAX_SERVERS)
 #define MAX_CLIENTS 	1
 #define MAX_BIND 	1		
-#define MAX_SERVERS 	2
+#define MAX_SERVERS 	1
 #define PORT_BASE       49152 
 //------------------------------------------------------------------------------------                         
 #define SOCKET_RX_BUF_SIZE 1000
@@ -54,7 +54,8 @@ enum Wifi_Socket_Event_Code	{
 					Server_Event			= 0x0D0C, 
 				       	Server_Binded_Event		= 0x0D0D, 
 				       	Begin_Save_Event		= 0x0D0E,
-				       	Save_Ready_Event		= 0x0D0F
+				       	Save_Ready_Event		= 0x0D0F,
+				       	Close_Socket_Event		= 0x0D10
 	    	};
 //-----------------------------------------------------------
 extern void 		Wifi_Socket_Rti			(void);
@@ -96,7 +97,7 @@ extern void 		Set_Actual_Rx_Func4App		(void (*Func)(void));
 extern void 		Set_Actual_Rx_Length4App	(unsigned int Length);
 extern int  		Set_Actual_Sd4Sm		(int Sd);
 extern const State* 	Set_Actual_App4Sm		(const State* App);
-extern void 		Set_Schedule4Sm			(unsigned char TOut);	
+extern void 		Set_Schedule4Sm			(unsigned int TOut);	
 extern void 		Send_Data2Socket4Sm		(unsigned char* Buf,unsigned int Length);
 extern void 		Send_Data2Socket		(unsigned char* Buf,unsigned int Length);
 extern void 		Resend_Byte2Session		(void);

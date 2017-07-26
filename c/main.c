@@ -52,7 +52,7 @@ void main()
 
     for(;;)
 	{
-	//	Wdog_Clear();
+		Wdog_Clear();
 		State_Machine();
 	}	
 }

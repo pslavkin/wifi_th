@@ -14,6 +14,7 @@
 #include "type_conversion.h"
 #include "leds_session.h"
 #include "debug.h"
+#include "ubidots.h"
 
 
 static const State   
@@ -86,9 +87,10 @@ void Connect2Server		(void)
 	long lNonBlocking 	= 1; 
 	sAddr.sin_family 	= SL_AF_INET;
 	sAddr.sin_port 		= sl_Htons(Actual_Port4Sm());
-	sAddr.sin_addr.s_addr 	= sl_Htonl((Read_Actual_Ip()&0xFFFFFF00)+100);
+	sAddr.sin_addr.s_addr 	= sl_Htonl(0x32177C44); //ubidots
+//	sAddr.sin_addr.s_addr 	= sl_Htonl((Read_Actual_Ip()&0xFFFFFF00)+100);
 	iAddrSize 		= sizeof(SlSockAddrIn_t);
-	DBG_WIFI_SOCKET_PRINT	("---->Try connect server ip: %d sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
+	DBG_WIFI_SOCKET_PRINT	("---->Try connect server ip: ubidots sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
 	iStatus 		= sl_SetSockOpt(Actual_Sd4Sm(), SL_SOL_SOCKET, SL_SO_NONBLOCKING, &lNonBlocking, sizeof(lNonBlocking)); //configura el socket como no bloqueante, clave!
 	iStatus 		= sl_Connect(Actual_Sd4Sm(), ( SlSockAddr_t *)&sAddr, iAddrSize);
 	Atomic_Send_Event(iStatus<0?Server_Fail_Event:Server_Connected_Event,Actual_Sm());
@@ -122,7 +124,7 @@ void Listen_Bind		(void)
 			if(iNewSockID>=0) {
 				Set_Actual_Sd4Sm(iNewSockID);
 				Set_Actual_Port4Sm(Socket_List[i].Port);
-				Set_Actual_App4Sm(Wifi_Session_App());
+//				Set_Actual_App4Sm(Wifi_Session_App());
 				DBG_WIFI_SOCKET_PRINT("---->Accepted Bind sd: %d <-> sd: %d port: %d\r\n",Socket_List[i].Sd,Actual_Sd4Sm(),Actual_Port4Sm());
 				Atomic_Send_Event(Server_Connected_Event,Actual_Sm());
 				return;
@@ -132,9 +134,10 @@ void Listen_Bind		(void)
 void Client_Connected	(void) 	
 {
 	DBG_WIFI_SOCKET_PRINT("---->Client Connected sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
-	Set_Actual_App4Sm(Wifi_Session_App());									//una vez conectado le asigno la app.. lo hago aca para no hcerlo cada vez que intento conectarme al server... 
+//	Set_Actual_App4Sm(Wifi_Session_App());									//una vez conectado le asigno la app.. lo hago aca para no hcerlo cada vez que intento conectarme al server... 
 	Set_Led_Effect(Led_Run,0xFFFF);
 	Set_Temp_Led_Effect(Buzzer,0x0001);
+	Atomic_Send_Event(Send_Temp_Hum_Event,Actual_App4Sm()); //le mando una 'A' para que haga algo../ubidots
 	Set_Schedule4Sm(2);
 }
 void Server_Connected	(void) 	
@@ -160,9 +163,9 @@ void Close_Socket	(void)
 	DBG_WIFI_SOCKET_PRINT("---->Socket Closed sd: %d\n\r",Actual_Sd4Sm());
 	Free_All_Event_Listener(Actual_App4Sm());	//elimino cualquier lista de eventos pendientes...
 	Free_All_Schedule(Actual_App4Sm());		//tambien elimino las schedules pendientes que haya tgenerado la app...
-	Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell
+	//Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell creo que nunca puede pasar porque una vez que cierro el socket cambio de estado.. y en el estado nuevo no reenvio a app...
         sl_Close(Actual_Sd4Sm());
-	Set_Schedule4Sm(10);
+	Set_Schedule4Sm(600);
 	Set_Temp_Led_Effect(Buzzer,0x0005);
 	if(Number_Of_Socket_Opened()==0) Set_Led_Effect(Led_Run,0xA800);	//si no quedo ningn socket abierto, 3 pulsos..
 }
@@ -173,7 +176,7 @@ void Unwanted_Close_Socket(void)
 	Free_All_Schedule(Actual_App4Sm());		//tambien elimino las schedules pendientes que haya tgenerado la app...
 	Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell
         sl_Close(Actual_Sd4Sm());       
-	Set_Schedule4Sm(10);
+	Set_Schedule4Sm(100);
 	//el estado de los leds en este caso lo maneja wifi_phisical...
 }
 void Reset_Sd				(void)
@@ -299,7 +302,7 @@ unsigned int	Actual_Rx_Length4Sm		(void)			{return  ((struct Socket_Struct*)Actu
 unsigned int*	Actual_Rx_PPos4Sm		(void)			{return &((struct Socket_Struct*)Actual_Sm())->Rx_Pos;}
 unsigned char*	Actual_Rx_Buff4App		(void)			{return  ((struct Socket_Struct*)Actual_Sm4App())->Rx_Buff;}
 void 		(*Actual_Rx_Func4Sm		(void))	(void)		{return  ((struct Socket_Struct*)Actual_Sm())->Rx_Func;}
-void 		Set_Schedule4Sm			(unsigned char TOut)	{Update_Schedule(TOut,Rti_Event,Actual_Sm());}
+void 		Set_Schedule4Sm			(unsigned int TOut)	{Update_Schedule(TOut,Rti_Event,Actual_Sm());}
 void 		Set_Actual_Rx_Func4App		(void(*Func)(void))	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Func=Func;}
 void 		Set_Actual_Rx_Length4App	(unsigned int Length)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Length=Length;}
 void 		Set_Rx_Pos4App			(unsigned int Pos)	{        ((struct Socket_Struct*)Actual_Sm4App())->Rx_Pos=Pos;}
@@ -315,9 +318,9 @@ void 		Init_Wifi_Socket		(void)
 	unsigned char i,j=0;
 	for(i=0;i<MAX_CLIENTS;i++,j++){
 		Socket_List[j].Sm	=C_Closed;
-		Socket_List[j].App	=Empty_App();
+		Socket_List[j].App	=Ubidots_App();
 		Socket_List[j].Sd	=0;
-		Socket_List[j].Port	=PORT_BASE+i;
+		Socket_List[j].Port	=80;//PORT_BASE+i; //test ubidots
 		New_Periodic_Schedule	(100,Rti_Event,		Wifi_Socket(j));
 	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
 	}
@@ -331,7 +334,7 @@ void 		Init_Wifi_Socket		(void)
 	}
 	for(i=0;i<MAX_SERVERS;i++,j++){
 		Socket_List[j].Sm	=S_Closed;
-		Socket_List[j].App	=Empty_App();
+		Socket_List[j].App	=Wifi_Session_App();
 		Socket_List[j].Sd	=0;
 		New_Periodic_Schedule	(20,Rti_Event,		Wifi_Socket(j));
 	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
@@ -386,6 +389,7 @@ static const State C_Connected[] =
  Receiving_Data_Error_Event	,Close_Socket			,C_Opening,
  Data_Sended_Event		,Print_Data_Sended		,C_Connected,
  SL_SOCKET_TX_FAILED_EVENT	,Close_Socket			,C_Opening,
+ Close_Socket_Event		,Close_Socket			,C_Opening,
  Print_State_Event		,Print_Connected		,C_Connected,
  ANY_Event			,Rien				,C_Connected,
 };

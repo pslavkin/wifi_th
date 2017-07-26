@@ -67,5 +67,6 @@ extern void 		Read_DS2834_Scratchpad_Page	(unsigned char Node,unsigned char Page
 extern void 		Calculate_DS2834_T_V		(unsigned char Node);
 extern unsigned char 	DS2438_Convert_Bin2Ascci_T_V	(unsigned char* Destiny,unsigned char Code);
 //------------------------------------------------------ 
+extern unsigned char* 	Temp2_Fix_Point_Bcd		(unsigned char* Buf, unsigned char Code);
 
 #endif
