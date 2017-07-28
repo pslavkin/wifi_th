@@ -87,6 +87,7 @@ unsigned char File_System_Help_Data[]=
 "F Del File\r\n"
 "G Copy File\r\n"
 "H Append File\r\n"
+"I Read Hexa File\r\n"
 "< Back\r\n"
 "? Help\r\n"
 };
@@ -201,15 +202,24 @@ void	File_System_H4Buff	(void)	{
 	else 	Send_Data2Socket4Sm("error\r\n",7);
 	DBG_WIFI_SESSION_PRINT("datos agregados en %s datos %s \r\n",Actual_Rx_Buff4Sm(),Actual_Rx_Buff4Sm()+FILE_NAME_SIZE);
 }
+void	File_System_I4Buff	(void)	{
+	signed long Ret;
+	unsigned char Buf[MAX_FILE_LENGTH];
+	Ret=File_Read(Actual_Rx_Buff4App(),Buf,0,MAX_FILE_LENGTH); 		//pido para leer todo lo que pueda.. pero en realidad el fs.h es inteligente y me devuelve todo lo que tiene..
+	if(Ret>0) Send_Hex_Data2Socket(Buf,Ret);					//File_Read me dice cuando leyo exactamente..
+	Send_Data2Socket("EOF\r\n",5);
+	DBG_WIFI_SESSION_PRINT("Leyendo desde %s tamanio %d data %s \r\n",Actual_Rx_Buff4App(),Ret,Buf);
+}
 //--------------FILE SYSTEM----
 void	File_System_A		(void)	{Config2Save_Til_Enter(19,File_System_A4Buff,0);}	//19 maximo largo del nombre, uno mas para el '\0'
 void	File_System_B		(void)	{File_System_B4Buff();}
 void	File_System_C		(void)	{File_System_C4Buff();}
-void	File_System_D		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_D4Buff,FILE_NAME_SIZE,'!');}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
+void	File_System_D		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_D4Buff,FILE_NAME_SIZE,FILE_DATA_DELIMITER);}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
 void	File_System_E		(void)	{File_System_E4Buff();}
 void	File_System_F		(void)	{File_System_F4Buff();}
 void	File_System_G		(void)	{File_System_G4Buff();}
-void	File_System_H		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_H4Buff,FILE_NAME_SIZE,'!');}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
+void	File_System_H		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_H4Buff,FILE_NAME_SIZE,FILE_DATA_DELIMITER);}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...
+void	File_System_I		(void)	{File_System_I4Buff();}
 //--------------TEMPERATURE----
 void  	Temp_A4Buff  		(void)  {unsigned int  A=Dec_Bcd2Int(Actual_Rx_Buff4Sm());Send_Int_NLine2Socket(A);}
 //----------
@@ -284,6 +294,7 @@ static const State File_System[] =
  'F'				,File_System_F					,File_System, 	// borrar
  'G'				,File_System_G					,File_System, 	// copia a tmp
  'H'				,File_System_H					,File_System, 	// append
+ 'I'				,File_System_I					,File_System, 	// lee en hexa
  '<'				,Rien 						,Welcome,
  '?'				,File_System_Help				,File_System,
  ANY_Event			,Rien						,File_System,

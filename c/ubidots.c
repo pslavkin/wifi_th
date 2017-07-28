@@ -41,11 +41,11 @@ unsigned char Ubidots_Data[]=
 //------------WELCOME----------------------------------------------------------------------------------------
 static void  Welcome_A	(void)	
 {
-	static unsigned char H;
+	static unsigned char H=50;
 	Temp2_Fix_Point_Bcd(Ubidots_Data+16,0);
 	Ubidots_Data[16]=' ';
 	Ubidots_Data[17]=' ';
-	if(H++>100) H=0;
+	if(++H>=100) H=0;
 	Char2Bcd(Ubidots_Data+37,H);
 	if(Ubidots_Data[37]=='0') Ubidots_Data[37]=' ';
 	if(Ubidots_Data[38]=='0') Ubidots_Data[38]=' ';

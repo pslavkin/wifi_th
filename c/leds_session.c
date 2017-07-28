@@ -51,7 +51,7 @@ void Init_Leds(void)
 	//Buzzer 
     MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA3, 	PRCM_RUN_MODE_CLK);
     MAP_PinTypeGPIO		(PIN_53,	PIN_MODE_0, 	false);
-    MAP_GPIODirModeSet		(GPIOA3_BASE, 	0x40, 		GPIO_DIR_MODE_OUT);
+    //MAP_GPIODirModeSet		(GPIOA3_BASE, 	0x40, 		GPIO_DIR_MODE_OUT);
 }
 void Led_Run_Off (void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x00);}
 void Led_Run_On	 (void)	{MAP_GPIOPinWrite(GPIOA0_BASE,0x80,0x80);}

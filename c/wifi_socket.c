@@ -15,6 +15,7 @@
 #include "leds_session.h"
 #include "debug.h"
 #include "ubidots.h"
+#include "flash.h"
 
 
 static const State   
@@ -165,7 +166,7 @@ void Close_Socket	(void)
 	Free_All_Schedule(Actual_App4Sm());		//tambien elimino las schedules pendientes que haya tgenerado la app...
 	//Set_Actual_App4Sm(Empty_App());			//por mensajes pendientes.. a cantarle a gardell creo que nunca puede pasar porque una vez que cierro el socket cambio de estado.. y en el estado nuevo no reenvio a app...
         sl_Close(Actual_Sd4Sm());
-	Set_Schedule4Sm(600);
+	Set_Schedule4Sm(200);
 	Set_Temp_Led_Effect(Buzzer,0x0005);
 	if(Number_Of_Socket_Opened()==0) Set_Led_Effect(Led_Run,0xA800);	//si no quedo ningn socket abierto, 3 pulsos..
 }
@@ -228,6 +229,16 @@ void Send_Int2Socket4Sm		(unsigned int  Data)				{unsigned char Buf[5]; Send_Dat
 void Send_Char_NLine2Socket4Sm	(unsigned char Data)				{unsigned char Buf[5]; Send_Data2Socket4Sm(Char2Bcd_NLine	(Buf,Data),5);}
 void Send_Int_NLine2Socket4Sm	(unsigned int  Data)				{unsigned char Buf[7]; Send_Data2Socket4Sm(Int2Bcd_NLine	(Buf,Data),7);}
 //----------------------------------------------------------------------------------------------------
+void Send_Hex_Data2Socket(unsigned char* Buf,unsigned int Length)
+{
+ unsigned int i;
+ unsigned char HBuf[MAX_FILE_LENGTH*3];
+ for(i=0;i<Length;i++) {
+	Char2Hex_Bcd(HBuf+i*3,Buf[i]);
+	HBuf[i*3+2]=' ';
+ }
+ Send_Data2Socket(HBuf,Length*3);
+}
 void Send_Data2Socket(unsigned char* Buf,unsigned int Length)
 {
 	DBG_WIFI_SOCKET_PRINT("---->Data sended 4App2Sd sd: %d port: %d Length: %d\n\r",Actual_Sd4App(),Actual_Port4App(),Length);

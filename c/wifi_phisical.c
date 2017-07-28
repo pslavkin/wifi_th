@@ -105,7 +105,11 @@ void Try_Connect(void)
 	secParams.Type 		= SECURITY_TYPE;
 	DBG_WIFI_PHISICAL_PRINT("---->Try Connect\r\n");
 	Clear_SSID_BSSID();
- 	sl_NetAppStop(SL_NET_APP_HTTP_SERVER_ID); 			//por defecto el servicio http esta habilitado... waf?! lo apago...
+ 	lRetVal=sl_NetAppStop(SL_NET_APP_HTTP_SERVER_ID); 			//para asegurar el encendido hay que apagarlo y luego prenderlo.. 
+//	DBG_WIFI_PHISICAL_PRINT("---->Off Http %d\r\n",lRetVal);
+	
+ 	lRetVal=sl_NetAppStart(SL_NET_APP_HTTP_SERVER_ID); 			//prendo
+//	DBG_WIFI_PHISICAL_PRINT("---->On Http %d\r\n",lRetVal);
 	sl_WlanConnect(Ssid_Name, strlen(Ssid_Name), 0, &secParams, 0);
 	Set_Led_Effect(Led_Run,0x8000); 			//1 pulsos
 }

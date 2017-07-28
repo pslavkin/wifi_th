@@ -98,6 +98,7 @@ extern void 		Set_Actual_Rx_Length4App	(unsigned int Length);
 extern int  		Set_Actual_Sd4Sm		(int Sd);
 extern const State* 	Set_Actual_App4Sm		(const State* App);
 extern void 		Set_Schedule4Sm			(unsigned int TOut);	
+extern void 		Send_Hex_Data2Socket		(unsigned char* Buf,unsigned int Length);
 extern void 		Send_Data2Socket4Sm		(unsigned char* Buf,unsigned int Length);
 extern void 		Send_Data2Socket		(unsigned char* Buf,unsigned int Length);
 extern void 		Resend_Byte2Session		(void);
