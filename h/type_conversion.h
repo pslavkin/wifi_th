@@ -10,6 +10,7 @@
 extern unsigned char* 	Long2Bcd				(unsigned char* Bcd,unsigned long Bin);
 extern unsigned char* 	Int2Bcd					(unsigned char* Bcd,unsigned short int Bin);
 extern unsigned char* 	Char2Bcd				(unsigned char* Bcd,unsigned char Bin);
+extern unsigned char* 	Char2Hex_Bcd				(unsigned char* Bcd,unsigned char Bin);
 extern unsigned char* 	Char2Bcd_NLine				(unsigned char* Bcd,unsigned char Bin);
 extern unsigned char* 	Int2Bcd_NLine				(unsigned char* Bcd,unsigned short int Bin);
 extern unsigned char* 	Char2_2Digit_Dec_Bcd			(unsigned char* Bcd,unsigned char Bin);

@@ -11,6 +11,7 @@
 #include "parameters.h"
 #include "debug.h"
 #include "string.h"
+#include "one_wire_network.h"
 
 static const State   
 	Welcome[];

@@ -52,8 +52,6 @@ struct Socket_Struct
 }Socket_List[MAX_SOCKETS];
 
 //----------------------------------------------------------------------------------------------------
-void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pHttpEvent, SlHttpServerResponse_t *pHttpResponse) { }
-//----------------------------------------------------------------------------------------------------
 const State* Find_Sm4Sd(unsigned char Sd)
 {
 	unsigned char i;

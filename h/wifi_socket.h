@@ -4,12 +4,12 @@
 #include "state_machine.h"
 //----------------------------------------------------------------------------------------------------
 
-extern int BsdTcpClient();
-extern int BsdTcpServer(unsigned short usPort);
-extern long WlanConnect();              
-extern void DisplayBanner();            
-extern void BoardInit();                
-extern void InitializeAppVariables();   
+//extern int BsdTcpClient();
+//extern int BsdTcpServer(unsigned short usPort);
+//extern long WlanConnect();              
+//extern void DisplayBanner();            
+//extern void BoardInit();                
+//extern void InitializeAppVariables();   
 
 
 //en realidad se podrias hacer todo con un mismo puerto.. tabto el cliente hablar al puerto X como el servidor escuchar solo en el puerto X.. y las conexiones se ultiplexan por el puerto de salida...tampoco esta mal dejar un par de puertos abiertos por si esta opcipado uno... que se yo.. o aclaro porque creo que lo hice pensando que no se podia...

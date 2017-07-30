@@ -10,6 +10,7 @@
 #include "prcm.h"
 #include "debug.h"
 #include "leds_session.h"
+#include "http_session.h"
 
 static const State   
         Start_State[],
@@ -105,11 +106,6 @@ void Try_Connect(void)
 	secParams.Type 		= SECURITY_TYPE;
 	DBG_WIFI_PHISICAL_PRINT("---->Try Connect\r\n");
 	Clear_SSID_BSSID();
- 	lRetVal=sl_NetAppStop(SL_NET_APP_HTTP_SERVER_ID); 			//para asegurar el encendido hay que apagarlo y luego prenderlo.. 
-//	DBG_WIFI_PHISICAL_PRINT("---->Off Http %d\r\n",lRetVal);
-	
- 	lRetVal=sl_NetAppStart(SL_NET_APP_HTTP_SERVER_ID); 			//prendo
-//	DBG_WIFI_PHISICAL_PRINT("---->On Http %d\r\n",lRetVal);
 	sl_WlanConnect(Ssid_Name, strlen(Ssid_Name), 0, &secParams, 0);
 	Set_Led_Effect(Led_Run,0x8000); 			//1 pulsos
 }
@@ -152,6 +148,8 @@ void Stop(void)
 	PRCMMCUReset(1);
 }
 //----------------------------------------------------------------------------------------------------
+void Try_Connect_And_Send_Enable_Http		(void)		{Try_Connect();Atomic_Send_Event(Enable_Http_Event,Http_Session());}
+//----------------------------------------------------------------------------------------------------
 static void Print_Error_Start			(void)	{DBG_WIFI_PHISICAL_PRINT("---->Wlan Error Start\n\r");}
 static void Print_Error_Starting		(void)	{DBG_WIFI_PHISICAL_PRINT("---->Wlan Error Starting\n\r");}
 static void Print_Error_Net_Config		(void)	{DBG_WIFI_PHISICAL_PRINT("---->Wlan Error Net_Config\n\r");}
@@ -169,6 +167,7 @@ static void Print_Connected_State		(void)	{DBG_WIFI_PHISICAL_PRINT("---->Wlan Co
 void 		Init_Wifi_Phisical	(void) 
 { 
  Wifi_Phisical_Sm=Start_State;
+ Init_Http_Session();
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
  Connect2Pyj();
 // Connect2Dci();
@@ -208,7 +207,7 @@ static const State Net_Config_State[] =
 };
 static const State Re_Start_State[] =
 {
- 0				,Try_Connect					,Waiting_Connection,
+ 0				,Try_Connect_And_Send_Enable_Http		,Waiting_Connection,
  Rti_Event			,Rien						,Re_Start_State,
  Turn_Wifi_Off_Event		,Stop						,Start_State,
  Print_State_Event		,Print_Re_Start_State				,Re_Start_State,

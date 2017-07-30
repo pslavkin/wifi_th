@@ -28,8 +28,6 @@ static const State
 const State* 		Wifi_Session_Sm;
 const State* 		Wifi_Session_App(void)	{return Welcome;}
 //------------------------------------------------------------------
-static void Print_Welcome_State		(void)	{DBG_PRINT("---->Welcome State\n\r");}
-//------------------------------------------------------------------
 void 		Init_Wifi_Session	(void) 
 { 
  Wifi_Session_Sm=Welcome;

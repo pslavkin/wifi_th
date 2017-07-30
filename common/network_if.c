@@ -555,11 +555,11 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
 //! \return None
 //!
 //*****************************************************************************
-void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pSlHttpServerEvent, 
-                                SlHttpServerResponse_t *pSlHttpServerResponse)
-{
-
-}
+//void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pSlHttpServerEvent, 
+//                                SlHttpServerResponse_t *pSlHttpServerResponse)
+//{
+//
+//}
 
 
 //*****************************************************************************

@@ -18,6 +18,7 @@
 #include <debug.h>
 #include <string.h>
 #include <wifi_socket.h>
+#include <tmp_control.h>
 
 static const State
 	Searching_Rom_Codes[],

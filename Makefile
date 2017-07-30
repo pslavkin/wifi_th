@@ -69,6 +69,8 @@ ${BINDIR}/app.axf: ${OBJDIR}/tmp_control.o
 
 ${BINDIR}/app.axf: ${OBJDIR}/ubidots.o
 
+${BINDIR}/app.axf: ${OBJDIR}/http_session.o
+
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_socket.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_network.o
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_session.o

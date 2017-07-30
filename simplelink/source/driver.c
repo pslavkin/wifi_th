@@ -303,7 +303,7 @@ void _SlDrvHandleHttpServerEvents(SlHttpServerEvent_t *slHttpServerEvent, SlHttp
     }
 
 /* At last call the Application specific handler if registered */
-#ifdef sl_HttpServerCallback
+ifdef sl_HttpServerCallback
     sl_HttpServerCallback(slHttpServerEvent, slHttpServerResponse);
 #endif
 

@@ -5,6 +5,7 @@
 //------------------------------------------------------
 #define DBG_WIFI_NETWORK_PRINT 		Report
 #define DBG_WIFI_PHISICAL_PRINT 	Report
+#define DBG_HTTP_SESSION_PRINT 		Report
 #define DBG_WIFI_SOCKET_PRINT 		//Report
 #define DBG_WIFI_SESSION_PRINT 		//Report
 #define DBG_GCC_PRINT			Report
