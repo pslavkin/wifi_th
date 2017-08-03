@@ -1,3 +1,4 @@
+#include <string.h>
 #include "wlan.h"
 #include "uart_if.h"
 #include "common.h"
@@ -51,8 +52,8 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pHttpEvent, SlHttpServerR
 	switch (pHttpEvent->Event) {
 		case SL_NETAPP_HTTPGETTOKENVALUE_EVENT:
 			DBG_HTTP_SESSION_PRINT	("---->http Event: llego Get %s\r\n",pHttpEvent->EventData.httpTokenName.data);
-			if(!strcmp("__SL_G_XXY",pHttpEvent->EventData.httpTokenName.data)) {
-				DBG_HTTP_SESSION_PRINT	("---->http procesando XXY");
+			if(!strncmp("__SL_G_XXY",pHttpEvent->EventData.httpTokenName.data,pHttpEvent->EventData.httpTokenName.len)) {
+				DBG_HTTP_SESSION_PRINT	("---->http procesando XXY\r\n");
                 		unsigned char * ptr = pHttpResponse->ResponseData.token_value.data;
                 		ptr[0] = 'O';
                 		ptr[1] = 'K';
@@ -61,14 +62,22 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pHttpEvent, SlHttpServerR
                 break;
 		case SL_NETAPP_HTTPPOSTTOKENVALUE_EVENT:
 			{
-				DBG_HTTP_SESSION_PRINT	("---->http Event: llego post \r\n");
-//				DBG_HTTP_SESSION_PRINT	("---->http Event: llego post\r\n");
-//                		unsigned char * ptr = pHttpResponse->ResponseData.token_value.data;
-//                		ptr[0] = 'O';
-//                		ptr[1] = 'K';
- //               		pHttpResponse->ResponseData.token_value.len = 2;
-                	}
+				unsigned char T[5];
+				unsigned int Token;
+				DBG_HTTP_SESSION_PRINT	("---->http Event: llego post %s\r\n",pHttpEvent->EventData.httpPostData.token_name.data);
+				strncpy(T+2,(pHttpEvent->EventData.httpPostData.token_name.data)+7,3);
+				T[0]=T[1]='0';
+				Token=Dec_Bcd2Int(T);
+				switch (Token)	{
+					case 11:
+						DBG_HTTP_SESSION_PRINT	("---->http procesando 11 %s\r\n",pHttpEvent->EventData.httpPostData.token_value.data);
+						break;
+				}
+			}	
                 break;
+		default:
+				DBG_HTTP_SESSION_PRINT	("---->http Event: no se que llego...\r\n");
+		
 	}
  }
 //----------------------------------------------------------------------------------------------------
