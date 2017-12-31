@@ -12,5 +12,94 @@
       <RW>0x0</RW>
       <RO>0x0</RO>
    </Filename>
+   <Filename name="/cert/ca.pem">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/cert/client.pem">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/cert/private.key">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/macadd.bin">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/mode.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/ipcfg.ini">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/ap.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/devname.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/mdns.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/dhcpsrv.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/httpsrv.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/pref.net">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/smartconfigkeys.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/stacfg.ini">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/p2p.cfg">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="/sys/pmcfg.ini">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+<?   <Filename name="www/index.html">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename>
+   <Filename name="www/canvasjs.min.js">
+      <MAX>0x0</MAX>
+      <RW>0x0</RW>
+      <RO>0x0</RO>
+   </Filename> ?>
 </CC3xxx>
-

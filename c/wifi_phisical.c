@@ -52,6 +52,14 @@ void Connect2Dci(void)
 	 //Set_Led_Effect		(Led1,0x0000);
 	 Turn_On_Wifi		(); 
 }
+void Connect2Android_Ap(void)
+{
+	 Set_Ssid_Name		("AndroidAP",9);
+	 Set_Security_Key	("piedras689",10);
+	 DBG_WIFI_PHISICAL_PRINT("Wifi_Android\r\n"); 
+	 //Set_Led_Effect		(Led1,0x0000);
+	 Turn_On_Wifi		(); 
+}
 //------------------------------------------------------------------
 void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
 {
@@ -169,8 +177,9 @@ void 		Init_Wifi_Phisical	(void)
  Wifi_Phisical_Sm=Start_State;
  Init_Http_Session();
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
- Connect2Pyj();
-// Connect2Dci();
+// Connect2Pyj();
+ Connect2Dci();
+// Connect2Android_Ap();
 }	
 void Clear_SSID_BSSID(void)
 {

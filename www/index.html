@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="www/jquery-2.1.1.min.js"></script>  <!-- se necesita esto para comunicar con el equipo usando ajax.. pense que nunca iba a escribir ajax.. mierda... -->
+<script>
+window.onload = function () {
+	var dataP = [];
+	var Actual_T = [];
+	var dps = [];
+var chart = new CanvasJS.Chart("chartContainer", {<!--{{{-->
+	theme: "light1",
+	animationEnabled: true,
+	animationDuration: 2000,
+	zoomEnabled: true,
+	exportEnabled: true,
+	title: {
+		text: "Temperaturas maxima minima y actual"
+	},
+	axisX: {
+		valueFormatString: "hh mm ss",
+		labelAngle: -50,
+		interval: 1,
+		intervalType: "minute",
+	},
+	axisY: {
+		title: "Temperatura [°C]"
+	},
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		dockInsidePlotArea: true,
+		cursor: "pointer",
+		itemclick: toggleDataSeries
+	},
+	data: [{
+		type: "rangeArea",
+		fillOpacity: 0.1,
+		color: "#91AAB1",
+		markerSize: 1,
+		name: "Max-Min",
+		showInLegend: true,
+		toolTipContent: "{x}<br><span style='color:#6D77AC'>{name}</span><br>Min: {y[1]} °C<br>Max: {y[0]} °C",
+		dataPoints: dataP,
+	}]
+});<!--}}}-->
+var chart2 = new CanvasJS.Chart("chartContainer2", {<!--{{{-->
+	theme: "light3",
+	animationEnabled: true,
+	animationDuration: 2000,
+	zoomEnabled: true,
+	exportEnabled: true,
+	title: {
+		text: "Temperatura actual"
+	},
+	axisX: {
+		valueFormatString: "hh mm ss",
+		labelAngle: -50,
+//		minimum: new Data(),
+//		maximum: new Data()
+//		viewportMinimum: 0,
+//		viewportMaximum: new Date(2018,02,02)
+		interval: 1,
+		intervalType: "minute",
+	},
+	axisY: {
+		title: "Temperatura [°C]"
+	},
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		dockInsidePlotArea: true,
+		cursor: "pointer",
+		itemclick: toggleDataSeries
+	},
+	data: [{
+		type: "spline",
+		markerSize: 1,
+		name: "Actual",
+		showInLegend: true,
+		toolTipContent: "{x}<br><span style='color:#6D77AC'>{name}</span><br>T: {y} °C<br> °C",
+		dataPoints: Actual_T,
+	}]
+});<!--}}}-->
+function addAverages() {<!--{{{-->
+//	for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
+//		dps.push({
+//			x: chart.options.data[0].dataPoints[i].x,
+//			y: (chart.options.data[0].dataPoints[i].y[0] + chart.options.data[0].dataPoints[i].y[1]) / 2
+//		});
+//	}
+	chart.options.data.push({
+		type: "line",
+		name: "Average",
+		showInLegend: true,
+		markerType: "triangle",
+		markerSize: 0,
+		yValueFormatString: "##.0 °C",
+		dataPoints: dps
+	});
+	chart.render();
+}<!--}}}-->
+function toggleDataSeries(e) {<!--{{{-->
+	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else {
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}<!--}}}-->
+      setInterval(function(){<!--{{{-->
+		$.ajax({
+			type: "GET",
+			url:"www/data.txt",
+			dataType: "text",
+			success: function(data) {processData(data);}
+		});
+      }, 2000);<!--}}}-->
+	function processData( allText ) {<!--{{{-->
+		var allLinesArray = allText.split("\n");
+		if( allLinesArray.length > 0 ){
+			for (var i = 0; i <= (allLinesArray.length-1); i++) {
+				var rowData = allLinesArray[i].split(",");
+				dataP.push({ x: new Date(),y: [30 + Math.random()*5, 20 + Math.random()*5] });
+				dps.push({ x: new Date(),y: parseFloat(rowData[1]) });
+				Actual_T.push({ x: new Date(),y: parseFloat(rowData[1]) });
+			}
+			chart.render();
+			chart2.render();
+		}
+	}<!--}}}-->
+chart.render();
+chart2.render();
+addAverages();
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; max-width: 1920px; margin: 0px auto;"></div>
+<div id="chartContainer2" style="height: 370px; max-width: 1920px; margin: 0px auto;"></div>
+<script src="www/jquery.canvasjs.min.js"></script>
+</body>
+</html>

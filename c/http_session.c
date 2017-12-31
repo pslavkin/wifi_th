@@ -45,9 +45,12 @@ void (*Get[])(unsigned char* Ans,unsigned char *Len);
 
 void Get_000(unsigned char* Ans, unsigned char* Len) 	
 {
+	unsigned char Buf[10];
 	DBG_HTTP_SESSION_PRINT	("G000\r\n");
-	Temp2_Fix_Point_Bcd(Ans,0);
-	*Len=7;
+	Temp2_Fix_Point_Bcd(Buf,0);
+	String_Copy(Buf+2,Ans,5);
+//	Ans[0]=' ';
+	*Len=5;
 }
 void Get_001(unsigned char* Ans, unsigned char* Len) 	{DBG_HTTP_SESSION_PRINT	("G001\r\n");Ans[0]='1';*Len=1;}
 void Get_002(unsigned char* Ans, unsigned char* Len) 	{DBG_HTTP_SESSION_PRINT	("G002\r\n");Ans[0]='2';*Len=1;}

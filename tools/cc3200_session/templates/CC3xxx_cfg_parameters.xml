@@ -23,7 +23,6 @@
       </Values>
       <Values name="EapSubType" type="enum">
          <Value val="0">MSCHAPv2</Value>
-<!--          <Value val="8">TLS_subtype</Value>	-->
          <Value val="16">PSK</Value>
       </Values>
       <Values name="EAPFastProvisioning" type="enum">
@@ -72,53 +71,53 @@
          <Value val="0">Disable</Value>
          <Value val="1">Enable</Value>
       </Values>
-	  <Values name="WepKeyFormat" type="enum">
+      <Values name="WepKeyFormat" type="enum">
          <Value val="0">Hexadecimal</Value>
          <Value val="1">ASCII</Value>
       </Values>
-	  <Values name="P2pDeviceChannelsVal" type="enum">
+      <Values name="P2pDeviceChannelsVal" type="enum">
          <Value val="1">1</Value>
-		 <Value val="6">6</Value>
+         <Value val="6">6</Value>
          <Value val="11">11</Value>
       </Values>
-	  <Values name="Range_0-15" type="range">
+      <Values name="Range_0-15" type="range">
          <Value val="16">0</Value>
-	  </Values>
-	  <Values name="Range_1-15" type="range">
+      </Values>
+      <Values name="Range_1-15" type="range">
          <Value val="15">1</Value>
-	  </Values>
-	  <Values name="Range_1-13" type="range">
+      </Values>
+      <Values name="Range_1-13" type="range">
          <Value val="13">1</Value>
-	  </Values>
-	  <Values name="Channels" type="mask">
+      </Values>
+      <Values name="Channels" type="mask">
          <Value val="1">Channel 1</Value>
-		 <Value val="2">Channel 2</Value>
+         <Value val="2">Channel 2</Value>
          <Value val="4">Channel 3</Value>
-		 <Value val="8">Channel 4</Value>
+         <Value val="8">Channel 4</Value>
          <Value val="16">Channel 5</Value>
-		 <Value val="32">Channel 6</Value>
-		 <Value val="64">Channel 7</Value>
+         <Value val="32">Channel 6</Value>
+         <Value val="64">Channel 7</Value>
          <Value val="128">Channel 8</Value>
-		 <Value val="256">Channel 9</Value>
+         <Value val="256">Channel 9</Value>
          <Value val="512">Channel 10</Value>
-		 <Value val="1024">Channel 11</Value>
-		 <Value val="2048">Channel 12</Value>
+         <Value val="1024">Channel 11</Value>
+         <Value val="2048">Channel 12</Value>
          <Value val="4096">Channel 13</Value>
       </Values>
-	  <Values name="NetworkApplications_3" type="mask">
+      <Values name="NetworkApplications_3" type="mask">
          <Value val="1">HTTP server</Value>
-		 <Value val="4">mDNS client</Value>
-         <Value val="16">Device configuration</Value>
-      </Values>
-	  <Values name="NetworkApplications_5" type="mask">
-         <Value val="1">HTTP server</Value>
-		 <Value val="2">DHCP server</Value>
          <Value val="4">mDNS client</Value>
-		 <Value val="8">DNS server</Value>
          <Value val="16">Device configuration</Value>
       </Values>
-	   <Values name="IP" type="script">
-         <Value val="_value_">var d = _value_.split(&apos;.&apos;); var s = ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]); s.toString(16);</Value>
+      <Values name="NetworkApplications_5" type="mask">
+         <Value val="1">HTTP server</Value>
+         <Value val="2">DHCP server</Value>
+         <Value val="4">mDNS client</Value>
+         <Value val="8">DNS server</Value>
+         <Value val="16">Device configuration</Value>
+      </Values>
+      <Values name="IP" type="script">
+         <Value val="_value_">var d = _value_.split('.'); var s = ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]); s.toString(16);</Value>
       </Values>
    </ValuesDefinition>
    <Conf name="Device Role">
@@ -136,7 +135,7 @@
          <Name>StationTxPowerLevel</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>OneTimeCalibration</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
@@ -171,7 +170,7 @@
       <Param>
          <Name>StationDefaultGateway</Name>
          <Filename>/sys/ipcfg.ini</Filename>
-      </Param>	  
+      </Param>
       <Param>
          <Name>StationDNSServer</Name>
          <Filename>/sys/ipcfg.ini</Filename>
@@ -182,7 +181,7 @@
       </Param>
    </Conf>
    <Conf name="AP">
-	  <Param>
+      <Param>
          <Name>MacAddress</Name>
          <Filename>/sys/macadd.bin</Filename>
       </Param>
@@ -194,7 +193,7 @@
          <Name>SecurityType</Name>
          <Filename>/sys/ap.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>WEPKeyFormat</Name>
          <Filename>/sys/ap.cfg</Filename>
       </Param>
@@ -222,7 +221,7 @@
          <Name>APTxPowerLevel</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>OneTimeCalibration</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
@@ -268,19 +267,19 @@
          <Name>MacAddress</Name>
          <Filename>/sys/macadd.bin</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>StationTxPowerLevel</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>APTxPowerLevel</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>OneTimeCalibration</Name>
          <Filename>/sys/mode.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>PowerPolicy</Name>
          <Filename>/sys/pmcfg.ini</Filename>
       </Param>
@@ -378,20 +377,20 @@
          <Name>FastConnectEnable</Name>
          <Filename>/sys/stacfg.ini</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>AutoSmartConfig</Name>
          <Filename>/sys/stacfg.ini</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>ConnectToOpenAP</Name>
          <Filename>/sys/stacfg.ini</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>ConnectToAnyPeer2Peer</Name>
          <Filename>/sys/stacfg.ini</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile1">
+   </Conf>
+   <Conf name="Profile1">
       <Param>
          <Name>Profile1Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -400,7 +399,7 @@
          <Name>Profile1SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -416,7 +415,7 @@
          <Name>Profile1BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -428,7 +427,7 @@
          <Name>Profile1P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -436,7 +435,7 @@
          <Name>Profile1WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -444,11 +443,11 @@
          <Name>Profile1WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -460,7 +459,7 @@
          <Name>Profile1UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -468,7 +467,7 @@
          <Name>Profile1AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -476,7 +475,7 @@
          <Name>Profile1UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -504,7 +503,7 @@
          <Name>Profile1PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile1PairwiseCipher</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -556,8 +555,8 @@
          <Name>Profile1EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile2">
+   </Conf>
+   <Conf name="Profile2">
       <Param>
          <Name>Profile2Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -566,7 +565,7 @@
          <Name>Profile2SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -582,7 +581,7 @@
          <Name>Profile2BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -594,7 +593,7 @@
          <Name>Profile2P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -602,7 +601,7 @@
          <Name>Profile2WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -610,11 +609,11 @@
          <Name>Profile2WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -626,7 +625,7 @@
          <Name>Profile2UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -634,7 +633,7 @@
          <Name>Profile2AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -642,7 +641,7 @@
          <Name>Profile2UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -666,7 +665,7 @@
          <Name>Profile2EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile2PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -722,8 +721,8 @@
          <Name>Profile2EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile3">
+   </Conf>
+   <Conf name="Profile3">
       <Param>
          <Name>Profile3Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -732,7 +731,7 @@
          <Name>Profile3SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -748,7 +747,7 @@
          <Name>Profile3BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -760,7 +759,7 @@
          <Name>Profile3P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -768,7 +767,7 @@
          <Name>Profile3WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -776,15 +775,15 @@
          <Name>Profile3WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3EAPType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -792,7 +791,7 @@
          <Name>Profile3UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -800,7 +799,7 @@
          <Name>Profile3AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -808,7 +807,7 @@
          <Name>Profile3UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -832,7 +831,7 @@
          <Name>Profile3EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile3PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -888,8 +887,8 @@
          <Name>Profile3EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile4">
+   </Conf>
+   <Conf name="Profile4">
       <Param>
          <Name>Profile4Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -898,7 +897,7 @@
          <Name>Profile4SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -914,7 +913,7 @@
          <Name>Profile4BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -926,7 +925,7 @@
          <Name>Profile4P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -934,7 +933,7 @@
          <Name>Profile4WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -942,15 +941,15 @@
          <Name>Profile4WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4EAPType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -958,7 +957,7 @@
          <Name>Profile4UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -966,7 +965,7 @@
          <Name>Profile4AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -974,7 +973,7 @@
          <Name>Profile4UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -998,7 +997,7 @@
          <Name>Profile4EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile4PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1054,8 +1053,8 @@
          <Name>Profile4EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile5">
+   </Conf>
+   <Conf name="Profile5">
       <Param>
          <Name>Profile5Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -1064,7 +1063,7 @@
          <Name>Profile5SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1080,7 +1079,7 @@
          <Name>Profile5BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1092,7 +1091,7 @@
          <Name>Profile5P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1100,7 +1099,7 @@
          <Name>Profile5WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1108,15 +1107,15 @@
          <Name>Profile5WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-      	  <Param>
+      <Param>
          <Name>Profile5WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5EAPType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1124,7 +1123,7 @@
          <Name>Profile5UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1132,7 +1131,7 @@
          <Name>Profile5AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1140,7 +1139,7 @@
          <Name>Profile5UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1164,7 +1163,7 @@
          <Name>Profile5EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile5PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1220,8 +1219,8 @@
          <Name>Profile5EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile6">
+   </Conf>
+   <Conf name="Profile6">
       <Param>
          <Name>Profile6Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -1230,7 +1229,7 @@
          <Name>Profile6SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1246,7 +1245,7 @@
          <Name>Profile6BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1258,7 +1257,7 @@
          <Name>Profile6P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1266,7 +1265,7 @@
          <Name>Profile6WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1274,15 +1273,15 @@
          <Name>Profile6WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-      	  <Param>
+      <Param>
          <Name>Profile6WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6EAPType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1290,15 +1289,15 @@
          <Name>Profile6UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
-		<Name>Profile6UserIdentityLen</Name>
+      <Param>
+         <Name>Profile6UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
       <Param>
          <Name>Profile6AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	   <Param>
+      <Param>
          <Name>Profile6AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1306,7 +1305,7 @@
          <Name>Profile6UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1330,7 +1329,7 @@
          <Name>Profile6EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile6PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1386,8 +1385,8 @@
          <Name>Profile6EapFastPac</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	</Conf>
-	<Conf name="Profile7">
+   </Conf>
+   <Conf name="Profile7">
       <Param>
          <Name>Profile7Disabled</Name>
          <Filename>/sys/pref.net</Filename>
@@ -1396,7 +1395,7 @@
          <Name>Profile7SSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7SSIDLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1412,7 +1411,7 @@
          <Name>Profile7BSSID</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7SecurityType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1424,7 +1423,7 @@
          <Name>Profile7P2pPin</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7WepKeyFormat</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1432,7 +1431,7 @@
          <Name>Profile7WepKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7WepKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1440,15 +1439,15 @@
          <Name>Profile7WpaKey</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-      	  <Param>
+      <Param>
          <Name>Profile7WpaKeyLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7PMK</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7EAPType</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1456,7 +1455,7 @@
          <Name>Profile7UserIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7UserIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1464,7 +1463,7 @@
          <Name>Profile7AnonymousIdentity</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7AnonymousIdentityLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1472,7 +1471,7 @@
          <Name>Profile7UserPassword</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7UserPasswordLen</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1496,7 +1495,7 @@
          <Name>Profile7EapMethod</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>Profile7PmkSet</Name>
          <Filename>/sys/pref.net</Filename>
       </Param>
@@ -1598,8 +1597,8 @@
          <Name>DeviceURNName</Name>
          <Filename>/sys/devname.cfg</Filename>
       </Param>
-	</Conf>
-	<Conf name="mDNSClient1">
+   </Conf>
+   <Conf name="mDNSClient1">
       <Param>
          <Name>mDNSClient1Status</Name>
          <Filename>/sys/mdns.cfg</Filename>
@@ -1608,7 +1607,7 @@
          <Name>mDNSClient1ServiceName</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient1ServiceNameLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1616,7 +1615,7 @@
          <Name>mDNSClient1TextRecord</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient1TextRecordLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1628,8 +1627,8 @@
          <Name>mDNSClient1TTL</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	</Conf>
-	<Conf name="mDNSClient2">
+   </Conf>
+   <Conf name="mDNSClient2">
       <Param>
          <Name>mDNSClient2Status</Name>
          <Filename>/sys/mdns.cfg</Filename>
@@ -1638,7 +1637,7 @@
          <Name>mDNSClient2ServiceName</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient2ServiceNameLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1646,7 +1645,7 @@
          <Name>mDNSClient2TextRecord</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient2TextRecordLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1658,8 +1657,8 @@
          <Name>mDNSClient2TTL</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	</Conf>
-	<Conf name="mDNSClient3">
+   </Conf>
+   <Conf name="mDNSClient3">
       <Param>
          <Name>mDNSClient3Status</Name>
          <Filename>/sys/mdns.cfg</Filename>
@@ -1668,7 +1667,7 @@
          <Name>mDNSClient3ServiceName</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient3ServiceNameLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1676,7 +1675,7 @@
          <Name>mDNSClient3TextRecord</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient3TextRecordLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1688,8 +1687,8 @@
          <Name>mDNSClient3TTL</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	</Conf>
-	<Conf name="mDNSClient4">
+   </Conf>
+   <Conf name="mDNSClient4">
       <Param>
          <Name>mDNSClient4Status</Name>
          <Filename>/sys/mdns.cfg</Filename>
@@ -1698,7 +1697,7 @@
          <Name>mDNSClient4ServiceName</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient4ServiceNameLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1706,7 +1705,7 @@
          <Name>mDNSClient4TextRecord</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient4TextRecordLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1718,8 +1717,8 @@
          <Name>mDNSClient4TTL</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	</Conf>
-	<Conf name="mDNSClient5">
+   </Conf>
+   <Conf name="mDNSClient5">
       <Param>
          <Name>mDNSClient5Status</Name>
          <Filename>/sys/mdns.cfg</Filename>
@@ -1728,7 +1727,7 @@
          <Name>mDNSClient5ServiceName</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient5ServiceNameLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1736,7 +1735,7 @@
          <Name>mDNSClient5TextRecord</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>mDNSClient5TextRecordLen</Name>
          <Filename>/sys/mdns.cfg</Filename>
       </Param>
@@ -1758,7 +1757,7 @@
          <Name>DefaultGroupKey</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>DefaultGroupKeyLen</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
@@ -1770,7 +1769,7 @@
          <Name>GroupKey1</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>GroupKey1Len</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
@@ -1782,7 +1781,7 @@
          <Name>GroupKey2</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
-	  <Param>
+      <Param>
          <Name>GroupKey2Len</Name>
          <Filename>/sys/smartconfigkeys.cfg</Filename>
       </Param>
@@ -1848,7 +1847,7 @@
          <Desc>Number in range 0-15dB, indicating a back-off from MAX power. Applicable to AP and Peer2Peer group owner role</Desc>
          <Offset>44</Offset>
       </Param>
-	  <Param type="u" size="1" hidden="true" valtype="Bool">
+      <Param type="u" size="1" hidden="true" valtype="Bool">
          <Name>OneTimeCalibration</Name>
          <Default>False</Default>
          <Desc>Setting this parameter would make the device calibrate only once, ignoring periodic calibration as a result of duration/temperature</Desc>
@@ -1860,7 +1859,7 @@
          <Desc>Setting static IP parameters or get it dynamically via DHCP. Applicable to station and Peer2Peer client role</Desc>
          <Offset>16</Offset>
       </Param>
-	  <Param type="xl" size="4" valtype="IP" cond="StationAddressingScheme==Static" script="Verify_SubnetMask_IPaddress_DefaultGateway(StationSubnetMask,StationIPAddress,StationDefaultGateway); assertValidateIPaddress(StationIPAddress)">
+      <Param type="xl" size="4" valtype="IP" cond="StationAddressingScheme==Static" script="Verify_SubnetMask_IPaddress_DefaultGateway(StationSubnetMask,StationIPAddress,StationDefaultGateway); assertValidateIPaddress(StationIPAddress)">
          <Name>StationIPAddress</Name>
          <Default>0.0.0.0</Default>
          <Desc>IP address is relevant in case of Static Addressing scheme only. E.g. 192.168.1.1. Applicable to station and Peer2Peer client roles only. Note that Station IP and Station Default Gateway must reside on the same network.</Desc>
@@ -1938,7 +1937,7 @@
          <Desc>WiFi Security Type in AP role. Single selection between Open, WEP and WPA</Desc>
          <Offset>25</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="SecurityType==WEP">
          <Name>WEPKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>WEP key format in AP role. Either Hexadecimal or ASCII</Desc>
@@ -1986,9 +1985,10 @@
          <Desc>1st mDNS service name. Service name is a string up to 100 bytes</Desc>
          <Offset>292</Offset>
       </Param>
-	  <Param type="u" size="1" hidden="true" script="mDNSClient1ServiceName.length">
+      <Param type="u" size="1" hidden="true" script="mDNSClient1ServiceName.length">
          <Name>mDNSClient1ServiceNameLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>1st mDNS service name size. Number up to 100 bytes</Desc>
          <Offset>22</Offset>
       </Param>
@@ -2001,6 +2001,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient1TextRecord.length">
          <Name>mDNSClient1TextRecordLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>1st mDNS service text record size. Number up to 255 bytes</Desc>
          <Offset>23</Offset>
       </Param>
@@ -2031,6 +2032,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient2ServiceName.length">
          <Name>mDNSClient2ServiceNameLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>2nd mDNS service name size. Number up to 100 bytes</Desc>
          <Offset>394</Offset>
       </Param>
@@ -2043,6 +2045,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient2TextRecord.length">
          <Name>mDNSClient2TextRecordLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>2nd mDNS service text record size. Number up to 255 bytes</Desc>
          <Offset>395</Offset>
       </Param>
@@ -2073,6 +2076,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient3ServiceName.length">
          <Name>mDNSClient3ServiceNameLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>3rd mDNS service name size. Number up to 100 bytes</Desc>
          <Offset>766</Offset>
       </Param>
@@ -2085,6 +2089,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient3TextRecord.length">
          <Name>mDNSClient3TextRecordLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>3rd mDNS service text record size. Number up to 255 bytes</Desc>
          <Offset>767</Offset>
       </Param>
@@ -2115,6 +2120,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient4ServiceName.length">
          <Name>mDNSClient4ServiceNameLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>4th mDNS service name size. Number up to 100 bytes</Desc>
          <Offset>1138</Offset>
       </Param>
@@ -2127,6 +2133,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient4TextRecord.length">
          <Name>mDNSClient4TextRecordLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>4th mDNS service text record size. Number up to 255 bytes</Desc>
          <Offset>1139</Offset>
       </Param>
@@ -2142,7 +2149,7 @@
          <Desc>4th mDNS service TTL in seconds</Desc>
          <Offset>1144</Offset>
       </Param>
-      <Param type="u" size="2"  hidden="true" valtype="State">
+      <Param type="u" size="2" hidden="true" valtype="State">
          <Name>mDNSClient5Status</Name>
          <Default>Disable</Default>
          <Desc>5th mDNS service status</Desc>
@@ -2157,6 +2164,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient5ServiceName.length">
          <Name>mDNSClient5ServiceNameLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>5th mDNS service name size. Number up to 100 bytes</Desc>
          <Offset>1510</Offset>
       </Param>
@@ -2169,6 +2177,7 @@
       <Param type="u" size="1" hidden="true" script="mDNSClient5TextRecord.length">
          <Name>mDNSClient5TextRecordLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>5th mDNS service text record size. Number up to 255 bytes</Desc>
          <Offset>1511</Offset>
       </Param>
@@ -2259,6 +2268,7 @@
       <Param type="u" size="4" hidden="true" script="Profile1SSID.length">
          <Name>Profile1SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile1 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>64</Offset>
       </Param>
@@ -2292,7 +2302,7 @@
          <Desc>Profile1 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>53</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile1SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile1SecurityType==WEP">
          <Name>Profile1WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile1 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -2316,13 +2326,13 @@
          <Desc>Profile1 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile1SecurityType==WPA" script="Profile1WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile1SecurityType==WPA" script="Profile1WpaKey.length">
          <Name>Profile1WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile1 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile1SecurityType==WPA &amp;&amp; Profile1SSIDLen > 0  &amp;&amp; Profile1WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile1SSID,Profile1WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile1SecurityType==WPA &amp;&amp; Profile1SSIDLen > 0  &amp;&amp; Profile1WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile1SSID,Profile1WpaKey)">
          <Name>Profile1PMK</Name>
          <Default></Default>
          <Desc>Profile1 WPA PMK. Always 32 bytes long</Desc>
@@ -2340,7 +2350,7 @@
          <Desc>Profile1 user identity. User identity length + Anonymous identity length + User password length = bounds to 96 bytes</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="u" size="4" hidden="true" cond="Profile1SecurityType==Enterprise" script="Profile1UserIdentity.length">
+      <Param type="u" size="4" hidden="true" cond="Profile1SecurityType==Enterprise" script="Profile1UserIdentity.length">
          <Name>Profile1UserIdentityLen</Name>
          <Default></Default>
          <Desc>Profile1 user identity length. User identity length + Anonymous identity length + User password length = bounds to 96 bytes</Desc>
@@ -2400,7 +2410,7 @@
          <Desc>Profile1 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>260</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile1SecurityType)" script="if (Profile1SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile1SecurityType)" script="if (Profile1SecurityType==WPA) {1;} else {0;}">
          <Name>Profile1PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile1 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -2505,6 +2515,7 @@
       <Param type="u" size="4" hidden="true" script="Profile2SSID.length">
          <Name>Profile2SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile2 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>592</Offset>
       </Param>
@@ -2538,7 +2549,7 @@
          <Desc>Profile2 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>581</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile2SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile2SecurityType==WEP">
          <Name>Profile2WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile2 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -2562,13 +2573,13 @@
          <Desc>Profile2 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile2SecurityType==WPA" script="Profile2WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile2SecurityType==WPA" script="Profile2WpaKey.length">
          <Name>Profile2WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile2 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile2SecurityType==WPA &amp;&amp; Profile2SSIDLen > 0  &amp;&amp; Profile2WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile2SSID,Profile2WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile2SecurityType==WPA &amp;&amp; Profile2SSIDLen > 0  &amp;&amp; Profile2WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile2SSID,Profile2WpaKey)">
          <Name>Profile2PMK</Name>
          <Default></Default>
          <Desc>Profile2 WPA PMK. Always 32 bytes long</Desc>
@@ -2646,13 +2657,13 @@
          <Desc>Profile2 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>788</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile2SecurityType)" script="if (Profile2SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile2SecurityType)" script="if (Profile2SecurityType==WPA) {1;} else {0;}">
          <Name>Profile2PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile2 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
          <Offset>640</Offset>
       </Param>
-       <Param type="xl" size="4" hidden="true" cond="!(!Profile2SecurityType)" script="if (Profile2SecurityType==Open || Profile2SecurityType==WEP || Profile2SecurityType==Peer2Peer) {0;} else if (Profile2SecurityType==WPA || Profile2SecurityType==Enterprise) {18;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile2SecurityType)" script="if (Profile2SecurityType==Open || Profile2SecurityType==WEP || Profile2SecurityType==Peer2Peer) {0;} else if (Profile2SecurityType==WPA || Profile2SecurityType==Enterprise) {18;}">
          <Name>Profile2PairwiseCipher</Name>
          <Default>0</Default>
          <Desc>Profile2 Pairwise cipher suite. Multiple selection between TKIP=0x8 and CCMP=0x10</Desc>
@@ -2751,6 +2762,7 @@
       <Param type="u" size="4" hidden="true" script="Profile3SSID.length">
          <Name>Profile3SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile3 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>1120</Offset>
       </Param>
@@ -2784,7 +2796,7 @@
          <Desc>Profile3 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>1109</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile3SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile3SecurityType==WEP">
          <Name>Profile3WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile3 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -2808,13 +2820,13 @@
          <Desc>Profile3 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile3SecurityType==WPA" script="Profile3WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile3SecurityType==WPA" script="Profile3WpaKey.length">
          <Name>Profile3WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile3 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile3SecurityType==WPA &amp;&amp; Profile3SSIDLen > 0  &amp;&amp; Profile3WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile3SSID,Profile3WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile3SecurityType==WPA &amp;&amp; Profile3SSIDLen > 0  &amp;&amp; Profile3WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile3SSID,Profile3WpaKey)">
          <Name>Profile3PMK</Name>
          <Default></Default>
          <Desc>Profile3 WPA PMK. Always 32 bytes long</Desc>
@@ -2892,7 +2904,7 @@
          <Desc>Profile3 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>1316</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile3SecurityType)" script="if (Profile3SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile3SecurityType)" script="if (Profile3SecurityType==WPA) {1;} else {0;}">
          <Name>Profile3PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile3 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -2975,7 +2987,7 @@
          <Default>3</Default>
          <Desc>Profile3 client PAC for Fast. 3 for FAST, 0 for others.</Desc>
          <Offset>1331</Offset>
-      </Param> 
+      </Param>
       <Param type="u" size="4" hidden="true" valtype="Bool">
          <Name>Profile4Disabled</Name>
          <Default>True</Default>
@@ -2997,6 +3009,7 @@
       <Param type="u" size="4" hidden="true" script="Profile4SSID.length">
          <Name>Profile4SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile4 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>1648</Offset>
       </Param>
@@ -3030,7 +3043,7 @@
          <Desc>Profile4 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>1637</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile4SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile4SecurityType==WEP">
          <Name>Profile4WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile4 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -3054,13 +3067,13 @@
          <Desc>Profile4 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile4SecurityType==WPA" script="Profile4WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile4SecurityType==WPA" script="Profile4WpaKey.length">
          <Name>Profile4WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile4 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile4SecurityType==WPA &amp;&amp; Profile4SSIDLen > 0  &amp;&amp; Profile4WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile4SSID,Profile4WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile4SecurityType==WPA &amp;&amp; Profile4SSIDLen > 0  &amp;&amp; Profile4WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile4SSID,Profile4WpaKey)">
          <Name>Profile4PMK</Name>
          <Default></Default>
          <Desc>Profile4 WPA PMK. Always 32 bytes long</Desc>
@@ -3138,7 +3151,7 @@
          <Desc>Profile4 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>1844</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile4SecurityType)" script="if (Profile4SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile4SecurityType)" script="if (Profile4SecurityType==WPA) {1;} else {0;}">
          <Name>Profile4PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile4 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -3243,6 +3256,7 @@
       <Param type="u" size="4" hidden="true" script="Profile5SSID.length">
          <Name>Profile5SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile5 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>2176</Offset>
       </Param>
@@ -3276,7 +3290,7 @@
          <Desc>Profile5 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>2165</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile5SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile5SecurityType==WEP">
          <Name>Profile5WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile5 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -3300,13 +3314,13 @@
          <Desc>Profile5 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile5SecurityType==WPA" script="Profile5WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile5SecurityType==WPA" script="Profile5WpaKey.length">
          <Name>Profile5WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile5 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile5SecurityType==WPA &amp;&amp; Profile5SSIDLen > 0  &amp;&amp; Profile5WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile5SSID,Profile5WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile5SecurityType==WPA &amp;&amp; Profile5SSIDLen > 0  &amp;&amp; Profile5WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile5SSID,Profile5WpaKey)">
          <Name>Profile5PMK</Name>
          <Default></Default>
          <Desc>Profile5 WPA PMK. Always 32 bytes long</Desc>
@@ -3384,7 +3398,7 @@
          <Desc>Profile5 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>2372</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile5SecurityType)" script="if (Profile5SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile5SecurityType)" script="if (Profile5SecurityType==WPA) {1;} else {0;}">
          <Name>Profile5PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile5 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -3489,6 +3503,7 @@
       <Param type="u" size="4" hidden="true" script="Profile6SSID.length">
          <Name>Profile6SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile6 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>2704</Offset>
       </Param>
@@ -3522,7 +3537,7 @@
          <Desc>Profile6 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>2693</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile6SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile6SecurityType==WEP">
          <Name>Profile6WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile6 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -3546,13 +3561,13 @@
          <Desc>Profile6 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile6SecurityType==WPA" script="Profile6WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile6SecurityType==WPA" script="Profile6WpaKey.length">
          <Name>Profile6WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile6 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile6SecurityType==WPA &amp;&amp; Profile6SSIDLen > 0  &amp;&amp; Profile6WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile6SSID,Profile6WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile6SecurityType==WPA &amp;&amp; Profile6SSIDLen > 0  &amp;&amp; Profile6WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile6SSID,Profile6WpaKey)">
          <Name>Profile6PMK</Name>
          <Default></Default>
          <Desc>Profile6 WPA PMK. Always 32 bytes long</Desc>
@@ -3630,7 +3645,7 @@
          <Desc>Profile6 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>2900</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile6SecurityType)" script="if (Profile6SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile6SecurityType)" script="if (Profile6SecurityType==WPA) {1;} else {0;}">
          <Name>Profile6PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile6 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -3713,7 +3728,7 @@
          <Default>3</Default>
          <Desc>Profile6 client PAC for Fast. 3 for FAST, 0 for others.</Desc>
          <Offset>2915</Offset>
-      </Param> 
+      </Param>
       <Param type="u" size="4" hidden="true" valtype="Bool">
          <Name>Profile7Disabled</Name>
          <Default>True</Default>
@@ -3735,6 +3750,7 @@
       <Param type="u" size="4" hidden="true" script="Profile7SSID.length">
          <Name>Profile7SSIDLen</Name>
          <Default></Default>
+         <Value>0</Value>
          <Desc>Profile7 peer SSID length in station role or remote device length in Peer2Peer role. Number up to 32 bytes</Desc>
          <Offset>3232</Offset>
       </Param>
@@ -3768,7 +3784,7 @@
          <Desc>Profile7 Peer2Peer PIN code. Should be 8 bytes long</Desc>
          <Offset>3221</Offset>
       </Param>
-	  <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile7SecurityType==WEP">
+      <Param type="iu" size="1" valtype="WepKeyFormat" cond="Profile7SecurityType==WEP">
          <Name>Profile7WepKeyFormat</Name>
          <Default>ASCII</Default>
          <Desc>Profile7 WEP key format. Either Hexadecimal or ASCII</Desc>
@@ -3792,13 +3808,13 @@
          <Desc>Profile7 WPA passphrase. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="iu" size="4" hidden="true" cond="Profile7SecurityType==WPA" script="Profile7WpaKey.length">
+      <Param type="iu" size="4" hidden="true" cond="Profile7SecurityType==WPA" script="Profile7WpaKey.length">
          <Name>Profile7WpaKeyLen</Name>
          <Default></Default>
          <Desc>Profile7 WPA passphrase length. It is 8-63 bytes long</Desc>
          <Offset>0</Offset>
       </Param>
-	  <Param type="xb" size="32" hidden="true" cond="Profile7SecurityType==WPA &amp;&amp; Profile7SSIDLen > 0  &amp;&amp; Profile7WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile7SSID,Profile7WpaKey)">
+      <Param type="xb" size="32" hidden="true" cond="Profile7SecurityType==WPA &amp;&amp; Profile7SSIDLen > 0  &amp;&amp; Profile7WpaKeyLen > 0" script="CfgParamEvalUtils.PMKGeneration(Profile7SSID,Profile7WpaKey)">
          <Name>Profile7PMK</Name>
          <Default></Default>
          <Desc>Profile7 WPA PMK. Always 32 bytes long</Desc>
@@ -3876,7 +3892,7 @@
          <Desc>Profile7 EAP Method. This is a mask collection of EAPSubType, PEAPVersion and EAPFastProvisioning</Desc>
          <Offset>3428</Offset>
       </Param>
-	  <Param type="xl" size="4" hidden="true" cond="!(!Profile7SecurityType)" script="if (Profile7SecurityType==WPA) {1;} else {0;}">
+      <Param type="xl" size="4" hidden="true" cond="!(!Profile7SecurityType)" script="if (Profile7SecurityType==WPA) {1;} else {0;}">
          <Name>Profile7PmkSet</Name>
          <Default>0</Default>
          <Desc>Profile7 PMK set. 0x1 for WPA, 0x0 for others.</Desc>
@@ -3972,7 +3988,7 @@
          <Desc>Default group AES key for Smart Config. Should be 16 bytes long</Desc>
          <Offset>24</Offset>
       </Param>
-	  <Param type="u" size="2" hidden="true" cond="!(!DefaultGroupKey)" script="DefaultGroupKey.length">
+      <Param type="u" size="2" hidden="true" cond="!(!DefaultGroupKey)" script="DefaultGroupKey.length">
          <Name>DefaultGroupKeyLen</Name>
          <Default></Default>
          <Desc>Default group AES key length for Smart Config</Desc>
@@ -3990,7 +4006,7 @@
          <Desc>1st group AES key for Smart Config. Should be 16 bytes long</Desc>
          <Offset>44</Offset>
       </Param>
-	  <Param type="u" size="2" hidden="true" cond="!(!GroupKey1)" script="GroupKey1.length">
+      <Param type="u" size="2" hidden="true" cond="!(!GroupKey1)" script="GroupKey1.length">
          <Name>GroupKey1Len</Name>
          <Default></Default>
          <Desc>1st group AES key length for Smart Config</Desc>
@@ -4008,7 +4024,7 @@
          <Desc>2nd group AES key for Smart Config. Should be 16 bytes long</Desc>
          <Offset>64</Offset>
       </Param>
-	  <Param type="u" size="2" hidden="true" cond="!(!GroupKey2)" script="GroupKey2.length">
+      <Param type="u" size="2" hidden="true" cond="!(!GroupKey2)" script="GroupKey2.length">
          <Name>GroupKey2Len</Name>
          <Default></Default>
          <Desc>2nd group AES key length for Smart Config</Desc>
@@ -4020,19 +4036,19 @@
          <Desc>Channels mask for scan process. Multiple choice between Channel1-Channel13</Desc>
          <Offset>12</Offset>
       </Param>
-      <Param type="d" size="4" script="assertIsNumeric(ScanRSSIThreshold); (ScanRSSIThreshold &gt; 0 ? -ScanRSSIThreshold : ScanRSSIThreshold).toString(10);">
+      <Param type="d" size="4" script="assertIsNumeric(ScanRSSIThreshold); (ScanRSSIThreshold > 0 ? -ScanRSSIThreshold : ScanRSSIThreshold).toString(10);">
          <Name>ScanRSSIThreshold</Name>
          <Default>-95</Default>
          <Desc>RSSI threshold for scan process [in dBm]. Negative number represented in 2's complement</Desc>
          <Offset>60</Offset>
       </Param>
-	  <Param type="u" size="4" valtype="State">
+      <Param type="u" size="4" valtype="State">
          <Name>ConnectToOpenAP</Name>
          <Default>Disable</Default>
          <Desc>Setting this option enables connecting to any open AP</Desc>
          <Offset>68</Offset>
       </Param>
-	  <Param type="u" size="4" valtype="State">
+      <Param type="u" size="4" valtype="State">
          <Name>ConnectToAnyPeer2Peer</Name>
          <Default>Disable</Default>
          <Desc>Setting this option enables connecting to any Peer 2 Peer device</Desc>
