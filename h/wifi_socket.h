@@ -19,7 +19,7 @@
 #define MAX_SERVERS 	1
 #define PORT_BASE       49152 
 //------------------------------------------------------------------------------------                         
-#define SOCKET_RX_BUF_SIZE 1000
+#define SOCKET_RX_BUF_SIZE 4000
 // Application specific status/error codes
 //------------------------------------------------------------------------------------                         
 typedef enum{

@@ -209,7 +209,7 @@ void	File_System_I4Buff	(void)	{
 	DBG_WIFI_SESSION_PRINT("Leyendo desde %s tamanio %d data %s \r\n",Actual_Rx_Buff4App(),Ret,Buf);
 }
 //--------------FILE SYSTEM----
-void	File_System_A		(void)	{Config2Save_Til_Enter(19,File_System_A4Buff,0);}	//19 maximo largo del nombre, uno mas para el '\0'
+void	File_System_A		(void)	{Config2Save_Til_Enter(FILE_NAME_SIZE-1,File_System_A4Buff,0);}	//19 maximo largo del nombre, uno mas para el '\0'
 void	File_System_B		(void)	{File_System_B4Buff();}
 void	File_System_C		(void)	{File_System_C4Buff();}
 void	File_System_D		(void)	{Config2Save_Til_Delimiter(SOCKET_RX_BUF_SIZE,File_System_D4Buff,FILE_NAME_SIZE,FILE_DATA_DELIMITER);}	//grabo entrada de usuario hasta el enter y lo dejo en el buffer del socket a partir de la posicion FILE_NAME_SIZE.. antes de eso esta el nombre del file...

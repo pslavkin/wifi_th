@@ -3,7 +3,7 @@
 
 <Root>
 	<!-- Expected host file in intel hex format -->
-	<GangImageBuilder  GangImageVendorVersion ='verExample'   StorageCapacityBytes ='1048576' />
+	<GangImageBuilder  GangImageVendorVersion ='verExample'   StorageCapacityBytes ='8388608' />
 	<GangCommandsSetList >
 		<!-- First command set, command set 0 -->
 		<GangCommandsSet Description ="Command set contain list of commands, this is the first(0) command set ">

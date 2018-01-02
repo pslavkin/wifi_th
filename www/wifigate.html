@@ -1,0 +1,54 @@
+<html>
+	<head>	
+		<meta charset="utf-8" />
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+    <body>
+        <div id="graph" style="width: 640px; height: 480px;" class="plotly-graph-div"></div>
+        <script type="text/javascript">
+            (function(){
+
+                var gd = document.getElementById('graph')
+                var resizeDebounce = null;
+
+                function resizePlot() {
+                    var bb = gd.getBoundingClientRect();
+                    Plotly.relayout(gd, {
+                        width: bb.width,
+                        height: bb.height
+                    });
+                }
+
+			setInterval(function(){<!--{{{-->
+				$.ajax({
+					type: "GET",
+					url:"data.txt",
+					dataType: "text",
+					success: function(data) {processData(data);}
+				});
+			}, 5000);
+                
+			function processData(data) {
+				var allLinesArray = data.split("\n");
+				if( allLinesArray.length > 0 ){
+					for (var i = 0; i < (allLinesArray.length-1); i++) {
+						var rowData = allLinesArray[i].split(",");
+						Plotly.extendTraces('graph', {
+							x: [[new Date()]],
+							y: [[parseFloat(rowData[1])]],
+						}, [0]);
+					};
+				}
+			}<!--}}}-->
+
+                Plotly.plot(gd, {
+                    data: [{"showlegend": true, "autobinx": true, "name": "T", "yaxis": "y","hoverinfo": "x+y+text","mode": "lines+markers", "visible": true, "xaxis": "x", "y": [],"x": [],"line": {"width": 1.5, "shape": "splines"}, "fill": "tonexty", "type": "scatter", "marker": {"color": "rgb(182, 215, 240)", "opacity": 1, "line": {"width": 0.5}, "symbol": "circle", "size": 5}, "autobiny": true}],
+                    layout: {"autosize": true, "dragmode": "pan", "yaxis": {"domain": [0, 1], "ticklen": 7, "title": "<b>T &nbsp;[C]<\/b>", "zerolinewidth": 0, "ticks": "outside", "gridwidth": 2, "autorange": true, "fixedrange": true, "range": [0, 50], "titlefont": {"size": 15}, "mirror": false, "zeroline": false, "showline": true, "linewidth": 1, "type": "linear", "side": "left"}, "paper_bgcolor": "rgb(250, 255, 255)", "plot_bgcolor": "rgba(1, 0, 0, 0)", "title": "<b>Temperatura Actual<\/b>", "showlegend": true, "height": 480, "width": 640, "titlefont": {"color": "rgb(0, 30, 255)", "family": "\"Open Sans\", verdana, arial, sans-serif", "size": 20}, "xaxis": {"domain": [-0.01, 1], "ticklen": 9, "tickmode": "auto", "title": "<b>Fecha<\/b>", "autorange": true, "zerolinewidth": 2, "ticks": "outside", "gridwidth": 1, "anchor": "y", "rangeselector": {"buttons": [{"isHovered": false, "step": "all", "isActive": true, "label": "reset"}, {"count": 31, "stepmode": "todate", "label": "Dia", "isHovered": false, "step": "day", "isActive": false}, {"count": 12, "stepmode": "todate", "label": "Mes", "isHovered": false, "step": "month", "isActive": false}, {"count": 24, "stepmode": "todate", "label": "Hora", "isHovered": false, "step": "hour", "isActive": false}, {"count": 60, "step": "minute", "stepmode": "todate", "label": "Min"}], "visible": true, "borderwidth": 1, "y": 1.02, "x": 2.7755575615628914e-17, "font": {"size": 16}}, "fixedrange": false, "range": ["2018-01-01 10:00", "2018-01-01 10:00:45"], "titlefont": {"size": 15}, "mirror": false, "zeroline": false, "showline": true, "nticks": 0, "linewidth": 1, "type": "date", "side": "bottom"}, "hovermode": "closest", "breakpoints": [], "margin": {"r": 40, "b": 100, "pad": 10, "l": 70, "t": 90}, "legend": {"yanchor": "top", "traceorder": "normal", "xanchor": "left", "orientation": "v", "borderwidth": 1, "y": 1.12, "x": 1, "font": {"size": 10}}},
+                    frames: [],
+                });
+                
+           }());
+        </script>
+    </body>
+</html>
