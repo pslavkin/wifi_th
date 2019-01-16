@@ -1,5 +1,5 @@
-#ifndef STRING
-#define STRING
+#ifndef STR
+#define STR
 //----------------------------------------------------------------------------------------------------
 #define String_Copy(Source,Destiny,Length)	String_Copy_Backward(Source,Destiny,Length)
 extern void 		String_Copy_Forward		(unsigned char* Source,unsigned char* Destiny,unsigned int Length);

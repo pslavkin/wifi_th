@@ -19,7 +19,7 @@
 #define MAX_SERVERS 	1
 #define PORT_BASE       49152 
 //------------------------------------------------------------------------------------                         
-#define SOCKET_RX_BUF_SIZE 4000
+#define SOCKET_RX_BUF_SIZE 1000
 // Application specific status/error codes
 //------------------------------------------------------------------------------------                         
 typedef enum{
@@ -55,7 +55,8 @@ enum Wifi_Socket_Event_Code	{
 				       	Server_Binded_Event		= 0x0D0D, 
 				       	Begin_Save_Event		= 0x0D0E,
 				       	Save_Ready_Event		= 0x0D0F,
-				       	Close_Socket_Event		= 0x0D10
+				       	Close_Socket_Event		= 0x0D10,
+					Client_Connected_Event		= 0x0D11
 	    	};
 //-----------------------------------------------------------
 extern void 		Wifi_Socket_Rti			(void);

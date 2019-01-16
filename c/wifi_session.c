@@ -12,9 +12,10 @@
 #include "parameters.h"
 #include "flash.h"
 #include "debug.h"
-#include "string.h"
+#include "str.h"
 #include "one_wire_transport.h"
 #include "tmp_control.h"
+#include "email_session.h"
 
 static const State   
 	Welcome[],
@@ -23,7 +24,8 @@ static const State
 	Virtual_Buttons[],
 	File_System[],
 	Temp[],
-	Temp_Control[];
+	Temp_Control[],
+	Email[];
 
 const State* 		Wifi_Session_Sm;
 const State* 		Wifi_Session_App(void)	{return Welcome;}
@@ -46,6 +48,7 @@ unsigned char Welcome_Help_Data[]=
 "D File System\r\n"
 "E Temperature\r\n"
 "F Temp Control\r\n"
+"G Email\r\n"
 "? Help\r\n"
 };
 unsigned char Info_Help_Data[]=
@@ -111,6 +114,13 @@ unsigned char Temp_Control_Help_Data[]=
 "? Help\r\n"
 "< Return\r\n"
 };
+unsigned char Email_Help_Data[]=
+{
+"Email\r\n"
+"A Send\r\n"
+"? Help\r\n"
+"< Return\r\n"
+};
 //------------WELCOME----------------------------------------------------------------------------------------
 void  Welcome_A	(void)	{}
 void  Welcome_B	(void)	{}
@@ -118,6 +128,7 @@ void  Welcome_C	(void)	{}
 void  Welcome_D	(void)	{}
 void  Welcome_E	(void)	{}
 void  Welcome_F	(void)	{}
+void  Welcome_G	(void)	{}
 //------------ INFO----------------------------------------------------------------------------------------
 void  Info_A		(void)	{Send_Data2Socket(SERIAL_ID,SERIAL_ID_LENGTH);}
 //------------ NETWORK----------------------------------------------------------------------------------------
@@ -232,6 +243,8 @@ void	Temp_H		(void)	{}
 void	Temp_I		(void)	{}
 //------------ Temp_Control----------------------------------------------------------------------------------------
 void  	Temp_Control_A		(void)	{Send_Tmp_Control_State2Tcp();}
+//------------ EmailT----------------------------------------------------------------------------------------
+void  	Email_A			(void)	{Send_Email();}
 //----------------------------------------------------------------------------------------------------
 void  Welcome_Help		(void)	{Send_Data2Socket(Welcome_Help_Data,		sizeof(Welcome_Help_Data)-1);}
 void  Info_Help			(void)	{Send_Data2Socket(Info_Help_Data,		sizeof(Info_Help_Data)-1);}
@@ -240,6 +253,7 @@ void  Virtual_Buttons_Help	(void)	{Send_Data2Socket(Virtual_Buttons_Help_Data,	s
 void  File_System_Help		(void)	{Send_Data2Socket(File_System_Help_Data,	sizeof(File_System_Help_Data)-1);}
 void  Temp_Help			(void)	{Send_Data2Socket(Temp_Help_Data,		sizeof(Temp_Help_Data)-1);}
 void  Temp_Control_Help		(void)	{Send_Data2Socket(Temp_Control_Help_Data,	sizeof(Temp_Control_Help_Data)-1);}
+void  Email_Help		(void)	{Send_Data2Socket(Email_Help_Data,		sizeof(Email_Help_Data)-1);}
 void  Send_Comm_Error		(void)  {Send_Data2Socket("Can't send data\r\n",17);}
 //----------------------------------------------------------------------------------------------------
 static const State Welcome[] =
@@ -250,6 +264,7 @@ static const State Welcome[] =
  'D'				,Welcome_D					,File_System,
  'E'				,Welcome_E					,Temp,
  'F'				,Welcome_F					,Temp_Control,
+ 'G'				,Welcome_G					,Email,
  '?'				,Welcome_Help					,Welcome,
  Data_Sended_Event		,Send_Comm_Error				,Welcome,
  ANY_Event			,Rien						,Welcome,
@@ -329,6 +344,13 @@ static const State Temp_Control[] =
  '<'				,Rien					,Welcome,
  '?'				,Temp_Control_Help			,Temp_Control,
  ANY_Event			,Rien					,Temp_Control,
+};
+static const State Email[] =
+{
+ 'A'				,Email_A				,Email, 
+ '<'				,Rien					,Welcome,
+ '?'				,Email_Help				,Email,
+ ANY_Event			,Rien					,Email,
 };
 //----------------------------------------------------------------------------------------------------
 

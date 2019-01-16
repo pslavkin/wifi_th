@@ -1,7 +1,7 @@
 #include <schedule.h>
 #include <state_machine.h>
 #include <events.h>
-#include <string.h>
+#include "str.h"
 
 struct Schedule_Event_Machine   //estructura que define los campos que se usaran para almacenar los tim_outs solicitados...
   {

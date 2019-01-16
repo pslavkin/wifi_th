@@ -1,5 +1,4 @@
-//archovo dedicado al manejo de strings....
-#include <string.h>
+#include <str.h>
 
 //----------------------------------------------------------------------------------------
 void String_Copy_Backward(const unsigned char* Source,unsigned char* Destiny,unsigned int Length)

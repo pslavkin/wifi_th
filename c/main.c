@@ -1,6 +1,6 @@
 // Standard includes/*{{{*/
 #include <stdlib.h>
-#include <string.h>
+#include <str.h>
 
 // simplelink includes 
 #include "simplelink.h"

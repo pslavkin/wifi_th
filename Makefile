@@ -58,6 +58,7 @@ ${BINDIR}/app.axf: ${OBJDIR}/gpio_if.o
 ${BINDIR}/app.axf: ${OBJDIR}/udma_if.o
 ${BINDIR}/app.axf: ${OBJDIR}/timer_if.o
 ${BINDIR}/app.axf: ${OBJDIR}/utils_if.o
+${BINDIR}/app.axf: ${OBJDIR}/base64.o
 
 ${BINDIR}/app.axf: ${OBJDIR}/schedule.o
 ${BINDIR}/app.axf: ${OBJDIR}/checksum.o
@@ -69,6 +70,8 @@ ${BINDIR}/app.axf: ${OBJDIR}/tmp_control.o
 
 ${BINDIR}/app.axf: ${OBJDIR}/ubidots.o
 
+${BINDIR}/app.axf: ${OBJDIR}/email_session.o
+${BINDIR}/app.axf: ${OBJDIR}/email.o
 ${BINDIR}/app.axf: ${OBJDIR}/http_session.o
 
 ${BINDIR}/app.axf: ${OBJDIR}/wifi_socket.o
@@ -84,7 +87,7 @@ ${BINDIR}/app.axf: ${OBJDIR}/leds_session.o
 ${BINDIR}/app.axf: ${OBJDIR}/buttons.o
 ${BINDIR}/app.axf: ${OBJDIR}/state_machine.o
 ${BINDIR}/app.axf: ${OBJDIR}/everythings.o
-${BINDIR}/app.axf: ${OBJDIR}/string.o
+${BINDIR}/app.axf: ${OBJDIR}/str.o
 
 
 ${BINDIR}/app.axf: ${OBJDIR}/startup_${COMPILER}.o

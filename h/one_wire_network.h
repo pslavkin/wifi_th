@@ -25,7 +25,7 @@ enum One_Wire_Network_Events
 	 Anybody_On_Bus_Event		=0x100F
 	};
 //------------------------------------------------------ 
-typedef struct Rom_Codes_Struct
+struct Rom_Codes_Struct
 {
  unsigned char Code[8];		//guarda el cogido del nodo...
  unsigned short int T;		//guarda la temperatura actual del nodo, 

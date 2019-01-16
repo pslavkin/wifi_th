@@ -8,13 +8,13 @@
 #include "common.h"
 #include "state_machine.h"
 #include "events.h"
-#include <one_wire_phisical.h>
-#include <type_conversion.h>
-#include <one_wire_network.h>
-#include <string.h>
-#include <debug.h>
-#include <checksum.h>
-#include <one_wire_transport.h>
+#include "one_wire_phisical.h"
+#include "type_conversion.h"
+#include "one_wire_network.h"
+#include "str.h"
+#include "debug.h"
+#include "checksum.h"
+#include "one_wire_transport.h"
 
 static const State
 	Idle[],

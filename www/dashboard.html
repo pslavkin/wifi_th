@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <span class="w3-bar-item w3-right">Logo</span>
+</div>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:0px;margin-top:53px;">
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>52</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Messages</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>99</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Views</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>23</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Shares</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>50</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Users</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+     <h5>Temperatura Actual</h5>
+      <div id="graph" class="w3-col">
+        <script type="text/javascript">
+            (function(){
+                var gd = document.getElementById('graph')
+                var resizeDebounce = null;
+                window.onresize = function(){
+			resizePlot();
+		}
+		function resizePlot() {
+                    var bb = gd.getBoundingClientRect();
+                    Plotly.relayout(gd, {
+                        width: bb.width-20,
+                        height: bb.height
+                    });
+                }
+			setInterval(function(){
+				$.ajax({
+					type: "GET",
+					url:"data.txt",
+					dataType: "text",
+					success: function(data) {processData(data);}
+				});
+			}, 5000);
+                
+			function processData(data) {
+				var allLinesArray = data.split("\n");
+				if( allLinesArray.length > 0 ){
+					for (var i = 0; i < (allLinesArray.length-1); i++) {
+						var rowData = allLinesArray[i].split(",");
+						Plotly.extendTraces(gd, {
+							x: [[new Date()]],
+							y: [[parseFloat(rowData[1])]],
+						}, [0]);
+					};
+				}
+			}
+
+                Plotly.plot(gd, {
+                    data: [{"showlegend": true, "autobinx": true, "name": "T", "yaxis": "y","hoverinfo": "x+y+text","mode": "lines+markers", "visible": true, "xaxis": "x", "y": [],"x": [],"line": {"width": 1.5, "shape": "splines"}, "fill": "tonexty", "type": "scatter", "marker": {"color": "rgb(182, 215, 240)", "opacity": 1, "line": {"width": 0.5}, "symbol": "circle", "size": 5}, "autobiny": true}],
+                    layout: {"autosize": true, "dragmode": "pan", "yaxis": {"domain": [0, 1], "ticklen": 7, "title": "<b>T &nbsp;[C]<\/b>", "zerolinewidth": 0, "ticks": "outside", "gridwidth": 2, "autorange": true, "fixedrange": true, "range": [0, 50], "titlefont": {"size": 15}, "mirror": false, "zeroline": false, "showline": true, "linewidth": 1, "type": "linear", "side": "left"}, "paper_bgcolor": "rgb(250, 255, 255)", "plot_bgcolor": "rgba(1, 0, 0, 0)", "title": "<b>Temperatura Actual<\/b>", "showlegend": true, "titlefont": {"color": "rgb(0, 30, 255)", "family": "\"Open Sans\", verdana, arial, sans-serif", "size": 12}, "xaxis": {"domain": [-0.01, 1], "ticklen": 9, "tickmode": "auto", "title": "<b>Fecha<\/b>", "autorange": true, "zerolinewidth": 2, "ticks": "outside", "gridwidth": 1, "anchor": "y", "rangeselector": {"buttons": [{"isHovered": false, "step": "all", "isActive": true, "label": "reset"}, {"count": 31, "stepmode": "todate", "label": "Dia", "isHovered": false, "step": "day", "isActive": false}, {"count": 12, "stepmode": "todate", "label": "Mes", "isHovered": false, "step": "month", "isActive": false}, {"count": 24, "stepmode": "todate", "label": "Hora", "isHovered": false, "step": "hour", "isActive": false}, {"count": 60, "step": "minute", "stepmode": "todate", "label": "Min"}], "visible": true, "borderwidth": 1, "y": 1.02, "x": 0, "font": {"size": 12}}, "fixedrange": false,  "titlefont": {"size": 15}, "mirror": false, "zeroline": false, "showline": true, "nticks": 0, "linewidth": 1, "type": "date", "side": "bottom"}, "hovermode": "closest", "breakpoints": [], "margin": {"r": 40, "b": 100, "pad": 10, "l": 70, "t": 90}, "legend": {"yanchor": "top", "traceorder": "normal", "xanchor": "left", "orientation": "v", "borderwidth": 1, "y": 1, "x": 1, "font": {"size": 12}}},
+                    frames: [],
+                });
+		resizePlot();
+           }());
+        </script>
+      </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>General Stats</h5>
+    <p>New Visitors</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
+    </div>
+
+    <p>New Users</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
+    </div>
+
+    <p>Bounce Rate</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="w3-container">
+    <h5>Countries</h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+      <tr>
+        <td>United States</td>
+        <td>65%</td>
+      </tr>
+      <tr>
+        <td>UK</td>
+        <td>15.7%</td>
+      </tr>
+      <tr>
+        <td>Russia</td>
+        <td>5.6%</td>
+      </tr>
+      <tr>
+        <td>Spain</td>
+        <td>2.1%</td>
+      </tr>
+      <tr>
+        <td>India</td>
+        <td>1.9%</td>
+      </tr>
+      <tr>
+        <td>France</td>
+        <td>1.5%</td>
+      </tr>
+    </table><br>
+    <button class="w3-button w3-dark-grey">More Countries  <i class="fa fa-arrow-right"></i></button>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Recent Users</h5>
+    <ul class="w3-ul w3-card-4 w3-white">
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Mike</span><br>
+      </li>
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar5.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Jill</span><br>
+      </li>
+      <li class="w3-padding-16">
+        <img src="/w3images/avatar6.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <span class="w3-xlarge">Jane</span><br>
+      </li>
+    </ul>
+  </div>
+  <hr>
+
+  <br>
+  <div class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row">
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
+        <p>Language</p>
+        <p>Country</p>
+        <p>City</p>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-red">System</h5>
+        <p>Browser</p>
+        <p>OS</p>
+        <p>More</p>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-orange">Target</h5>
+        <p>Users</p>
+        <p>Active</p>
+        <p>Geo</p>
+        <p>Interests</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by <a href="http://www.disenioconingenio.com.ar" target="_blank">disenioconigenio</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+</body>
+</html>
+

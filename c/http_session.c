@@ -14,8 +14,9 @@
 #include "parameters.h"
 #include "flash.h"
 #include "debug.h"
-#include "string.h"
+#include "str.h"
 #include "one_wire_transport.h"
+#include "one_wire_network.h"
 #include "tmp_control.h"
 #include "leds_session.h"
 
@@ -47,10 +48,10 @@ void Get_000(unsigned char* Ans, unsigned char* Len)
 {
 	unsigned char Buf[10];
 	DBG_HTTP_SESSION_PRINT	("G000\r\n");
-	Temp2_Fix_Point_Bcd(Buf,0);
-	String_Copy(Buf+2,Ans,5);
+	Temp2_Fix_Point_Bcd(Ans,0);
+//	String_Copy(Buf+2,Ans,5);
 //	Ans[0]=' ';
-	*Len=5;
+	*Len=7;
 }
 void Get_001(unsigned char* Ans, unsigned char* Len) 	{DBG_HTTP_SESSION_PRINT	("G001\r\n");Ans[0]='1';*Len=1;}
 void Get_002(unsigned char* Ans, unsigned char* Len) 	{DBG_HTTP_SESSION_PRINT	("G002\r\n");Ans[0]='2';*Len=1;}

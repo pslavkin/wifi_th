@@ -16,6 +16,7 @@
 #include "debug.h"
 #include "ubidots.h"
 #include "flash.h"
+#include "email_session.h"
 
 
 static const State   
@@ -73,6 +74,23 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
 //		Atomic_Send_Event(pSock->Event,Find_Sm4Sd(pSock->socketAsyncEvent.SockTxFailData.sd));
 }
 //----------------------------------------------------------------------------------------------------
+void Open_Ssl_Socket			(void)
+{
+	Set_Actual_Sd4Sm(sl_Socket(SL_AF_INET,SL_SOCK_STREAM,SL_SEC_SOCKET));
+        SlTimeval_t tTimeout;
+        tTimeout.tv_sec=10;
+        tTimeout.tv_usec=90000;
+
+        char method = SL_SO_SEC_METHOD_SSLV3;
+        long cipher = SL_SEC_MASK_SSL_RSA_WITH_RC4_128_MD5;
+	char Status=0;
+
+        Status = sl_SetSockOpt(Actual_Sd4Sm(), SL_SO_RCVTIMEO, 0, &tTimeout, 	sizeof(SlTimeval_t));
+        Status = sl_SetSockOpt(Actual_Sd4Sm(), SL_SOL_SOCKET, 25, &method, 	sizeof(method));
+        Status = sl_SetSockOpt(Actual_Sd4Sm(), SL_SOL_SOCKET, 26, &cipher, 	sizeof(cipher));
+	Atomic_Send_Event(Actual_Sd4Sm()<0?Socket_Fail_Event:Socket_Created_Event,Actual_Sm());
+	DBG_WIFI_SOCKET_PRINT		("---->Open Ssl sd: %d port: %d\r\n",Actual_Sd4Sm(),Actual_Port4Sm());
+}
 void Open_Socket			(void)
 {
 	Set_Actual_Sd4Sm(sl_Socket(SL_AF_INET,SL_SOCK_STREAM,IPPROTO_TCP));
@@ -81,15 +99,17 @@ void Open_Socket			(void)
 }
 void Connect2Server		(void)
 {
-	SlSockAddrIn_t  	sAddr;
+	SlSockAddrIn_t		sAddr;
 	int             	iAddrSize,iStatus;
-	long lNonBlocking 	= 1; 
-	sAddr.sin_family 	= SL_AF_INET;
-	sAddr.sin_port 		= sl_Htons(Actual_Port4Sm());
-	sAddr.sin_addr.s_addr 	= sl_Htonl(0x32177C44); //ubidots
-//	sAddr.sin_addr.s_addr 	= sl_Htonl((Read_Actual_Ip()&0xFFFFFF00)+100);
+	long lNonBlocking	= 1;
+	sAddr.sin_family	= SL_AF_INET;
+	sAddr.sin_port		= sl_Htons(Actual_Port4Sm());
+//	sAddr.sin_addr.s_addr	= sl_Htonl(0x32177C44); //ubidots
+//	sAddr.sin_addr.s_addr	= sl_Htonl(SL_IPV4_VAL(74,125,129,108));	//gmail
+	sAddr.sin_addr.s_addr	= sl_Htonl(SL_IPV4_VAL(192,168,2,5));	//gmail
+//	sAddr.sin_addr.s_addr	= sl_Htonl((Read_Actual_Ip()&0xFFFFFF00)+100);
 	iAddrSize 		= sizeof(SlSockAddrIn_t);
-	DBG_WIFI_SOCKET_PRINT	("---->Try connect server ip: ubidots sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
+	DBG_WIFI_SOCKET_PRINT	("---->Try connect server ip: gmail sd: %d port: %d\n\r",Actual_Sd4Sm(),Actual_Port4Sm());
 	iStatus 		= sl_SetSockOpt(Actual_Sd4Sm(), SL_SOL_SOCKET, SL_SO_NONBLOCKING, &lNonBlocking, sizeof(lNonBlocking)); //configura el socket como no bloqueante, clave!
 	iStatus 		= sl_Connect(Actual_Sd4Sm(), ( SlSockAddr_t *)&sAddr, iAddrSize);
 	Atomic_Send_Event(iStatus<0?Server_Fail_Event:Server_Connected_Event,Actual_Sm());
@@ -98,7 +118,7 @@ void Bind_Port			(void)
 {
 	SlSockAddrIn_t  	sAddr;
 	int             	iAddrSize,iStatus;
-	long lNonBlocking 	= 1; 
+	long lNonBlocking 	= 1;
 	sAddr.sin_family 	= SL_AF_INET;
 	sAddr.sin_port 		= sl_Htons(Actual_Port4Sm());
 	sAddr.sin_addr.s_addr 	= 0;
@@ -136,7 +156,7 @@ void Client_Connected	(void)
 //	Set_Actual_App4Sm(Wifi_Session_App());									//una vez conectado le asigno la app.. lo hago aca para no hcerlo cada vez que intento conectarme al server... 
 	Set_Led_Effect(Led_Run,0xFFFF);
 	Set_Temp_Led_Effect(Buzzer,0x0001);
-	Atomic_Send_Event(Send_Temp_Hum_Event,Actual_App4Sm()); //le mando una 'A' para que haga algo../ubidots
+	Atomic_Send_Event(Client_Connected_Event,Actual_App4Sm()); //le mando una 'A' para que haga algo../ubidots
 	Set_Schedule4Sm(2);
 }
 void Server_Connected	(void) 	
@@ -325,14 +345,22 @@ const State* 	Set_Actual_App4Sm		(const State* App)	{return  ((struct Socket_Str
 void 		Init_Wifi_Socket		(void) 
 { 
 	unsigned char i,j=0;
-	for(i=0;i<MAX_CLIENTS;i++,j++){
+//	for(i=0;i<MAX_CLIENTS;i++,j++){
+//		Socket_List[j].Sm	=C_Closed;
+//		Socket_List[j].App	=Ubidots_App();
+//		Socket_List[j].Sd	=0;
+//		Socket_List[j].Port	=80;//PORT_BASE+i; //test ubidots
+//		New_Periodic_Schedule	(5*600,Rti_Event,		Wifi_Socket(j));
+//	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
+//	}
+		//Email testing
 		Socket_List[j].Sm	=C_Closed;
-		Socket_List[j].App	=Ubidots_App();
+		Socket_List[j].App	=Email_Session_App();
 		Socket_List[j].Sd	=0;
-		Socket_List[j].Port	=80;//PORT_BASE+i; //test ubidots
-		New_Periodic_Schedule	(100,Rti_Event,		Wifi_Socket(j));
-	//	New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
-	}
+		Socket_List[j].Port	=12325; //test email
+		New_Periodic_Schedule	(10,Rti_Event,		Wifi_Socket(j));
+		New_Periodic_Schedule	(2,Print_State_Event,	Wifi_Socket(j));	//debug
+		j++;
 	for(i=0;i<MAX_BIND;i++,j++){
 		Socket_List[j].Sm	=B_Closed;
 		Socket_List[j].App	=Empty_App();
@@ -359,7 +387,7 @@ void 		Wifi_Socket_Rti		(void) 			{Atomic_Send_Event2All_Sockets(Rti_Event);}
 //------------------CLIENT----------------------------------------------------------------------------------
 static const State C_Closed[] =
 {
- Ip_Acquired_Event		,Open_Socket			,C_Opening,
+ Ip_Acquired_Event		,Open_Ssl_Socket		,C_Opening,
  SL_SOCKET_TX_FAILED_EVENT	,Reset_Sd			,C_Closed,
  Print_State_Event		,Print_Closed			,C_Closed,
  ANY_Event			,Rien				,C_Closed,
@@ -369,7 +397,7 @@ static const State C_Opening[] =
  Socket_Created_Event		,Socket_Opened			,C_Opened,
  Socket_Fail_Event		,Print_Error_Opening		,C_Opening,
  Ip_Released_Event		,Unwanted_Close_Socket		,C_Closed,
- Rti_Event			,Open_Socket			,C_Opening,
+ Rti_Event			,Open_Ssl_Socket		,C_Opening,
  Print_State_Event		,Print_Opening			,C_Opening,
  ANY_Event			,Rien				,C_Opening,
 };

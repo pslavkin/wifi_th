@@ -13,10 +13,10 @@
 #include <one_wire_network.h>
 #include <one_wire_transport.h>
 #include <type_conversion.h>
-#include <string.h>
+#include <str.h>
 #include <checksum.h>
 #include <debug.h>
-#include <string.h>
+#include <str.h>
 #include <wifi_socket.h>
 #include <tmp_control.h>
 

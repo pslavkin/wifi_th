@@ -1,5 +1,5 @@
 #include <type_conversion.h>
-#include <string.h>
+#include "str.h"
 
 
 static const unsigned int Dec_Long[]= {		//este array de long se usa para las restas suscesivas en las funciones de conversion de long a BCD y de char a BCD. Notar que no banca el maximo de los long, porque por ahora no se necesita, en caso de requerir habra que seguir agragando potencias de 10 a este array

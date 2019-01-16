@@ -11,6 +11,8 @@
 #include "debug.h"
 #include "leds_session.h"
 #include "http_session.h"
+#include "str.h"
+#include "email_session.h"
 
 static const State   
         Start_State[],
@@ -176,6 +178,7 @@ void 		Init_Wifi_Phisical	(void)
 { 
  Wifi_Phisical_Sm=Start_State;
  Init_Http_Session();
+ Init_Email_Session();
  New_Periodic_Schedule(2,Rti_Event,		Wifi_Phisical());
 // Connect2Pyj();
  Connect2Dci();

@@ -12,6 +12,7 @@
 #include "simplelink.h"
 #include "schedule.h"
 #include "debug.h"
+#include "str.h"
 #include "type_conversion.h"
 #include "uart_if.h"/*}}}*/
 static const  State 

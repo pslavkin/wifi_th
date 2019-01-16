@@ -10,14 +10,14 @@
 #include "uart_if.h"
 //----------------------------------------------------------------------------------------------------
 static const  State 
- 	Button_Undefined[],
+	Button_Undefined[],
 	Button_None[],
 	Button1_Pressed[],
 	Button1_Holded[];
 
 struct Struct_Buttons_State 
 {
- unsigned char Button1_Counter;
+	unsigned char Button1_Counter;
 };
 
 static struct Struct_Buttons_State Status;
@@ -25,11 +25,11 @@ const State *Buttons_Sm;
 //----------------------------------------------------------------------------------------------------
 void Init_Buttons(void)
 {
- 	Buttons_Sm=Button_Undefined;
-	MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA2,	PRCM_RUN_MODE_CLK); 			//habilito clk para este periferico y espero 3 clks antes de acceder
-	MAP_GPIODirModeSet		(GPIOA2_BASE, 	0x01, 		GPIO_DIR_MODE_IN);	//que SI sea entrada
-	MAP_PinTypeGPIO 		(PIN_07, 	PIN_MODE_0, 	false);			//pin 07<>gpio 16 que NO sea salida
-    	HWREG(0x4402E0E0)=HWREG(0x4402E0E0)|0x00000100;						//pullup gpio16
+	Buttons_Sm=Button_Undefined;
+	MAP_PRCMPeripheralClkEnable	(PRCM_GPIOA2,	PRCM_RUN_MODE_CLK);			//habilito clk para este periferico y espero 3 clks antes de acceder
+	MAP_GPIODirModeSet		(GPIOA2_BASE,	0x01,		GPIO_DIR_MODE_IN);	//que SI sea entrada
+	MAP_PinTypeGPIO			(PIN_07,	PIN_MODE_0,	false);			//pin 07<>gpio 16 que NO sea salida
+	HWREG(0x4402E0E0)=HWREG(0x4402E0E0)|0x00000100;						//pullup gpio16
 }
 
 const State** 	Buttons		(void) 			{return &Buttons_Sm;}
@@ -47,7 +47,7 @@ void Read_Buttons(void)
 //-----BUTTON1------
 void Button1_Press(void)
 {
-	Status.Button1_Counter=0; 
+	Status.Button1_Counter=0;
 //	Atomic_Send_Event(Button1_Pressed_Event,Spi_Session());
 	DBG_PRINT("Button1 Press\r\n");
 }
