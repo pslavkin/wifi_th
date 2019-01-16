@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script id="utag_52" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/conversion_async.js" charset="utf-8" async="" type="text/javascript"></script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/linkid.js" async="" type="text/javascript"></script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/ec.js" async="" type="text/javascript"></script><script id="tealium-tag-7110" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/analytics.js" charset="utf-8" async="" type="text/javascript"></script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/i.json" type="text/javascript"></script>
+<meta charset="UTF-8">
+<title>CC3100 &amp; CC3200 Serial Flash Guide - Texas Instruments Wiki</title>
+<meta name="generator" content="MediaWiki 1.25.1">
+<link rel="shortcut icon" href="http://processors.wiki.ti.com/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://processors.wiki.ti.com/opensearch_desc.php" title="Texas Instruments Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://processors.wiki.ti.com/api.php?action=rsd">
+<link rel="alternate" hreflang="x-default" href="http://processors.wiki.ti.com/index.php/CC3100_%26_CC3200_Serial_Flash_Guide">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Texas Instruments Wiki Atom feed" href="http://processors.wiki.ti.com/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load.css">
+<style>
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}  .mw-content-ltr .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr .mw-collapsible-toggle{float:right} .mw-content-rtl .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl .mw-collapsible-toggle{float:left}.mw-customtoggle,.mw-collapsible-toggle{cursor:pointer} caption .mw-collapsible-toggle,.mw-content-ltr caption .mw-collapsible-toggle,.mw-content-rtl caption .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr caption .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle,.mw-content-ltr li .mw-collapsible-toggle,.mw-content-rtl li .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr li .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:e1ffd603cbaaa5f1a36e0d13fe843535 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left; overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.highlight{font-weight:bold}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:f8d0c6895ce3ae14434c16b8fca59432 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(/resources/src/mediawiki.action/images/green-checkmark.png?2014-10-01T12:38:20Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:b7714e8f038e3865508d553d58b1f7e6 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{color:black;text-decoration:none}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}.suggestions a.mw-searchSuggest-link .special-query{ overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:ae3fa4570b5ac0c6cf7b3776c8ae4d6f */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load_002.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:70500b672b667d946e900b286b62c126 */</style>
+<script async="" type="text/javascript" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/utag.js"></script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load_002.php"></script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load_004.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"CC3100_\u0026_CC3200_Serial_Flash_Guide","wgTitle":"CC3100 \u0026 CC3200 Serial Flash Guide","wgCurRevisionId":218439,"wgRevisionId":218439,"wgArticleId":38591,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Wi-Fi (IEEE 802.11 / WLAN)","Wireless MCUs","Wireless Network Processors","Pages with broken file links"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"CC3100_\u0026_CC3200_Serial_Flash_Guide","wgRelevantArticleId":38591,"wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"preview":true,"publish":false},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":false,\"namespaces\":false}"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});
+/* cache key: davincid_wikidb:resourceloader:filter:minify-js:7:a5c52c063dc436c1ca7c9f456936a5e9 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load.php"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/Vector/csshover.min.htc")}</style><![endif]-->
+<script id="utag_ti.main_4" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/utag_002.js" charset="utf-8" async="" type="text/javascript"></script><script id="utag_ti.main_52" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/utag_004.js" charset="utf-8" async="" type="text/javascript"></script><script id="utag_ti.main_103" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/utag_003.js" charset="utf-8" async="" type="text/javascript"></script><script id="utag_ti.main_87" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/utag_005.js" charset="utf-8" async="" type="text/javascript"></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-CC3100_CC3200_Serial_Flash_Guide skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice"><div id="localNotice" dir="ltr" lang="en"><p><br>
+</p></div></div>
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">CC3100 &amp; CC3200 Serial Flash Guide</span></h1>
+						<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Texas Instruments Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div class="hf-nsheader"><script language="Javascript">
+var tiContentGroup;
+var tiwikicat = (typeof(mw.config.values.wgCategories[0]) === "undefined"? "":mw.config.values.wgCategories[0]);
+tiContentGroup = "/DSP/wiki/Ext/" +tiwikicat;
+var tiPageName;
+tiPageName = 'wiki/CC3100_&amp;_CC3200_Serial_Flash_Guide';
+</script></div><div class="hf-header"></div><div style="clear:both; margin:0; padding:0;"></div>
+<div class="floatright"><a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx" title="CC31xx &amp; CC32xx"><img alt="Cc31xx cc32xx return home.png" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Cc31xx_cc32xx_return_home.png" height="42" width="415"></a></div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#How_file_system_content_gets_to_the_serial_flash"><span class="tocnumber">2</span> <span class="toctext">How file system content gets to the serial flash</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#File_System_guidelines"><span class="tocnumber">3</span> <span class="toctext">File System guidelines</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#User_file_mathematics"><span class="tocnumber">4</span> <span class="toctext">User file mathematics</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#System_and_Configuration_files"><span class="tocnumber">5</span> <span class="toctext">System and Configuration files</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Overview"><span class="tocnumber">5.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Description"><span class="tocnumber">5.2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Memory_consumption"><span class="tocnumber">5.3</span> <span class="toctext">Memory consumption</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#CC3200_use_case"><span class="tocnumber">5.3.1</span> <span class="toctext">CC3200 use case</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Host_Driver_mapping"><span class="tocnumber">5.4</span> <span class="toctext">Host Driver mapping</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Flash_minimal_size"><span class="tocnumber">5.5</span> <span class="toctext">Flash minimal size</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Implementing_file_system_features_from_host_processor"><span class="tocnumber">6</span> <span class="toctext">Implementing file system features from host processor</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Overview_2"><span class="tocnumber">6.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#File_listing"><span class="tocnumber">6.2</span> <span class="toctext">File listing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Requirements"><span class="tocnumber">6.2.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Procedure"><span class="tocnumber">6.2.2</span> <span class="toctext">Procedure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#Free.2Foccupied_space"><span class="tocnumber">6.3</span> <span class="toctext">Free/occupied space</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Requirements_2"><span class="tocnumber">6.3.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Procedure_2"><span class="tocnumber">6.3.2</span> <span class="toctext">Procedure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#File_appending"><span class="tocnumber">6.4</span> <span class="toctext">File appending</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="#Requirements_3"><span class="tocnumber">6.4.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Procedure_3"><span class="tocnumber">6.4.2</span> <span class="toctext">Procedure</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="#Factors_to_consider_in_designing_with_serial_flash"><span class="tocnumber">7</span> <span class="toctext">Factors to consider in designing with serial flash</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#Serial_Flash_Vendor_and_part_number_selection"><span class="tocnumber">7.1</span> <span class="toctext">Serial Flash Vendor and part number selection</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Supported_flash_types"><span class="tocnumber">7.2</span> <span class="toctext">Supported flash types</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Frequent_Write_Operations"><span class="tocnumber">7.3</span> <span class="toctext">Frequent Write Operations</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#SFLASH_write_endurance_limitations"><span class="tocnumber">7.3.1</span> <span class="toctext">SFLASH write endurance limitations</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#S-flash_access_by_the_WiFi_system"><span class="tocnumber">7.3.2</span> <span class="toctext">S-flash access by the WiFi system</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29"><a href="#Sudden_Power_off_.28_Power_removal_during_a_write.2Ferase_phase.29"><span class="tocnumber">7.4</span> <span class="toctext">Sudden Power off ( Power removal during a write/erase phase)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-30"><a href="#Battery_powered_systems"><span class="tocnumber">7.4.1</span> <span class="toctext">Battery powered systems</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="#Line_powered_systems"><span class="tocnumber">7.4.2</span> <span class="toctext">Line powered systems</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="#Design_recommendations_for_ensuring_the_integrity_of_the_power_supply_to_the_serial_flash"><span class="tocnumber">8</span> <span class="toctext">Design recommendations for ensuring the integrity of the power supply to the serial flash</span></a>
+<ul>
+<li class="toclevel-2 tocsection-33"><a href="#Overview_3"><span class="tocnumber">8.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Key_points"><span class="tocnumber">8.2</span> <span class="toctext">Key points</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="#Design_scenarios"><span class="tocnumber">8.3</span> <span class="toctext">Design scenarios</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="#Brown-out_mitigation_techniques_for_new_self-hosted_CC3200_designs"><span class="tocnumber">8.4</span> <span class="toctext">Brown-out mitigation techniques for new self-hosted CC3200 designs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-37"><a href="#Recommended_best_practices"><span class="tocnumber">9</span> <span class="toctext">Recommended best practices</span></a></li>
+<li class="toclevel-1 tocsection-38"><a href="#Implications_of_Data_integrity_compromise_to_CC3100.2FCC3200"><span class="tocnumber">10</span> <span class="toctext">Implications of Data integrity compromise to CC3100/CC3200</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="#Recovery"><span class="tocnumber">10.1</span> <span class="toctext">Recovery</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-40"><a href="#Links"><span class="tocnumber">11</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Many embedded systems contain a serial flash component to store 
+firmware, configuration files and user data for usage by a 
+microcontroller/processor. The processor sporadically writes data into 
+this serial flash for updating the contents. Inclusion of serial flash 
+memory poses unique challenges for the system designer<br>
+• A typical serial flash guarantees a data endurance of 100K write 
+cycles per sector and 20 years data retention. The write endurance and 
+data retention characteristics must to be taken into account by the 
+application developer<br>
+• The serial nature of reads and writes results in long access times and
+ this raises the challenge of maintaining a stable system supply voltage
+ for the duration of the access. <br>
+</p><p>This document provides guidelines and recommendations for system designers working with CC3100/CC3200<sup>TM</sup> file system.
+</p>
+<h2><span class="mw-headline" id="How_file_system_content_gets_to_the_serial_flash">How file system content gets to the serial flash</span></h2>
+<p>Before diving into file system structure, it is highly important for 
+designers to realize how content can be created on the serial flash.<br>
+There are several ways for files to be created on the serial flash. The following table describes the various options:<br>
+</p>
+<table bgcolor="#eeeeee" border="2">
+
+<tbody><tr bgcolor="#ffff66">
+<td> <b>Application/tool</b>
+</td>
+<td> <b>Device state</b>
+</td>
+<td> <b>Content delivery channel</b>
+</td>
+<td> <b>Content type</b>
+</td>
+<td> <b>Package/example</b>
+</td></tr>
+<tr>
+<td> Uniflash
+</td>
+<td> Boot loader
+</td>
+<td> UART
+</td>
+<td> User, system and configuration files
+</td>
+<td> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_UniFlash" title="CC31xx &amp; CC32xx UniFlash">CC31xx &amp; CC32xx UniFlash</a>
+</td></tr>
+<tr>
+<td> SimpleLink<sup>TM</sup> file system API
+</td>
+<td> Operational
+</td>
+<td> UART/SPI
+</td>
+<td> User files
+</td>
+<td>
+<ul><li> File operations – SDK</li>
+<li> OTA</li>
+<li> Host programming</li></ul>
+</td></tr>
+<tr>
+<td> SimpleLink<sup>TM</sup> non file system API
+</td>
+<td> Operational
+</td>
+<td> UART/SPI
+</td>
+<td> System and configuration files
+</td>
+<td> Any SDK example
+</td></tr>
+<tr>
+<td> SimpleLink<sup>TM</sup> Device internals
+</td>
+<td> Operational
+</td>
+<td> Device internals
+</td>
+<td> N/A
+</td>
+<td>
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="File_System_guidelines">File System guidelines</span></h2>
+<p>As the file system may be used by customers for their own purposes, 
+it is essential to understand the constraints and recommendations so the
+ file system is designed and maintained properly.<br>
+</p><p>The guidelines are:
+</p>
+<ul><li> Minimal flash resolution is 1 block which is 4KB</li>
+<li> The File System by itself requires 3 blocks (12KB)</li>
+<li> There are 2 reserved blocks that cannot be used by the user</li>
+<li> Total number of files is limited to 128 files, including system and configuration files</li>
+<li> Maximal size of a file is 1MB</li>
+<li> Maximal size of the serial flash is 16MB</li>
+<li> Each file by minimum consume:
+<ul><li> 1 Block (4KB) for file with no fail safe support</li>
+<li> 2 Blocks (8KB) for file with fail safe support (twice the original size)</li></ul></li>
+<li> It is required to set the maximum size attribute upon file creation
+ (the file system reserves space). In this case, the actual size of the 
+file is irrelevant as file system occupies the allocated space</li>
+<li> File size cannot be enlarged after the file has been created</li>
+<li> File attributes (currently, only fail-safe) cannot be modified after the file has been created</li>
+<li> There is no fragmentation in the file system. It means that an 
+existing file which is removed would leave a "hole" in memory. This 
+"hole" may be reallocated by the file system if the new file can fit 
+into it</li>
+<li> When file is created, the minimal memory “hole” that can hold the file is searched for</li>
+<li> Actual size of a file may increase depending on its size. The mapping can be found under <b>User file mathematics</b> </li>
+<li> Each file has a header which enlarges the actual size of the file. 
+The overhead is 440 bytes. If the file size is very close to a multiple 
+of block (4KB), additional block may be allocated. For example, a file 
+of actual size 4000 bytes would result in allocating 2 blocks as 
+4000+440 &gt; 4096. More information can be found under <b>User file mathematics</b></li>
+<li> Some system/configuration files may be created internally by the device. More information can be found under <b>System and Configuration files</b></li>
+<li> Some system/configuration files may be created implicitly from the 
+host processor by invoking non file-system APIs. More information can be
+ found under <b>System and Configuration files</b></li></ul>
+<h2><span class="mw-headline" id="User_file_mathematics">User file mathematics</span></h2>
+<p>Since users make use of the file system to store files, it is 
+essential to be able to calculate accurately the occupied memory space 
+per file. The total occupied size on flash is a function of the file 
+content length (or the maximum size upon creation), file attributes and 
+file system metadata.
+</p><p>The flow below describes the process for calculating how much memory is actually consumed on the serial flash.
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:File_size_calculations.jpeg" class="image" title="file size calculations"><img alt="file size calculations" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/File_size_calculations.jpeg" class="thumbborder" height="888" width="608"></a></div></div>
+<p>Few examples illustrating the procedure:<br>
+</p>
+<table bgcolor="#eeeeee" border="2">
+
+<tbody><tr bgcolor="#ffff66">
+<td> <b>File size (bytes)</b>
+</td>
+<td> <b>Page size</b>
+</td>
+<td> <b>Round to page</b>
+</td>
+<td> <b>Add header and round to block</b>
+</td>
+<td> <b>Allocated size via sl_FsGetInfo()</b>
+</td></tr>
+<tr>
+<td> 10
+</td>
+<td> 256
+</td>
+<td> 256 (1 page)
+</td>
+<td> 4096 (1 block)
+</td>
+<td> 3656
+</td></tr>
+<tr>
+<td> 250000
+</td>
+<td> 1024
+</td>
+<td> 250880 (245 pages)
+</td>
+<td> 253952 (62 blocks)
+</td>
+<td> 253512
+</td></tr>
+<tr>
+<td> 1000000
+</td>
+<td> 4096
+</td>
+<td> 1003520 (245 pages)
+</td>
+<td> 1007616 (246 blocks)
+</td>
+<td> 10007176
+</td></tr></tbody></table>
+<p><img alt="Note" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Light_bulb_icon.png" title="Note" height="25" width="18"><b>Note:</b>  calling <i>sl_FsGetInfo()</i> provides the allocated size not including the 440 bytes header
+</p>
+<h2><span class="mw-headline" id="System_and_Configuration_files">System and Configuration files</span></h2>
+<h3><span class="mw-headline" id="Overview">Overview</span></h3>
+<p>Configuration and system files can be implicitly created by the user 
+or internally created by the device. Since these files are essential for
+ proper device operation, it is important that the user understand the 
+meaning of each file and when it is required. Failing to preserve enough
+ space for system/configuration files may cause system unexpected 
+behavior.<br>
+</p>
+<h3><span class="mw-headline" id="Description">Description</span></h3>
+<p>This paragraph describes in details the meaning of each system or configuration file.<br>
+</p>
+<table bgcolor="#eeeeee" border="2" width="814">
+
+<tbody><tr bgcolor="#ffff66">
+<td width="200"> <b>Artifact</b>
+</td>
+<td> <b>Description</b>
+</td></tr>
+<tr>
+<td> FAT
+</td>
+<td> File allocation table. Created upon format operation, either from 
+Uniflash or via Image Programming. FAT is device unique so serial flash 
+devices cannot be cloned and work on another SimpleLink<sup>TM</sup> device
+</td></tr>
+<tr>
+<td> Reserved blocks
+</td>
+<td> Reserved blocks for future use
+</td></tr>
+<tr>
+<td> /sys/servicepack.ucf
+</td>
+<td> Holds firmware patches to all internal cores, Network processor, 
+MAC layer and PHY layer. This is the only file that is secured and 
+authenticated in the system
+</td></tr>
+<tr>
+<td> /tmp/phy.cal
+</td>
+<td> Calibration file created automatically by the device. Calibration 
+is performed sparingly, typically when coming out of Hibernate and only 
+if temperature has changed by more than 20°C or upon power cycle
+</td></tr>
+<tr>
+<td> /tmp/fcon.frm
+</td>
+<td> Fast connect frame. Holds all beacon information of the last 
+connected access point. Created upon successful connection to an access 
+point
+</td></tr>
+<tr>
+<td> /tmp/fcon.ssid
+</td>
+<td> Fast connect profile. Holds selected profile information of the 
+last connected access point (as if a profile is added by the user). 
+Created upon successful connection to an access point
+</td></tr>
+<tr>
+<td> /tmp/table.arp
+</td>
+<td> ARP table file. This file holds up to 8 entries. The table is updated upon ARP response reception to the device IP address
+</td></tr>
+<tr>
+<td> /sys/date_time.cfg
+</td>
+<td> Holds the system time and date. Mainly used with to validate expiry time of certificates during SSL connections
+</td></tr>
+<tr>
+<td> /sys/rxfltr.ini
+</td>
+<td> Holds all RX filtering information. The Rx-filters module enables 
+the user to simply define a set of rules that determine which of the 
+received frames are transferred by the SimpleLink<sup>TM</sup> device to
+ the host, and which frames are dropped. The Rx-filters can be activated
+ during AP-connection and during promiscuous mode
+</td></tr>
+<tr>
+<td> /sys/infoele.cfg
+</td>
+<td> Holds user defined information element. The information element is 
+transmitted when the device is either in AP mode or Peer2Peer group 
+owner mode. The size is limited to 252 bytes<br>
+</td></tr>
+<tr>
+<td> /sys/macadd.bin
+</td>
+<td> Holds the user defined MAC address of the device. If this file exists, the device internal MAC address is bypassed
+</td></tr>
+<tr>
+<td> /sys/stacfg.ini
+</td>
+<td> Holds device configuration when it is either in station mode or 
+Peer2Peer client mode. The list of APIs related to stacfg.ini can be 
+found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/ap.cfg
+</td>
+<td> Holds device configuration when in access point mode. The list of APIs related to ap.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/p2p.cfg
+</td>
+<td>  Holds device configuration when Peer2Peer mode (client or group 
+owner). The list of APIs related to p2p.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/mode.cfg
+</td>
+<td> Holds device general configuration, unbound to device mode. The list of APIs related to mode.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/pref.net
+</td>
+<td> Holds up to 7 stored profiles. Profiles may be stored explicitly 
+from user application or implicitly during Smart Config provisioning. 
+SimpleLink<sup>TM</sup> device scan the stored profile list only if connection policy is set to Auto mode
+</td></tr>
+<tr>
+<td> /sys/pmcfg.ini
+</td>
+<td> Holds the power policy configuration of the device. The list of APIs related to pmcfg.ini can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/ipcfg.ini
+</td>
+<td> Hold IP configuration of the device. The list of APIs related to ipcfg.ini can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/devname.cfg
+</td>
+<td> Holds the device name and URN. The list of APIs related to devname.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/dhcpsrv.cfg
+</td>
+<td> Holds DHCP server information. The list of APIs related to dhcpsrv.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/httpsrv.cfg
+</td>
+<td> Holds HTTP server information. The list of APIs related to httpsrv.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/mdns.cfg
+</td>
+<td> Holds mDNS client information. The list of APIs related to mdns.cfg can be found under <b>Host Driver mapping</b>
+</td></tr>
+<tr>
+<td> /sys/smartconfigkeys.cfg
+</td>
+<td> Holds Smart Config keys in case the provisioning procedure is 
+secured (access point credentials are encrypted during provisioning).
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Memory_consumption">Memory consumption</span></h3>
+<p>The following table illustrate the memory consumption for each of the system components.<br>
+</p>
+<table bgcolor="#eeeeee" border="2" width="814">
+
+<tbody><tr bgcolor="#ffff66">
+<td width="200"> <b>Filename/Artifact</b>
+</td>
+<td> <b>Description</b>
+</td>
+<td> <b>Fail safe</b>
+</td>
+<td> <b>#blocks</b>
+</td></tr>
+<tr>
+<td> FAT
+</td>
+<td> File allocation table. Created upon format operation
+</td>
+<td> N/A
+</td>
+<td> 3
+</td></tr>
+<tr>
+<td> Reserved blocks
+</td>
+<td> Reserved blocks for the system
+</td>
+<td> N/A
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> <b>Total</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> <b>5</b>
+</td></tr>
+<tr bgcolor="white">
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> /sys/servicepack.ucf
+</td>
+<td> Firmware patches
+</td>
+<td> yes
+</td>
+<td> 66
+</td></tr>
+<tr>
+<td> /tmp/phy.cal
+</td>
+<td> PHY calibration
+</td>
+<td> yes
+</td>
+<td> 10
+</td></tr>
+<tr>
+<td> /tmp/fcon.frm
+</td>
+<td> Fast Connect frame (beacon info)
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /tmp/fcon.ssid
+</td>
+<td> Fast Connect profile
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td width="200"> /tmp/table.arp
+</td>
+<td> Arp Table
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/date_time.cfg
+</td>
+<td> Date Time
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/rxfltr.ini
+</td>
+<td> Rx Filters
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/infoele.cfg
+</td>
+<td> Info Element file
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> <b>Total</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> <b>88</b>
+</td></tr>
+<tr bgcolor="white">
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> /sys/macadd.bin
+</td>
+<td> MAC address
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/stacfg.ini
+</td>
+<td> Station configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/ap.cfg
+</td>
+<td> AP configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/p2p.cfg
+</td>
+<td> Peer2Peer configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/mode.cfg
+</td>
+<td> WLAN Mode
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/pref.net
+</td>
+<td> Preferred networks
+</td>
+<td> yes
+</td>
+<td> 4
+</td></tr>
+<tr>
+<td> /sys/pmcfg.ini
+</td>
+<td> Power Management
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/ipcfg.ini
+</td>
+<td> IP configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/devname.cfg
+</td>
+<td> Device Name
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/dhcpsrv.cfg
+</td>
+<td> DHCP Server configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/httpsrv.cfg
+</td>
+<td> HTTP Server configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/mdns.cfg
+</td>
+<td> mDNS configuration
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> /sys/smartconfigkeys.cfg
+</td>
+<td> SmartConfig Keys
+</td>
+<td> yes
+</td>
+<td> 2
+</td></tr>
+<tr>
+<td> <b>Total</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> <b>28</b>
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="CC3200_use_case">CC3200 use case</span></h4>
+<p>CC3200 is a special case since its image (application code running on
+ the internal processor) should be taken into account as well. The 
+occupied space depends on the OTA (Over-The-Air) scheme.<br>
+The following table illustrates two OTA schemes, MCU image with fail-safe option and OTA as taken from the OTA SDK add-on.<br>
+</p>
+<table class="prettytable" border="2" width="814">
+
+<tbody><tr>
+<td bgcolor="#ffff66" width="200">
+<p><b>Filename/Artifact</b> 
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>Description</b> 
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>Fail safe</b> 
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>#blocks</b> 
+</p>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/mcuimg.bin<br>
+</td>
+<td bgcolor="#eeeeee"> MCU application image running on the internal CM4<br>
+</td>
+<td bgcolor="#eeeeee"> yes<br>
+</td>
+<td bgcolor="#eeeeee"> 128<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> <b>Total</b><br>
+</td>
+<td bgcolor="#eeeeee"> <br>
+</td>
+<td bgcolor="#eeeeee"> <br>
+</td>
+<td bgcolor="#eeeeee"> <b>128</b><br>
+</td></tr>
+<tr>
+<td bgcolor="white" width="200"> <br>
+</td>
+<td bgcolor="white"> <br>
+</td>
+<td bgcolor="white"> <br>
+</td>
+<td bgcolor="white"> <br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> MCU boot info<br>
+</td>
+<td bgcolor="#eeeeee"> Boot information for image selection<br>
+</td>
+<td bgcolor="#eeeeee"> no<br>
+</td>
+<td bgcolor="#eeeeee"> 1<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/mcuimg.bin (MCU application bootloader)<br>
+</td>
+<td bgcolor="#eeeeee"> MCU application for image selection<br>
+</td>
+<td bgcolor="#eeeeee"> no<br>
+</td>
+<td bgcolor="#eeeeee"> 1<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> MCU image 1<br>
+</td>
+<td bgcolor="#eeeeee"> 1<sup>st</sup> image – the default image<br>
+</td>
+<td bgcolor="#eeeeee"> no<br>
+</td>
+<td bgcolor="#eeeeee"> 64<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> MCU image 2<br>
+</td>
+<td bgcolor="#eeeeee"> 2<sup>nd</sup> image<br>
+</td>
+<td bgcolor="#eeeeee"> no<br>
+</td>
+<td bgcolor="#eeeeee"> 64<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> MCU image 3<br>
+</td>
+<td bgcolor="#eeeeee"> 3<sup>rd</sup> image<br>
+</td>
+<td bgcolor="#eeeeee"> no<br>
+</td>
+<td bgcolor="#eeeeee"> 64<br>
+<p><br>
+</p>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> <b>Total</b><br>
+</td>
+<td bgcolor="#eeeeee"> <br>
+</td>
+<td bgcolor="#eeeeee"> <br>
+</td>
+<td bgcolor="#eeeeee"> <b>194</b><br>
+</td></tr></tbody></table><br>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Host_Driver_mapping">Host Driver mapping</span></h3>
+<p>As described earlier, some files are created internally and some can also be created implicitly by invoking host driver APIs.<br>
+It is mandatory to understand the mapping so users are able to design 
+their memory budget such that enough space is preserved for all required
+ system/configuration components.<br>
+</p>
+<table class="prettytable" border="2">
+
+<tbody><tr>
+<td bgcolor="#ffff66" width="200">
+<p><b>Filename/Artifact</b> 
+</p>
+</td>
+<td bgcolor="#ffff66" width="170">
+<p><b>Created by API()</b> 
+</p>
+</td>
+<td bgcolor="#ffff66" width="170">
+<p><b>Read period</b> 
+</p>
+</td>
+<td bgcolor="#ffff66" width="170">
+<p><b>Write period</b> 
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>#blocks</b> 
+</p>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> FAT<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> @Format</li>
+<li> Every Added/Remove File</li></ul>
+<p><br>
+</p>
+</td>
+<td bgcolor="#eeeeee"> 3<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> Reserved blocks<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/mcuimg.bin<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> Refer to OTA<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> When updating APP<br>
+</td>
+<td bgcolor="#eeeeee"> OTA dependent<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/servicepack.ucf<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> Refer to OTA. sl_FsOpen(),sl_FsWrite() and sl_FsClose()<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 66<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /tmp/phy.cal<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> At least once, Upon temperature change when coming out of hibernate or upon power cycle<br>
+</td>
+<td bgcolor="#eeeeee"> 10<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /tmp/fcon.frm<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanConnect()</li>
+<li> sl_WlanProfileAdd()</li>
+<li> sl_WlanSmartConfigStart()</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> Upon successful AP connection<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> When AP changes<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /tmp/fcon.ssid<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanConnect()</li>
+<li> sl_WlanProfileAdd()</li>
+<li> sl_WlanSmartConfigStart()</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> Upon successful AP connection<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> When AP changes<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /tmp/table.arp<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> N/A<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> Upon successful AP connection<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> ARP response to the device IP address<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/date_time.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_DevSet(SL_DEVICE_GENERAL_CONFIGURATION, SL_DEVICE_GENERAL_CONFIGURATION_DATE_TIME, …)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/rxfltr.ini<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_WlanRxFilterAdd() with sl_WlanRxFilterSet(SL_ENABLE_DISABLE_RX_FILTER,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/infoele.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_WlanSet(SL_WLAN_CFG_GENERAL_PARAM_ID,WLAN_GENERAL_PARAM_OPT_INFO_ELEMENT,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/macadd.bin<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_NetCfgSet(SL_MAC_ADDRESS_SET,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/stacfg.ini<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanSet(SL_WLAN_CFG_GENERAL_PARAM_ID, WLAN_GENERAL_PARAM_OPT_SCAN_PARAMS,…)</li>
+<li> sl_WlanPolicySet(SL_POLICY_CONNECTION, SL_CONNECTION_POLICY(),…)</li>
+<li> sl_WlanPolicySet(SL_POLICY_P2P, SL_P2P_POLICY(),…)</li>
+<li> sl_WlanPolicySet(SL_POLICY_SCAN,SL_SCAN_ENABLE,…)</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/ap.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SSID,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_CHANNEL,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_HIDDEN_SSID,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SECURITY_TYPE,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_PASSWORD,…)</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/p2p.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanSet(SL_WLAN_CFG_P2P_PARAM_ID, WLAN_P2P_OPT_DEV_TYPE,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_P2P_PARAM_ID, WLAN_P2P_OPT_CHANNEL_N_REGS,…)</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/mode.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanSet(SL_WLAN_CFG_GENERAL_PARAM_ID, WLAN_GENERAL_PARAM_OPT_STA_TX_POWER,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_GENERAL_PARAM_ID, WLAN_GENERAL_PARAM_OPT_AP_TX_POWER,…)</li>
+<li> sl_WlanSet(SL_WLAN_CFG_GENERAL_PARAM_ID, WLAN_GENERAL_PARAM_OPT_COUNTRY_CODE,…)</li>
+<li> sl_WlanSetMode()</li>
+<li> sl_EventMaskSet()</li>
+<li> sl_NetAppStart()</li>
+<li> sl_NetAppStop()</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/pref.net<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_WlanProfileAdd()</li>
+<li> sl_WlanProfileDel()</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 4<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/pmcfg.ini<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_WlanPolicySet(SL_POLICY_PM,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/ipcfg.ini<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_NetCfgSet(SL_IPV4_STA_P2P_CL_STATIC_ENABLE,IPCONFIG_MODE_ENABLE_IPV4,…)</li>
+<li> sl_NetCfgSet(SL_IPV4_STA_P2P_CL_DHCP_ENABLE,IPCONFIG_MODE_ENABLE_IPV4,…)</li>
+<li> sl_NetCfgSet(SL_IPV4_AP_P2P_GO_STATIC_ENABLE,IPCONFIG_MODE_ENABLE_IPV4,…)</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/devname.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_NetAppSet (SL_NET_APP_DEVICE_CONFIG_ID,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/dhcpsrv.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_NetAppSet(SL_NET_APP_DHCP_SERVER_ID,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/httpsrv.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> sl_NetAppSet(SL_NET_APP_HTTP_SERVER_ID,…)<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/mdns.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> sl_NetAppSet(SL_NET_APP_MDNS_ID,…)</li>
+<li> sl_NetAppMDNSRegisterService()</li>
+<li> sl_NetAppMDNSUnRegisterService()</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee" width="200"> /sys/smartconfigkeys.cfg<br>
+</td>
+<td bgcolor="#eeeeee" width="170"> Creation via Uniflash only.
+<p>Invocation via sl_WlanSmartConfigStart()<br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170">
+<ul><li> When Exit Reset</li>
+<li> When Exit HIB</li>
+<li> User Initiated</li></ul>
+<p><br> 
+</p>
+</td>
+<td bgcolor="#eeeeee" width="170"> User Initiated<br>
+</td>
+<td bgcolor="#eeeeee"> 2<br>
+</td></tr></tbody></table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Flash_minimal_size">Flash minimal size</span></h3>
+<p>The minimal size of a flash is determined according to the memory space occupied by all system and configuration files. <br>
+As described earlier, user can either reserve the entire space or 
+customize and reserve only the required space. In the latter case, extra
+ caution should be taken since not preserving enough space may cause 
+system unexpected behavior.<br>
+</p><p>The following table marks the full memory consumption in case all system and configuration files are used.<br>
+</p>
+<table class="prettytable" border="2" width="814">
+
+<tbody><tr>
+<td bgcolor="#ffff66">
+<p><br>
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>CC3100</b> 
+</p>
+</td>
+<td bgcolor="#ffff66">
+<p><b>CC3200</b> 
+</p>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>File system artifacts (FAT, reserved blocks)</b><br>
+</td>
+<td bgcolor="#eeeeee"> 20KB<br>
+</td>
+<td bgcolor="#eeeeee"> 20KB<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>ServicePack</b><br>
+</td>
+<td bgcolor="#eeeeee"> 264KB<br>
+</td>
+<td bgcolor="#eeeeee"> 264KB<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>System &amp; Configuration</b><br>
+</td>
+<td bgcolor="#eeeeee"> 200KB<br>
+</td>
+<td bgcolor="#eeeeee"> 200KB<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>MCU scheme with fail-safe</b><br>
+</td>
+<td bgcolor="#eeeeee"> N/A<br>
+</td>
+<td bgcolor="#eeeeee"> 512KB<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>MCU scheme from OTA example</b><br>
+</td>
+<td bgcolor="#eeeeee"> N/A<br>
+</td>
+<td bgcolor="#eeeeee"> 776KB<br>
+</td></tr>
+<tr>
+<td bgcolor="#eeeeee"> <b>Total</b><br>
+</td>
+<td bgcolor="#eeeeee"> <b>484KB</b><br>
+</td>
+<td bgcolor="#eeeeee"> <b>996KB/1260KB</b><br>
+</td></tr></tbody></table>
+<p><img alt="Note" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Light_bulb_icon.png" title="Note" height="25" width="18"><b>Note:</b> 
+</p>
+<dl><dd><dl><dd><ol><li> 996KB is for MCU scheme with fail-safe option 
+whereas 1260KB is for MCU scheme from OTA example where all MCU images 
+are created with no fail-safe. The decision mechanism is implemented in 
+host.</li>
+<li> If the “Over The Air” example provided by TI is used as a 
+reference, then the MCU application binaries need not be created as 
+“fail safe” ,as the primary and back-up images are stored as distinct 
+files in the file system</li></ol>
+<dl><dd>The user has to select a flash large enough to fit the 
+application code and required data files. Note that flash devices are 
+available in the sizes, 8Mbit, 16Mbit, 32Mbit, 64Mbit and 128Mbit.</dd></dl></dd></dl></dd></dl>
+<h2><span class="mw-headline" id="Implementing_file_system_features_from_host_processor">Implementing file system features from host processor</span></h2>
+<h3><span class="mw-headline" id="Overview_2">Overview</span></h3>
+<p>Users may find it frustrating that SimpleLink<sup>TM</sup> host 
+driver does not expose some file system capabilities that are considered
+ “built-in”. These features include file listing, occupied/free space 
+and file appending. The reason these features are not part of the file 
+system is stemming from the fact that the file system was originally 
+designed to serve only the internal cores of the device. Since it is 
+impossible to add such features as patches, the current production 
+devices would lack these services from the device. However, this 
+paragraph offers guidelines on how to implement such features in host 
+application.
+</p>
+<h3><span class="mw-headline" id="File_listing">File listing</span></h3>
+<h4><span class="mw-headline" id="Requirements">Requirements</span></h4>
+<ul><li> Users should keep and maintain a list of all user filenames created from host</li>
+<li> Full list of all system and configuration filenames is required. It can be found under <b>System and Configuration files</b> paragraph</li>
+<li> If allocated size per file is also required:
+<ul><li> Users should keep and maintain for each user file its allocated
+ size (either the size of the content or the maximum size argument)</li>
+<li> Full list of all system and configuration file sizes is required. It can be found under <b>System and Configuration files</b> paragraph</li></ul></li>
+<li> Knowledge of how to accurately calculate the occupied memory space per file. It can be found under <b>User file mathematics</b></li></ul>
+<h4><span class="mw-headline" id="Procedure">Procedure</span></h4>
+<p>The procedure for listing the files and their respective allocated space is as follows:<br>
+</p>
+<ol><li> For every user file created, keep the following information
+<ol><li> Filename</li>
+<li> Calculate file size according to User file mathematics</li></ol></li>
+<li> Loop over all user files and print
+<ol><li> Filename</li>
+<li> Calculated size</li></ol></li>
+<li> Loop over all system/configuration files, invoke fsGetInfo() API and conclude:
+<ol><li> If return value is SL_FS_ERR_FILE_NOT_EXISTS, file does not 
+exist and thus should not be printed. Else, the file exists and should 
+be printed along with the allocated size</li>
+<li> If return value is SL_FS_ERR_TOKEN_IS_NOT_VALID, it means the file 
+is secured but exists. This return value applies to the following 3 
+files: 
+<ol><li> /tmp/fcon.frm</li>
+<li> /sys/pref.net</li>
+<li> /sys/smartconfigkeys.cfg<br></li></ol></li></ol></li></ol>
+<dl><dd><dl><dd>In this case, the file exists and should be printed along with the allocated size.<br></dd></dl></dd></dl>
+<p>The following figure illustrates the procedure:<br>
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:File_listing_flow.jpg" class="image" title="File_listing_flow"><img alt="File_listing_flow" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/File_listing_flow.jpg" class="thumbborder" height="625" width="693"></a></div></div><br>
+<h3><span class="mw-headline" id="Free.2Foccupied_space">Free/occupied space</span></h3>
+<h4><span class="mw-headline" id="Requirements_2">Requirements</span></h4>
+<ul><li> Users should keep and maintain a list of all user filenames created from host</li>
+<li> Users should keep and maintain for each user file its allocated 
+size (either the size of the content or the maximum size argument)</li>
+<li> Knowledge of how to accurately calculate the occupied memory space per file. It can be found under <b>User file mathematics</b></li>
+<li> Full list of all system and configuration filenames and sizes are required. It can be found under <b>System and Configuration files</b> paragraph</li></ul>
+<h4><span class="mw-headline" id="Procedure_2">Procedure</span></h4>
+<p>The procedure for calculating free/occupied space is as follows:<br>
+</p>
+<ol><li> Initialize the free space to the size of the flash (as 
+formatted by Uniflash) and the occupied space to 0. Units are blocks (of
+ 4KB)</li>
+<li> Account for FAT and the reserved blocks
+<ol><li> Decrease free space by 5 blocks</li>
+<li> Increase occupied space by 5 blocks</li></ol></li>
+<li> For every user file created, calculate the allocated size (refer to <b>User file mathematics</b>)</li>
+<li> Loop over all user files and for every file apply
+<ol><li> Decrease free space by the allocated size in blocks</li>
+<li> Increase occupied space by the allocated size in blocks</li></ol></li>
+<li> Loop over all system/configuration files, invoke fsGetInfo() API and conclude:
+<ol><li> If return value is SL_FS_ERR_FILE_NOT_EXISTS, file does not 
+exist and thus counters should remain, else, if no error is returned, 
+followings should be updated:
+<ol><li> Decrease free space by the allocated size in blocks</li>
+<li> Increase occupied space by the allocated size in blocks</li></ol></li>
+<li> If return value is SL_FS_ERR_TOKEN_IS_NOT_VALID, it means the file 
+is secured but exists. This return value applies to the following 3 
+files: 
+<ol><li> /tmp/fcon.frm</li>
+<li> /sys/pref.net</li>
+<li> /sys/smartconfigkeys.cfg<br></li></ol></li></ol></li></ol>
+<dl><dd><dl><dd><dl><dd>In this case, the file exists and followings should be updated:
+<ol><li> Decrease free space by the allocated size in blocks</li>
+<li> Increase occupied space by the allocated size in blocks<br></li></ol></dd></dl></dd></dl></dd></dl>
+<p>The following figure illustrates the procedure:<br>
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:Free_occupied_space.jpg" class="image" title="Free_occupied_space"><img alt="Free_occupied_space" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Free_occupied_space.jpg" class="thumbborder" height="695" width="693"></a></div></div><br>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="File_appending">File appending</span></h3>
+<h4><span class="mw-headline" id="Requirements_3">Requirements</span></h4>
+<p>No preliminary requirements.
+</p>
+<h4><span class="mw-headline" id="Procedure_3">Procedure</span></h4>
+<p>There are several options to implement file appending from host 
+application. All options are based on read-&gt;modify-&gt;write. <br>
+The assumption is that the host processor does not have enough resources
+ to read the entire file to its space so the serial flash needs to be 
+used as a mediator.<br>
+The proposed approach is to keep 2 files that hold the same copy but in 
+different time instances. The update/append is applied to the “older” 
+instance (based on the “newer” instance) and upon successful 
+update/append, it becomes the “newer” instance. So practically this 
+approach implements rollback option in host level and does not make use 
+of the file system fail-safe option.<br>
+</p><p>The procedure for file appending is as follows:<br>
+</p>
+<ol><li> Create a file and write some content into it. The file would be denoted as file1</li>
+<li> Initialize a counter to file1 denoted as file1_counter and initialize it to 1</li>
+<li> The other instance is denoted as file2 and its counter 
+file2_counter is initialized to 0. The “newer” file at this point is 
+file1 and its counter indicates it (i.e. file1_counter&gt; 
+file2_counter)</li>
+<li> Now let’s say an update/append is required:
+<ol><li> Look for the “older” instance. If (file1_counter&lt;file2_counter)  file1 is the “older” instance, otherwise  it is file2</li>
+<li> Open the “newer” file for read</li>
+<li> Open the “older” file for write</li>
+<li> Read from the “newer” and write to the “older”. At this point, any 
+power fail would not corrupt the file as the “newer” instance is opened 
+for read</li>
+<li> When reading from “newer” and writing to “older” is done, apply the followings:
+<ol><li> Update/append to “older” instance</li>
+<li> Close the “newer” instance</li>
+<li> Close the “older” instance</li>
+<li> Increase the counter of the “older” instance by 2 so it becomes the “newer” instance</li></ol></li></ol></li>
+<li> Go to step #4 for further operations</li></ol>
+<p>Note that this approach is not using more space than a regular 
+fail-safe file. It is just that the fail-safe is implemented in host 
+application. Additionally, the write operation which consume much time 
+(as it involves flash erasure) is kept as minimal as possible.
+</p><p>The following figure illustrates the procedure:<br>
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:File_appending_flow.jpg" class="image" title="File_appending_flow"><img alt="File_appending_flow" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/File_appending_flow.jpg" class="thumbborder" height="921" width="372"></a></div></div><br>
+<p><br>
+</p><p><br>
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id="Factors_to_consider_in_designing_with_serial_flash">Factors to consider in designing with serial flash</span></h2>
+<h3><span class="mw-headline" id="Serial_Flash_Vendor_and_part_number_selection">Serial Flash Vendor and part number selection</span></h3>
+<p>Serial flash components from many vendors may appear to be equivalent
+ if only considering memory capacity, however close examination of the 
+serial flash datasheets can reveal significant parametric differences 
+between components in areas such as operating voltage and access times. 
+The serial flash components listed in TI BOM tables for CC3100 and 
+CC3200 reference designs should be used since these serial flash 
+components have been system tested by TI.
+</p><p>In addition, the below table lists the different parts which were
+ tested with the CC3100R1/CC3200R1 device and were found to perform 
+reliably. TI performs a series of system level tests using these parts 
+to ensure robustness under various operating conditions. However, this 
+does not guarantee data integrity under extreme operating conditions as 
+specified in subsequent sections of this document. 
+</p>
+<table bgcolor="#eeeeee" border="2" width="814">
+
+<tbody><tr bgcolor="#ffff66">
+<td> <b>Vendor</b>
+</td>
+<td> <b>Part number</b>
+</td>
+<td> <b>Size</b>
+</td>
+<td> <b>Voltage power</b>
+</td>
+<td> <b>Recommendation</b>
+</td></tr>
+<tr>
+<td> Adesto
+</td>
+<td> <a rel="nofollow" class="external text" href="http://www.adestotech.com/wp-content/uploads/DS-AT25SF081_045.pdf">AT25SF081</a>
+</td>
+<td> 8Mbit
+</td>
+<td> 2.5-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> Adesto
+</td>
+<td> <a rel="nofollow" class="external text" href="http://www.adestotech.com/wp-content/uploads/DS-AT25SF161_046.pdf">AT25SF161</a>
+</td>
+<td> 16Mbit
+</td>
+<td> 2.5-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> Winbond
+</td>
+<td> W25Q80BL
+</td>
+<td> 8Mbit
+</td>
+<td> 2.3-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> Spansion
+</td>
+<td> S25FL208K
+</td>
+<td> 8Mbit
+</td>
+<td> 2.7-3.6v
+</td>
+<td> Line Powered systems
+</td></tr>
+<tr>
+<td> Macronix
+</td>
+<td> MX25V8006E
+</td>
+<td> 8Mbit
+</td>
+<td> 2.35-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> ISSI
+</td>
+<td> IS25LQ016B
+</td>
+<td> 16Mbit
+</td>
+<td> 2.3-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> ISSI
+</td>
+<td> IS25LQ032B
+</td>
+<td> 32Mbit
+</td>
+<td> 2.3-3.6v
+</td>
+<td> Battery &amp; Line powered systems
+</td></tr>
+<tr>
+<td> Micron
+</td>
+<td> N25Q128A
+</td>
+<td> 128Mbit
+</td>
+<td> 2.7-3.6V
+</td>
+<td> Line Powered systems
+</td></tr>
+<tr>
+<td> Shanghai Fudan Micro
+</td>
+<td> FM25Q08
+</td>
+<td> 8Mbit
+</td>
+<td> 2.7-3.6V
+</td>
+<td> Line Powered systems
+</td></tr></tbody></table>
+<p><img alt="Note" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Light_bulb_icon.png" title="Note" height="25" width="18"><b>Note:</b> <font color="red" size="3">Important&nbsp;:
+ The previously suggested(prior to May 2015) s-flash which was Micron 
+part number M25PX80 and others in the same series, are no longer 
+recommended!</font> 
+</p><p><img alt="Note" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Light_bulb_icon.png" title="Note" height="25" width="18"><b>Note:</b>&nbsp;:
+ The operating voltage of the WiFi sub-system is limited by the 
+operating range of the s-flash. This has to be accounted for by the user
+ in the overall system design.
+</p>
+<h3><span class="mw-headline" id="Supported_flash_types">Supported flash types</span></h3>
+<p>For compatibility with the CC3200/CC3100 device, the SFLASH device must support the following commands and format:
+</p>
+<ul><li> Uniform sector erase size of 4K</li>
+<li> Command 0x9F (read the device ID [JEDEC]). Procedure: SEND 0x9F, READ 3 bytes.</li>
+<li> Command 0x05 (read the status of the SFLASH). Procedure: SEND 0x05, READ 1 byte. Bit 0 is busy and bit 1 is write enable.</li>
+<li> Command 0x06 (set write enable). Procedure: SEND 0x06, read status until write-enable bit is set.</li>
+<li> Command 0xC7 (chip erase). Procedure: SEND 0xC7, read status until busy bit is cleared.</li>
+<li> Command 0x03 (read data). Procedure: SEND 0x03, SEND 24-bit address, read n bytes.</li>
+<li> Command 0x02 (write page). Procedure: SEND 0x02, SEND 24-bit address, write n bytes (0&lt;n&lt;256).</li>
+<li> Command 0x20 (sector erase). Procedure: SEND 0x20, SEND 24-bit address, read status until busy bit is cleared.</li></ul>
+<h3><span class="mw-headline" id="Frequent_Write_Operations">Frequent Write Operations</span></h3>
+<p>Serial flash components are subject to a lifetime maximum number of 
+write/erase cycles. This should be accounted for when designing the 
+system application software. 
+</p>
+<h4><span class="mw-headline" id="SFLASH_write_endurance_limitations">SFLASH write endurance limitations</span></h4>
+<p>A typical serial flash guarantees a data endurance of 100K write 
+cycles per sector and 20 years data retention. The below table details 
+the maximum number of writes per day to the same sector that will allow 
+the device to operate for a given number of years
+</p>
+<table class="wikitable" border="2">
+
+<tbody><tr>
+<th> Desired product Life in Years
+</th>
+<th> Max Writes/Per Day
+</th></tr>
+<tr>
+<td> 20
+</td>
+<td> 14
+</td></tr>
+<tr>
+<td> 15
+</td>
+<td> 18
+</td></tr>
+<tr>
+<td> 10
+</td>
+<td> 27
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> 55
+</td></tr></tbody></table>
+<p>Max number of writes/day = 100000 / (product life in years * 365) 
+</p><p>In a CC3100 and CC3200 system the serial flash may be written by 
+the user application or by periodic activity of the CC3100/CC3200 
+on-chip firmware. The total number of writes from these two sources 
+should not exceed the budget for maximum number of flash writes 
+calculated from the desired product lifetime.
+</p>
+<h4><span class="mw-headline" id="S-flash_access_by_the_WiFi_system">S-flash access by the WiFi system</span></h4>
+<p>The CC3100\CC3200 uses the external SFLASH required for its basic functionality. 
+</p><p>The SFLASH content is organized by a file system and every 
+creation or modification of a file translates to operations on the 
+SFLASH. 
+</p><p>The main files stored in the SFLASH are divided to two main groups: 
+</p><p><u><b>System Files:</b></u> 
+</p>
+<ul><li> Service Pack binaries </li>
+<li> System operation: Calibrations, Certifications </li>
+<li> Configurations: WiFi, Device (role), Profiles, Time, Etc’ </li>
+<li> Networking: IP, ARP tables</li></ul>
+<p>Note: The system files are modified by the CC3100/CC3200 upon start-up and on an as-needed basis.
+</p><p><u><b>User Files</b></u><b>:</b> 
+</p>
+<ul><li> CC3200 MCU image </li>
+<li> HTML files </li>
+<li> Temporary files – any file been used</li></ul>
+<p>Note: Note that the user can trigger file creations or write operations at unpredictable times
+</p>
+<h3><span class="mw-headline" id="Sudden_Power_off_.28_Power_removal_during_a_write.2Ferase_phase.29">Sudden Power off ( Power removal during a write/erase phase)</span></h3>
+<p>All systems using serial flash are vulnerable to the effects of 
+sudden power removal. As noted in most serial flash datasheets, a data 
+corruption may occur if the power is removed while a write/erase 
+operation is in progress. This can happen if the system operating 
+voltage goes below Vmin of the serial flash (2.3V typical) before the 
+erase/write operation is completed. A typical scenario is shown in the 
+graph below.
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:S-flash_Image_02.png" class="image"><img alt="S-flash Image 02.png" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/S-flash_Image_02.png" class="thumbborder" height="517" width="782"></a></div></div>
+<p>This scenario may occur in battery or line powered end equipment.
+</p>
+<ol><li> Battery Powered Products: Removal of battery from the product without a soft shutdown.</li>
+<li> Line Powered Products: Electrical supply failure or sudden unplugging without a soft shutdown. </li></ol>
+<p>The sections below explain how the potential for serial flash corruption can be minimized in both types of end equipment. 
+</p>
+<h4><span class="mw-headline" id="Battery_powered_systems">Battery powered systems</span></h4>
+<p>In a battery powered system, there is a chance that sudden removal of
+ power could coincide with an ongoing serial flash access. The chance of
+ this happening can be minimized by making it difficult to remove the 
+batteries while the product is in use, for example in a Wi-Fi weighing 
+scale, where the user stands on the scale when it is in use. 
+Alternatively product instructions could discourage users from removing 
+the batteries while the product is in use. In systems desiring a higher 
+degree of protection a soft power down push-button could also be 
+provided that maps to a GPIO of the system processor, giving it advanced
+ warning that the user wants to remove the battery. In such a system the
+ processor could use an LED to indicate that soft shut down has 
+completed and that the batteries can be removed.
+</p>
+<h4><span class="mw-headline" id="Line_powered_systems">Line powered systems</span></h4>
+<p>In a AC mains line powered system, the failure of the grid can cause 
+the supply of the Wi-Fi subsystem to drop suddenly. In the unlikely 
+event this coincides with the erase operation of the serial flash, there
+ is a chance of data corruption. One of the ways to minimize the chance 
+of a flash corruption would be to ensure that the DC voltage ramps down 
+slowly after the input power is removed. This can be achieved with the 
+help of bulk capacitors which hold the charge while input supply is 
+removed. The embedded system would sense the sudden fall in the input 
+voltage and then initiate a soft shutdown of the Wi-Fi sub-system 
+thereby safely completing all serial flash operations before Vflash-min 
+is reached. The charge stored on the capacitor would be used during this
+ brief interval. Such a sequence is illustrated in the diagram below 
+</p>
+<div class="center"><div class="floatnone"><a href="http://processors.wiki.ti.com/index.php/File:S-flash_Image_03.png" class="image" title="Shutdown sequence for line powered applications"><img alt="Shutdown sequence for line powered applications" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/S-flash_Image_03.png" class="thumbborder" height="517" width="782"></a></div></div> 
+<p>The value of the capacitor has to be estimated from the maximum time 
+for the s-flash erase operation, voltage thresholds, and the current 
+drawn by the system.
+</p><p><br>
+</p><p><br>
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id="Design_recommendations_for_ensuring_the_integrity_of_the_power_supply_to_the_serial_flash">Design recommendations for ensuring the integrity of the power supply to the serial flash</span></h2>
+<h3><span class="mw-headline" id="Overview_3">Overview</span></h3>
+<p>CC3100 and CC3200 are proven robust WLAN solutions when operated in 
+accordance with the supply and signal parameters described in the 
+datasheet with the latest Service Pack [1.0.1.6] . This document 
+describes design techniques to maximize system robustness including 
+minimizing the possibility of inadvertent corruption of the serial Flash
+ memory connected to CC3100 or CC3200 for battery powered and hybrid 
+line/battery powered designs. The techniques described focus on ensuring
+ the integrity of the power supply to the serial flash to avoid 
+situations where the supply voltage may fall below the minimum threshold
+ specified by the serial flash manufacturer which may cause corruption 
+of flash data during write or erase operations. Depending on the nature 
+of such corruptions systems may or may not continue to operate, and in 
+some cases physical access to the system may be required in order to 
+recover. This section will cover design techniques to maximize system 
+robustness in battery powered and hybrid line/battery power systems.
+</p>
+<h3><span class="mw-headline" id="Key_points">Key points</span></h3>
+<ul><li> This document applies primarily to systems that are:
+<ul><li>Powered from batteries or </li>
+<li>Powered by hybrid line and battery scheme</li>
+<li>This includes designs where the CC3x00 connects directly to the 
+battery and systems where a DC2DC converter is used between the battery 
+and the CC3x00</li></ul></li>
+<li>If the application uses a DC2DC converter then designers should 
+ensure the output of the DC2DC converter satisfies the supply 
+requirements of both the CC3x00 and the attached serial flash device. </li>
+<li>CC3x00 devices should be enabled only when supply voltage is greater
+ than or equal to 2.3V. This minimum is typically determined by the 
+serial flash minimum supply voltage and not the CC3x00 minimum supply 
+voltage which is defined in the datasheet as 2.1V. The key point is that
+ the supply must tolerate a CC3x00 transmit current or calibration 
+current load, as specified in the datasheet, without sagging below 2.3V 
+so the unloaded supply voltage may have to be greater than 2.3V to 
+account for internal resistance effects of the supply.  </li>
+<li>The supply voltage applied to the CC3xxx should never exceed 3.8V, 
+specified as the absolute maximum supply voltage in the datasheet. And 
+corresponding absolute maximum voltage constraints from the chosen 
+serial flash datasheet must also be followed. </li>
+<li>Follow TI serial flash design guidelines for CC3x00:
+<ul><li><a rel="nofollow" class="external free" href="http://processors.wiki.ti.com/index.php/CC3100_%26_CC3200_Serial_Flash_Guide#Factors_to_consider_in_designing_with_serial_flash">http://processors.wiki.ti.com/index.php/CC3100_%26_CC3200_Serial_Flash_Guide#Factors_to_consider_in_designing_with_serial_flash</a></li></ul></li>
+<li>Minimize the number of application writes to flash, especially after
+ reset. For example make sure that application configuration writes to 
+flash happen only at initial reset and not every time the CC3x00 is 
+reset. </li>
+<li>For maximum system robustness consider using a serial flash like the
+ Macronix MX25R6435.This device supports a wide supply voltage range 
+which tends to improve system immunity to supply fluctuations</li>
+<li>Keep in mind that CC3x00 WLAN transmission can result in sudden 
+increases in the loading on the power supply and this may result in a 
+momentary decrease in supply voltage. Consult section 4.5 of the CC3x00 
+datasheet describing how to handle supply brown out. Specific design 
+scenarios are described in the table below.</li></ul>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Design_scenarios">Design scenarios</span></h3>
+<table class="wikitable" border="2">
+
+<tbody><tr>
+<th> Scenario
+</th>
+<th> Recommended Approach
+</th></tr>
+<tr>
+<td> All MCU hosted CC3100 systems
+</td>
+<td> Host MCU should own the task of monitoring VBAT to ensure it never drops below 2.3V even under full load conditions.
+</td></tr>
+<tr>
+<td> Legacy Self-hosted, standalone CC3200
+</td>
+<td> For legacy systems using SDKs prior to Service pack 1.0.1.6 and SDK
+ 1.2.0 the CC3200 initialization sequence will turn on the internal 
+network processor and may initiate Wi-Fi activity prior to application 
+execution on the MCU. This can cause a sudden increase in the power 
+supply loading. In these systems if there is a possibility that such 
+loading can cause the supply voltage to sag below 2.3V then the supply 
+voltage should be monitored by a device external to CC3200.
+</td></tr>
+<tr>
+<td> New Self-hosted, standalone CC3200
+</td>
+<td> For new systems using Service Pack  1.0.1.6 and SDK 1.2.0 or later 
+then the CC3200 initialization will not turn on the internal networking 
+processor function so the CC3200 application can start running prior to 
+Wi-Fi activity.
+<p>In such a scenario the application code can use the CC3200 A2D 
+converter to monitor battery voltage but keep in mind the A2D accuracy 
+needs to be factored into any decision to activate the NWP for normal 
+operation or not. For more details on optimal detection and handling of 
+consecutive resets owing to supply brownout to maximize system 
+robustness see the last section of this document.
+</p>
+</td></tr></tbody></table>
+<p><u> Other comments on circuit and software design</u>:
+For systems requiring an external DC2DC power converter the TI TPS61029 
+may be worth considering. An example TI design showing this device in 
+the supply for a CC3200 is located at <a rel="nofollow" class="external free" href="http://www.ti.com/tool/TIDA-00372">http://www.ti.com/tool/TIDA-00372</a>
+</p><p><br>
+</p>
+<h3><span class="mw-headline" id="Brown-out_mitigation_techniques_for_new_self-hosted_CC3200_designs">Brown-out mitigation techniques for new self-hosted CC3200 designs</span></h3>
+<p>This section describes how to mitigate the effects of a substantially
+ discharged battery on a self-hosted CC3200 system. It is assumed that 
+the CC3200 device is the main controller and has the ability to control 
+all high power components in the system and that Service Pack [1.0.1.6] 
+and SDK [1.2.0] or later have been installed.
+</p><p><u> The problem</u>:
+The brownout problem can occur when operating with a substantially 
+discharged battery which has enough energy to power up the CC3200 
+processor, but not enough to power the Wi-Fi transmitter. This can cause
+ a loop where the CC3200 device powers up, reaches the point where it 
+does some high power activity, this activity causes the battery voltage 
+to drop below brown out threshold causing a reset. Once reset, the 
+device consumes no power, the voltage rises back above brown out 
+threshold and the device powers up again. 
+</p><p><u> The solution</u>:
+The suggested approach to avoid the above cycle is to use the secondary 
+bootloader (like the one used in over-the-air updates) to load the user 
+application and keep track of whether the application was loaded 
+successfully (without causing another brown out event). This is done by 
+keeping a counter in an on chip register (OCR) which will most likely be
+ retained if voltage drops due to excessive power usage. The power up 
+flow should be as described in the scheme below:
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id="Recommended_best_practices">Recommended best practices<br></span></h2>
+<p>The following list of best design practices can help improve the 
+overall reliability of the serial flash by minimizing frequent writes<br> 
+</p><p>1. Avoid frequent usage of API functions that write to the SFLASH<br>2.
+ The creation and deletion of files also require updates to the FAT 
+table – as a good practice avoid deleting files when not required, 
+rewrite can be done over existing file. This will reduce unnecessary 
+access to the FAT table<br>3. Avoid accessing the SFLASH when the voltage is below the minimum SFLASH operation voltage<br>4.
+ Make sure you choose your SFLASH based on the system you are developing
+ – for example when using a SFLASH rated for 2.7 V you must ensure that 
+supply remains above 2.7V<br>5. Adding an indication before power off (graceful shutdown) and making a call to <i>sl_stop</i> in the program is always the best approach<br><br>
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id="Implications_of_Data_integrity_compromise_to_CC3100.2FCC3200">Implications of Data integrity compromise to CC3100/CC3200<br></span></h2>
+<p>The CC3200 system may become inoperable if the MCU image is 
+corrupted. In the case of the CC3100 or CC3200, where the FAT or service
+ pack are corrupted, the device may start up with a ROM image instead of
+ the correct service pack. There is also a chance that the device would 
+lock-up without any valid response. 
+</p>
+<h3><span class="mw-headline" id="Recovery">Recovery</span></h3>
+<p>To recover from serial flash corruption the serial flash has to be reformatted and reprogrammed using the UART interface<br>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table id="collapsibleTable0" class="nowraplinks collapsible uncollapsed navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="col" class="navbox-title" colspan="3"><span class="collapseButton">[<a href="#" id="collapseButton0">hide</a>]</span><div class="plainlinks hlist navbar mini"><ul><li class="nv-view"><a href="http://processors.wiki.ti.com/index.php/Template:Navbox" title="Template:Navbox"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li><li class="nv-talk"><a href="http://processors.wiki.ti.com/index.php?title=Template_talk:Navbox&amp;action=edit&amp;redlink=1" class="new" title="Template talk:Navbox (page does not exist)"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li><li class="nv-edit"><a rel="nofollow" class="external text" href="http://processors.wiki.ti.com/index.php?title=Template:Navbox&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li></ul></div><div style="font-size:110%;"><a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx" title="CC31xx &amp; CC32xx"> SimpleLink CC31xx &amp; CC32xx (Main Landing Page)</a></div></th></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><td colspan="2" class="navbox-list navbox-odd hlist" style="width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table id="collapsibleTable1" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton1">show</a>]</span><div class="plainlinks hlist navbar mini"><ul><li class="nv-view"><a href="http://processors.wiki.ti.com/index.php/Template:Navbox" title="Template:Navbox"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li><li class="nv-talk"><a href="http://processors.wiki.ti.com/index.php?title=Template_talk:Navbox&amp;action=edit&amp;redlink=1" class="new" title="Template talk:Navbox (page does not exist)"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li><li class="nv-edit"><a rel="nofollow" class="external text" href="http://processors.wiki.ti.com/index.php?title=Template:Navbox&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li></ul></div><div style="font-size:110%;">CC31xx</div></th></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#008800;">Getting Started</span></th><td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Where to Start</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ti.com/product/simplelinkwifi">What is CC3100?</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/ww/en/simplelink_embedded_wi-fi/tools_software.html#ts_hardware">Getting the Kit</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Quick_Start_Guide" title="CC31xx Quick Start Guide"> Out of Box Experience</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Getting_Started" title="CC31xx Getting Started"> Getting Started - Project 0</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Advanced</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Provisioning" title="CC31xx &amp; CC32xx Provisioning"> Provisioning</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Advanced_App_Notes" title="CC31xx &amp; CC32xx Advanced App Notes"> Systems</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#000088;">Hardware System</span></th><td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Hardware Basics</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ti.com/lit/gpn/cc3100">QFN Datasheets</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/lit/pdf/SWRS161">MOD Datasheets</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_BoosterPack_Hardware" title="CC31xx BoosterPack Hardware"> Boosterpack User Guide</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Boosterpack_Reference_Designs" title="CC31xx Boosterpack Reference Designs"> BoosterPack Reference Designs</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Hardware_List" title="CC31xx &amp; CC32xx Hardware List"> Hardware List</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Hardware Advanced</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Hardware_Design_Review" title="CC31xx &amp; CC32xx Hardware Design Review"> Hardware Design Process &amp; Test</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Hardware_Design_Review#Hardware_Design_Layout_Guidelines" title="CC31xx &amp; CC32xx Hardware Design Review"> PCB Layout Design Guidelines</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#EE8833;">Software System</span></th><td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Releases</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Release_Notes" title="CC31xx Release Notes"> Release Notes</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/tool/cc3100sdk">ServicePack &amp; SDK Download</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_SDK_Sample_Applications" title="CC31xx SDK Sample Applications"> SDK Applications</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Guides</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Host_Interface" title="CC31xx Host Interface"> CC31xx Host Interface</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Programmers_Guide" title="CC31xx Programmers Guide"> NWP Programmer's Guide</a></li>
+<li> <a rel="nofollow" class="external text" href="http://dleinspect.itg.ti.com:82/ecs/cc31xx/APIs/public/cc31xx_simplelink/latest/html/index.html">CC31xx SimpleLink APIs</a></li>
+<li> <strong class="selflink"> Serial Flash Guide</strong></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#AA0000;">Test, Tools, and Certs</span></th><td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Tools and Tests</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_SimpleLink_Tools" title="CC31xx &amp; CC32xx SimpleLink Tools"> SimpleLink Tools</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_SimpleLink_Add-On_Tools" title="CC31xx &amp; CC32xx SimpleLink Add-On Tools"> Add-On Tools</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC3100_Power_Management_Optimizations_and_Measurements" title="CC3100 Power Management Optimizations and Measurements"> CC3100 Power Measurements</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Production_Line_Guide" title="CC31xx &amp; CC32xx Production Line Guide"> Production Line Guide</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Certification</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Certifications" title="CC31xx &amp; CC32xx Certifications"> Leverage TI's Certification</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></table></td></tr></tbody></table></div></td><td class="navbox-image" rowspan="5" style="width:0%;padding:0px 0px 0px 2px;"><div><a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx" title="CC31xx &amp; CC32xx"><img alt="Cc31-3200withLogo NoBackground.png" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Cc31-3200withLogo_NoBackground.png" height="42" width="50"></a></div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><td colspan="2" class="navbox-list navbox-even hlist" style="width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table id="collapsibleTable2" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton2">show</a>]</span><div class="plainlinks hlist navbar mini"><ul><li class="nv-view"><a href="http://processors.wiki.ti.com/index.php/Template:Navbox" title="Template:Navbox"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li><li class="nv-talk"><a href="http://processors.wiki.ti.com/index.php?title=Template_talk:Navbox&amp;action=edit&amp;redlink=1" class="new" title="Template talk:Navbox (page does not exist)"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li><li class="nv-edit"><a rel="nofollow" class="external text" href="http://processors.wiki.ti.com/index.php?title=Template:Navbox&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li></ul></div><div style="font-size:110%;">CC32xx</div></th></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#008800;">Getting Started</span></th><td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Where to Start</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ti.com/product/simplelinkwifi">What is CC3200?</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/ww/en/simplelink_embedded_wi-fi/tools_software.html#ts_hardware">Getting the Kit</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Quick_Start_Guide" title="CC32xx Quick Start Guide"> Out of Box Experience</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Getting_Started" title="CC32xx Getting Started"> Getting Started - Project 0</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Advanced</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Provisioning" title="CC31xx &amp; CC32xx Provisioning"> Provisioning</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Advanced_App_Notes" title="CC31xx &amp; CC32xx Advanced App Notes"> Systems</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#000088;">Hardware System</span></th><td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Hardware Basics</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ti.com/lit/gpn/cc3200">QFN Datasheets</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/lit/pdf/SWRS166">MOD Datasheets</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_LaunchPad_Hardware" title="CC32xx LaunchPad Hardware"> LaunchPad User Guide</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_LaunchPad_Reference_Designs" title="CC32xx LaunchPad Reference Designs"> LaunchPad Reference Designs</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Hardware_List" title="CC31xx &amp; CC32xx Hardware List"> Hardware List</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Hardware Advanced</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Hardware_Design_Review" title="CC31xx &amp; CC32xx Hardware Design Review"> Hardware Design Review Process &amp; Tests</a></li>
+<li> <a rel="nofollow" class="external text" href="http://dleinspect.itg.ti.com:82/ecs/simplelink/cc31xx/public/cc32xx_peripherals_API/v05/html/index.html">Peripheral Driver APIs</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Technical_Reference_Manual" title="CC32xx Technical Reference Manual"> Technical Reference Manual / MCU's peripherals</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#EE8833;">Software System</span></th><td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Releases</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Release_Notes" title="CC32xx Release Notes"> Release Notes</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/tool/cc3200sdk">CC32xx ServicePack &amp; SDK Download</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_SDK_Sample_Applications" title="CC32xx SDK Sample Applications"> SDK Applications</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Guides</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Programmers_Guide" title="CC32xx Programmers Guide"> CC32xx Programmer's Guide</a></li>
+<li> <a rel="nofollow" class="external text" href="http://dleinspect.itg.ti.com:82/ecs/cc31xx/APIs/public/cc32xx_simplelink/latest/html/index.html">CC32xx SimpleLink APIs</a></li>
+<li> <strong class="selflink"> Serial Flash Guide</strong></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height: 2px; display: none;"><td colspan="2"></td></tr><tr style="display: none;"><th scope="row" class="navbox-group" style="text-align:center;;"><span style="color:#AA0000;">Test, Tools, and Certs</span></th><td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Tools and Tests</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_SimpleLink_Tools" title="CC31xx &amp; CC32xx SimpleLink Tools"> SimpleLink Tools</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_SimpleLink_Add-On_Tools" title="CC31xx &amp; CC32xx SimpleLink Add-On Tools"> Add-On Tools</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC3200_Power_Management_Optimizations_and_Measurements" title="CC3200 Power Management Optimizations and Measurements"> CC3200 Power Measurements</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Production_Line_Guide" title="CC31xx &amp; CC32xx Production Line Guide"> Production Line Guide</a></li></ul>
+</div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><th scope="row" class="navbox-group" style="width:140px;text-align:center;;">Certification</th><td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Certifications" title="CC31xx &amp; CC32xx Certifications"> Leverage TI's Certification</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr><tr style="height:2px;"><td colspan="2"></td></tr><tr><td colspan="2" class="navbox-list navbox-odd hlist" style="width:100%;padding:0px;"><div style="padding:0em 0.25em;"><table class="navbox" style="border-spacing:0;" cellspacing="0"><tbody><tr><td style="padding:2px;"><table class="nowraplinks navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0"><tbody><tr><th scope="row" class="navbox-group" style="text-align:center;;">Resources</th><td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"><div style="padding:0em 0.25em;">
+<ul><li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Videos" title="CC31xx &amp; CC32xx Videos"> Videos</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_Cloud_Ecosystem" title="CC31xx &amp; CC32xx Cloud Ecosystem"> IOT Cloud Ecosystem Members</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_%26_CC32xx_FAQ" title="CC31xx &amp; CC32xx FAQ"> FAQ</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC31xx_Summary_of_Known_Issues" title="CC31xx Summary of Known Issues"> CC3100 Known Issues</a></li>
+<li> <a href="http://processors.wiki.ti.com/index.php/CC32xx_Summary_of_Known_Issues" title="CC32xx Summary of Known Issues"> CC3200 Known Issues</a></li>
+<li> <a rel="nofollow" class="external text" href="http://e2e.ti.com/support/wireless_connectivity/f/968.aspx">E2E Forum</a></li></ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></table></td></tr></tbody></table>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.952 seconds
+Real time usage: 1.374 seconds
+Preprocessor visited node count: 899/1000000
+Preprocessor generated node count: 9054/1000000
+Post‐expand include size: 137811/2097152 bytes
+Template argument size: 15910/2097152 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 0/100
+Lua time usage: 0.270/7.000 seconds
+Lua virtual size: 8.1 MB/50 MB
+Lua estimated memory usage: 0 B
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+176.14% 1360.652     12 - Template:Navbox
+100.00%  772.476      1 - -total
+ 94.79%  732.200      1 - Template:CC31xx_&amp;_CC32xx_Map
+ 92.59%  715.236      1 - Template:Navbox_with_collapsible_groups
+  1.65%   12.752      1 - Template:Return_to_CC31xx_&amp;_CC32xx_Home_Page
+  1.31%   10.106      2 - Template:Note:
+  1.03%    7.990      2 - Template:Note
+  0.76%    5.835      1 - Template:Clr
+-->
+
+<!-- Saved in parser cache with key davincid_wikidb:pcache:idhash:38591-0!*!0!!en!5!* and timestamp 20161027174128 and revision id 218439
+ -->
+<div class="hf-footer"></div><div class="hf-nsfooter"><table style="text-align:center; background:white; width:100%; text-align:left; height: 65px border-top: 1px solid; border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-width: 1px; border-style: solid;">
+<tbody><tr>
+<td width="305px"><a href="http://processors.wiki.ti.com/index.php/File:E2e.jpg" class="image"><img alt="E2e.jpg" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/E2e.jpg" height="63" width="305"></a>
+</td>
+<td><i>For technical support please post your questions at <a rel="nofollow" class="external free" href="http://e2e.ti.com/">http://e2e.ti.com</a>. Please post only comments about the article <b>CC3100 &amp; CC3200 Serial Flash Guide</b> here.</i>
+</td></tr></tbody></table>
+<table style="border-style:solid; border-width:1px; text-align:center; width:100%;">
+
+<tbody><tr style="font-size:150%;">
+<td rowspan="2"> <a href="http://processors.wiki.ti.com/index.php/File:Hyperlink_blue.png" class="image"><img alt="Hyperlink blue.png" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/Hyperlink_blue.png" height="96" width="96"></a>
+</td>
+<td><b>Links</b>
+</td></tr>
+<tr>
+<td>
+<table style="text-align: left;">
+<tbody><tr>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/amplifier_and_linear.page">Amplifiers &amp; Linear</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/audio/audio_overview.page">Audio</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/rfif.page">Broadband RF/IF &amp; Digital Radio</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/clocksandtimers/clocks_and_timers.page">Clocks &amp; Timers</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/dataconverters/data_converter.page">Data Converters</a>
+</p>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/mems/mems.page">DLP &amp; MEMS</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/high_reliability.page">High-Reliability</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/interface/interface.page">Interface</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/logic/home_overview.page">Logic</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/powermanagement/power_portal.page">Power Management</a>
+</p>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/dsp/embedded_processor.page">Processors</a>
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/dsp/arm.page">ARM Processors</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/dsp/home.page">Digital Signal Processors (DSP)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/microcontroller/home.page">Microcontrollers (MCU)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/omap-applications-processors/the-omap-experience.page">OMAP Applications Processors</a></li></ul>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/switches_and_multiplexers.page">Switches &amp; Multiplexers</a><br>
+<a rel="nofollow" class="external text" href="http://www.ti.com/lsds/ti/analog/temperature_sensor.page">Temperature Sensors &amp; Control ICs</a><br>
+<a rel="nofollow" class="external text" href="http://focus.ti.com/wireless/docs/wirelessoverview.tsp?familyId=2003&amp;sectionId=646&amp;tabId=2735">Wireless Connectivity</a>
+</p>
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<p><!-- HitBox Sub accounts Code START -->
+<script language="JavaScript" src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/metrics-min.js" type="text/javascript"></script>
+<!-- HitBox Sub accounts Code END -->
+</p></div></div>									<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;oldid=218439">http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;oldid=218439</a>"					</div>
+													<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://processors.wiki.ti.com/index.php/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://processors.wiki.ti.com/index.php?title=Category:Templates&amp;action=edit&amp;redlink=1" class="new" title="Category:Templates (page does not exist)">Templates</a></li><li><a href="http://processors.wiki.ti.com/index.php/Category:Wi-Fi_%28IEEE_802.11_/_WLAN%29" title="Category:Wi-Fi (IEEE 802.11 / WLAN)">Wi-Fi (IEEE 802.11 / WLAN)</a></li><li><a href="http://processors.wiki.ti.com/index.php/Category:Wireless_MCUs" title="Category:Wireless MCUs">Wireless MCUs</a></li><li><a href="http://processors.wiki.ti.com/index.php/Category:Wireless_Network_Processors" title="Category:Wireless Network Processors">Wireless Network Processors</a></li><li><a href="http://processors.wiki.ti.com/index.php?title=Category:Pages_with_broken_file_links&amp;action=edit&amp;redlink=1" class="new" title="Category:Pages with broken file links (page does not exist)">Pages with broken file links</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="http://processors.wiki.ti.com/index.php?title=Special:UserLogin&amp;returnto=CC3100+%26+CC3200+Serial+Flash+Guide" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o">Log in</a></li><li id="pt-createaccount"><a href="http://processors.wiki.ti.com/index.php/Special:RequestAccount" title="You are encouraged to create an account and log in; however, it is not mandatory">Request account</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="http://processors.wiki.ti.com/index.php/CC3100_%26_CC3200_Serial_Flash_Guide" title="View the content page [Alt+Shift+c]" accesskey="c">Page</a></span></li>
+															<li id="ca-talk" class="new"><span><a href="http://processors.wiki.ti.com/index.php?title=Talk:CC3100_%26_CC3200_Serial_Flash_Guide&amp;action=edit&amp;redlink=1" title="Discussion about the content page [Alt+Shift+t]" accesskey="t">Discussion</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="http://processors.wiki.ti.com/index.php/CC3100_%26_CC3200_Serial_Flash_Guide">Read</a></span></li>
+															<li id="ca-viewsource"><span><a href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;action=edit" title="This page is protected.
+You can view its source [Alt+Shift+e]" accesskey="e">View source</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div style="" id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 tabindex="0" id="p-cactions-label"><span>More</span><a tabindex="-1" href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+														<div id="simpleSearch">
+															<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Texas Instruments Wiki [Alt+Shift+f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if exists" id="searchButton" class="searchButton" type="submit">								</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="http://processors.wiki.ti.com/index.php/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal first" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navigation</h3>
+
+			<div class="body">
+									<ul>
+													<li id="n-mainpage"><a href="http://processors.wiki.ti.com/index.php/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main Page</a></li>
+													<li id="n-All-pages"><a href="http://processors.wiki.ti.com/index.php/Special:AllPages">All pages</a></li>
+													<li id="n-All-categories"><a href="http://processors.wiki.ti.com/index.php/Special:Categories">All categories</a></li>
+													<li id="n-recentchanges"><a href="http://processors.wiki.ti.com/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li>
+													<li id="n-randompage"><a href="http://processors.wiki.ti.com/index.php/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x">Random page</a></li>
+													<li id="n-help"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" title="The place to find out">Help</a></li>
+											</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Print/export</h3>
+
+			<div class="body">
+									<ul>
+													<li id="coll-create_a_book"><a href="http://processors.wiki.ti.com/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=CC3100+%26+CC3200+Serial+Flash+Guide">Create a book</a></li>
+													<li id="coll-download-as-rl"><a href="http://processors.wiki.ti.com/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=CC3100+%26+CC3200+Serial+Flash+Guide&amp;oldid=218439&amp;writer=rl">Download as PDF</a></li>
+													<li id="t-print"><a href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>
+											</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Toolbox</h3>
+
+			<div class="body">
+									<ul>
+													<li id="t-whatlinkshere"><a href="http://processors.wiki.ti.com/index.php/Special:WhatLinksHere/CC3100_%26_CC3200_Serial_Flash_Guide" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j">What links here</a></li>
+													<li id="t-recentchangeslinked"><a href="http://processors.wiki.ti.com/index.php/Special:RecentChangesLinked/CC3100_%26_CC3200_Serial_Flash_Guide" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li>
+													<li id="t-specialpages"><a href="http://processors.wiki.ti.com/index.php/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li>
+													<li id="t-permalink"><a href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;oldid=218439" title="Permanent link to this revision of the page">Permanent link</a></li>
+													<li id="t-info"><a href="http://processors.wiki.ti.com/index.php?title=CC3100_%26_CC3200_Serial_Flash_Guide&amp;action=info" title="More information about this page">Page information</a></li>
+											</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 7 July 2016, at 17:41.</li>
+											<li id="footer-info-viewcount">This page has been accessed 11,752 times.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://processors.wiki.ti.com/index.php/Project:Privacy_policy" title="Project:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://processors.wiki.ti.com/index.php/Project:About" title="Project:About">About Texas Instruments Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="http://processors.wiki.ti.com/index.php/Project:General_disclaimer" title="Project:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-termsofservice"><a href="http://processors.wiki.ti.com/index.php/Project:Terms_of_Service" title="Project:Terms of Service">Terms of Use</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+															<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" height="31" width="88"></a>
+													</li>
+											<li id="footer-poweredbyico">
+															<a href="http://www.mediawiki.org/"><img src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /resources/assets/poweredby_mediawiki_176x62.png 2x" height="31" width="88"></a>
+													</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>if(window.jQuery)jQuery.ready();</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"],null,true);
+}</script>
+<script>if(window.mw){
+document.write("\u003Cscript src=\"http://processors.wiki.ti.com/load.php?debug=false\u0026amp;lang=en\u0026amp;modules=site\u0026amp;only=scripts\u0026amp;skin=vector\u0026amp;*\"\u003E\u003C/script\u003E");
+}</script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/load_003.php"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="CC3100%20&amp;%20CC3200%20Serial%20Flash%20Guide%20-%20Texas%20Instruments%20Wiki_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-3008403-2");
+pageTracker._trackPageview();
+} catch(err) {}
+</script><script>if(window.mw){
+mw.config.set({"wgBackendResponseTime":843});
+}</script>
+	
+
+<div class="suggestions" style="display: none; font-size: 20.8px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>
